@@ -1,0 +1,31 @@
+<?php
+
+return [
+   "categories" => " الاقسام ",
+   "main_categories" => " الاقسام الرئيسيه ",
+   "sub_categories" => " الاقسام الفرعيه ",
+   "add_maincategory"=> " اضافه قسم رئيسي ",
+   "name_en"=>" الاسم بالانجليزي ",
+   "name_ar"=>" الاسم بالعربي ",
+   "description" => " الوصف ",
+   "image" => " الصوره ",
+   "add" => " اضافه ",
+   "edit" => " تعديل ",
+   "delete" => " حذف ",
+   "cancel" => " الغاء ",
+   "select-action"=>" اختار العمليه ",
+   "actions"=>" العمليات ",
+   "name"=>" الاسم ",
+   "select-category"=>" اختار القسم ",
+   "no-image"=>" لا يوجد صوره ",
+   "products"=>" المنتجات ",
+   "add-new-product"=>" اضافه منتج جديد ",
+   "show-products"=>" عرض المنتجات ",
+   "price"=> " السعر ",
+   "sale-price"=> " السعر بالخصم ",
+   "quantity"=> " الكميه ",
+   "added"=>" تم الاضافه ",
+   "update-category"=>" تعديل القسم ",
+   "update"=>" تحديث ",
+
+];
