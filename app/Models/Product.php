@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Category;
+use App\Models\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
 {
@@ -11,4 +13,17 @@ class Product extends Model
     protected $casts = [
         "gallery"=> "array",
     ];
+
+    // relation with category
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+    // raltion with attribute
+    public function attributes(){
+        return $this->hasMany(Attribute::class);
+    }
+
+    public function variations(){
+        return $this->hasMany(Variation::class);
+    }
 }

@@ -1,19 +1,25 @@
 // "use strict";
 
-// const category_name = document.querySelector('#category_name');
 
-// function generateSlug() {
-//     const slug = category_name.value
-//       .toLowerCase()
-//       .replace(/ /g, '-')
-//       .replace(/[^\w-]+/g, '');
 
-//     const randomNumber = Math.floor(Math.random() * 10000);
-//     const uniqueSlug = slug + '/' + randomNumber;
-//     document.querySelector('#slug').value = uniqueSlug;
-//   }
+document.addEventListener("DOMContentLoaded",function(){
+ // category slug
+ const category_name = document.querySelector("#category_name");
 
-// category_name.addEventListener('change', generateSlug);
+ function generateSlug() {
+     const slug = category_name.value
+         .toLowerCase()
+         .replace(/ /g, "-")
+         .replace(/[^\w-]+/g, "");
+
+     const randomNumber = Math.floor(Math.random() * 10000);
+     const uniqueSlug = slug + "/" + randomNumber;
+     document.querySelector("#slug").value = uniqueSlug;
+ }
+
+ category_name.addEventListener("change", generateSlug);
+})
+
 
 document.addEventListener("DOMContentLoaded", (event) => {
     event.preventDefault();
@@ -49,4 +55,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             event.preventDefault();
         }
     });
+
+   
 });

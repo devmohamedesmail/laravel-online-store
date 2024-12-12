@@ -85,7 +85,7 @@
         </div>
         <div class="col-12 col-md-6">
             <div class="pretty p-switch p-fill">
-                <input type="checkbox" name="type" id="switch" value="simple" />
+                <input type="checkbox" name="type" id="switch" value="variations" />
                 <div class="state">
                     <label class="text-dark">{{ __('products.product-type') }}</label>
                 </div>
@@ -171,7 +171,7 @@
             <input type="text" class="form-control" name="attribute_name[]">
         </div>
         <div class="form-group w-100 mx-4">
-            <label>{{ __('translate.attribute-value') }} - {{ __('translate.seperate-by-comma') }}</label>
+            <label>{{ __('translate.attribute-value') }} </label>
             <textarea class="form-control inputtags" name="attribute_values[]"></textarea>
         </div>
     `;

@@ -20,8 +20,9 @@ class Product_controller extends Controller
     }
     // show products page
     public function show_products_page()
-    {
-        return view('admin.pages.products.show');
+    {   
+        $products = Product::all();
+        return view('admin.pages.products.show',compact('products'));
     }
 
 
@@ -62,80 +63,105 @@ class Product_controller extends Controller
         $product->type = $request->type;
 
 
-        // $product->save();
-        dd($request);
-
-        // if ($request->type !== 'simple') {
-
-           
-        //     if (!empty($request->attribute_name) && count($request->attribute_name) > 0) {
-        //         foreach ($request->attribute_name as $index => $name) {
-        //             $attribute = new Attribute();
-        //             $attribute->product_id = $product->id;
-        //             $attribute->name = $name;
-        //             $attribute->save();
-
-        //             // Ensure that attribute_values is set for this index
-        //             if (!empty($request->attribute_values[$index])) {
-        //                 foreach (explode(',', $request->attribute_values[$index]) as $value) {
-        //                     $attributeValues = new AttributeValue();
-        //                     $attributeValues->attribute_id = $attribute->id;
-        //                     $attributeValues->value = $value;
-        //                     $attributeValues->save();
-        //                 }
-        //             }
-        //         }
-        //     }
-
-            
-        //     if (!empty($request->attribute_values) && count($request->attribute_values) > 0) {
-        //         $combinations = $this->generateCombinations($request->attribute_values);
-        //         foreach ($combinations as $combination) {
-        //             $variation = new Variation();
-        //             $variation->product_id = $product->id;
-        //             $variation->name = implode(' | ', $combination);
-        //             $variation->value = implode(' | ', $combination);
-        //             $variation->price = $request->price_variant[0] ?? $request->price; // Use variant price or fallback to regular price
-        //             $variation->sale_price = $request->sale_price_variant[0] ?? null;
-        //             $variation->stock = $request->stock_variant[0] ?? 0;
-        //             $variation->save();
-
-        //             // Handle image upload for product variation
-        //             if ($request->hasFile('image_variant')) {
-        //                 $imagePath = $request->file('image_variant')[0]->store('product_variations');
-        //                 $variation->image = $imagePath;
-        //                 $variation->save();
-        //             }
-        //         }
-        //     }
-        // }
+        $product->save();
+        // dd($request);
 
 
 
-        return redirect()->back();
+        if ($request->type === 'variations') {
+            $product->type = $request->type;
+            if (count($request->attribute_name) > 0) {
+                foreach ($request->attribute_name as $index => $name) {
+                    $attribute = new Attribute();
+                    $attribute->product_id = $product->id;
+                    $attribute->name = $name;
+                    $attribute->save();
+
+                    // Ensure that attribute_values is set for this index
+                    if (!empty($request->attribute_values[$index])) {
+                        foreach (explode(',', $request->attribute_values[$index]) as $value) {
+                            $attributeValues = new AttributeValue();
+                            $attributeValues->attribute_id = $attribute->id;
+                            $attributeValues->value = $value;
+                            $attributeValues->save();
+                        }
+                    }
+                }
+            }
+        } else {
+            $product->type = 'simple';
+        }
+
+    // Handle variations if the product type is 'variations'
+    if ($request->type === 'variations') {
+        // Get attribute names and values
+        $attributeNames = $request->attribute_name;
+        $attributeValues = $request->attribute_values;
+        $prices = $request->price_variant;
+        $salePrices = $request->sale_price_variant;
+        $images = $request->image_variant;
+
+        // Split attribute values by commas for multiple options
+        $attributeCombinations = [];
+        foreach ($attributeValues as $values) {
+            $attributeCombinations[] = explode(',', $values);
+        }
+
+        // Generate all possible combinations of attributes
+        $allCombinations = $this->generateCombinations($attributeCombinations);
+
+        // Loop through each combination and create a variation
+        foreach ($allCombinations as $combination) {
+            // Combine attributes into one string for the variation name (e.g., 'Red | Small')
+            $variationName = implode(' | ', $combination);
+
+            // Find the corresponding prices, images, etc., for this combination
+            // If a variation has a specific price, use it, else default to product price
+            $priceIndex = count($combination) - 1; // Assumes price corresponds to the last attribute (e.g., for color/size combinations)
+            $price = $prices[$priceIndex] ?? $product->price;
+            $salePrice = $salePrices[$priceIndex] ?? $product->sale_price;
+            $image = $images[$priceIndex] ?? null;
+
+            // Create the variation
+            $variation = new Variation();
+            $variation->product_id = $product->id;
+            $variation->variation_name = $variationName; // Save full combination
+            $variation->price = $price;
+            $variation->sale_price = $salePrice;
+            $variation->sku = 'SKU' . time(); // Customize SKU generation if needed
+            $variation->barcode = 'Barcode' . time(); // Customize Barcode generation if needed
+            $variation->image = $image; // Save the image for this specific variation
+            $variation->status = 'active'; // Assuming the default status is active
+            $variation->save();
+        }
+    }
+
+
+
+
+
+
+        return redirect()->back()->with('success', __('translate.added'));
     }
 
 
     // Helper function to generate combinations from attribute values
-    private function generateCombinations($attributeValues)
+    private function generateCombinations(array $arrays)
     {
-        $values = [];
-        foreach ($attributeValues as $value) {
-            $values[] = explode(',', $value);
-        }
-        return $this->cartesianProduct($values);
+        $result = [];
+        $this->combine([], $arrays, $result);
+        return $result;
     }
 
 
-
-    private function cartesianProduct($arrays)
+    private function combine($prefix, $arrays, &$result)
     {
-        return array_reduce($arrays, function ($a, $b) {
-            return array_merge(...array_map(function ($x) use ($b) {
-                return array_map(function ($y) use ($x) {
-                    return array_merge((array)$x, (array)$y);
-                }, $b);
-            }, $a));
-        }, [[]]);
+        if (empty($arrays)) {
+            $result[] = $prefix;
+            return;
+        }
+        foreach ($arrays[0] as $value) {
+            $this->combine(array_merge($prefix, [$value]), array_slice($arrays, 1), $result);
+        }
     }
 }

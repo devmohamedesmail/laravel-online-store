@@ -4,6 +4,7 @@
 
 
 <link rel="stylesheet" href="/templates/admin/assets/css/app.min.css">
+<link rel="stylesheet" href="/templates/admin/assets/bundles/izitoast/css/iziToast.min.css">
 <link rel="stylesheet" href="/templates/admin/assets/bundles/bootstrap-daterangepicker/daterangepicker.css">
 <link rel="stylesheet" href="/templates/admin/assets/bundles/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css">
 <link rel="stylesheet" href="/templates/admin/assets/bundles/select2/dist/css/select2.min.css">
@@ -12,6 +13,10 @@
 <script src="/templates/admin/assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 
 <link rel="stylesheet" href="/templates/admin/assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css">
+{{-- datatables start --}}
+<link rel="stylesheet" href="/templates/admin/assets/bundles/datatables/datatables.min.css">
+<link rel="stylesheet" href="/templates/admin/assets/bundles/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css">
+{{-- datatables end --}}
 <!-- Template CSS -->
 <link rel="stylesheet" href="/templates/admin/assets/css/style.css">
 <link rel="stylesheet" href="/templates/admin/assets/css/components.css">

@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->string('name');  
-            $table->string('value'); 
+            $table->string('variation_name');
             $table->decimal('price', 8, 2)->nullable();  
             $table->decimal('sale_price', 8, 2)->nullable();  
             $table->integer('stock')->nullable(); 

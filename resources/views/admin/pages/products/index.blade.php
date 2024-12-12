@@ -2,16 +2,25 @@
 
 @section('content')
     <div class="main-content">
-
+        @if (session('success'))
+            <script>
+                iziToast.success({
+                    title: 'Success',
+                    message: '{{ session('success') }}',
+                    position: 'topRight', // You can adjust the position of the toast
+                    timeout: 3000 // Timeout in ms (3 seconds)
+                });
+            </script>
+        @endif
         <section class="section">
-          
+
 
             <form action="{{ route('add.new.product') }}" method="post" enctype="multipart/form-data" id="tag-form">
                 @csrf
                 <div class="row d-flex justify-content-around">
-                    <div class="col-12 my-3">  
+                    <div class="col-12 my-3">
                         <h6 class="mx-4">{{ __('translate.add-new-product') }}
-                    </h6>
+                        </h6>
                     </div>
                     @include('admin.pages.products.parts.add-product-details')
                     @include('admin.pages.products.parts.add-product-images')
@@ -26,140 +35,54 @@
 
 
     <script>
-        // Add a new attribute row dynamically
-     
-
-        // Generate variations based on the attributes
-        // document.getElementById("generate-variations").addEventListener("click", function(event) {
-        //     event.preventDefault();
-        //     const allVariationsContainer = document.getElementById("all-variation");
-        //     allVariationsContainer.innerHTML = ""; // Clear previous variations
-
-        //     // Get all attribute names and values
-        //     const attributeNames = Array.from(document.querySelectorAll('input[name="attribute_name[]"]')).map(
-        //         input => input.value.trim());
-        //     const attributeValues = Array.from(document.querySelectorAll('textarea[name="attribute_values[]"]'))
-        //         .map(input => input.value.trim());
-
-        //     // Validate that both names and values are filled
-        //     if (attributeNames.length === 0 || attributeValues.length === 0) {
-        //         alert("Please provide both attribute names and values.");
-        //         return;
-        //     }
-
-        //     // Split values by comma and generate combinations
-        //     const attributeCombinations = [];
-
-        //     for (let i = 0; i < attributeNames.length; i++) {
-        //         const values = attributeValues[i].split(",").map(val => val.trim());
-        //         attributeCombinations.push(values);
-        //     }
-
-        //     // Helper function to generate all combinations of attributes
-        //     function generateCombinations(arrays) {
-        //         const result = [];
-        //         const f = (prefix, arrays) => {
-        //             if (arrays.length === 0) {
-        //                 result.push(prefix);
-        //             } else {
-        //                 for (let i = 0; i < arrays[0].length; i++) {
-        //                     f(prefix.concat(arrays[0][i]), arrays.slice(1));
-        //                 }
-        //             }
-        //         };
-        //         f([], arrays);
-        //         return result;
-        //     }
-
-        //     // Get all combinations of the attribute values
-        //     const allCombinations = generateCombinations(attributeCombinations);
-
-        //     // Display each combination as a variation
-        //     allCombinations.forEach(combination => {
-        //         const variationHTML = `
-        //         <div class="variation-item bg-white p-3 mb-3">
-        //             <p class="text-dark"><strong>Variation:</strong> ${combination.join(" | ")}</p>
-        //            <div class="d-flex justify-content-between align-items-center">
-                    
-        //              <label for="image" class="text-dark">
-        //                  <i class="fas fa-images fs-1"></i>
-        //                  <input id="image" class="d-none" name="image_variant" type="file" class="form-control mb-2" placeholder="Enter image URL">
-        //              </label>
-                   
-        //              <div>
-        //                 <label class="text-dark">{{ __('price') }}</label>
-        //                  <input type="number" class="form-control mb-2" name='price_variant' placeholder="Enter price">
-        //             </div>
-
-        //              <div>
-        //                 <label class="text-dark">{{ __('sale_price') }}</label>
-        //                 <input type="number" class="form-control mb-2" name='sale_price_variant' placeholder="Enter sale price">
-        //             </div>
-        //             <button class="btn btn-danger delete-btn"><i class="fas fa-trash"></i></button>
-                    
-                    
-        //             </div>
-        //         </div>
-        //     `;
-        //         allVariationsContainer.innerHTML += variationHTML;
-        //     });
-
-        //     // Add event listeners to delete buttons
-        //     const deleteButtons = document.querySelectorAll(".delete-btn");
-        //     deleteButtons.forEach(button => {
-        //         button.addEventListener("click", function() {
-        //             const variationDiv = button.closest(".variation-item");
-        //             variationDiv.remove();
-        //         });
-        //     });
-        // });
-
 
 
         document.getElementById("generate-variations").addEventListener("click", function(event) {
-    event.preventDefault();
-    const allVariationsContainer = document.getElementById("all-variation");
-    allVariationsContainer.innerHTML = ""; // Clear previous variations
+            event.preventDefault();
+            const allVariationsContainer = document.getElementById("all-variation");
+            allVariationsContainer.innerHTML = ""; // Clear previous variations
 
-    // Get all attribute names and values
-    const attributeNames = Array.from(document.querySelectorAll('input[name="attribute_name[]"]')).map(
-        input => input.value.trim()
-    );
-    const attributeValues = Array.from(document.querySelectorAll('textarea[name="attribute_values[]"]')).map(
-        input => input.value.trim()
-    );
+            // Get all attribute names and values
+            const attributeNames = Array.from(document.querySelectorAll('input[name="attribute_name[]"]')).map(
+                input => input.value.trim()
+            );
+            const attributeValues = Array.from(document.querySelectorAll('textarea[name="attribute_values[]"]'))
+                .map(
+                    input => input.value.trim()
+                );
 
-    // Validate that both names and values are filled
-    if (attributeNames.includes("") || attributeValues.includes("")) {
-        alert("Please provide both attribute names and values.");
-        return;
-    }
-
-    // Split values by commas and prepare combinations
-    const attributeCombinations = attributeValues.map(values => values.split(",").map(value => value.trim()));
-
-    // Helper function to generate all combinations
-    function generateCombinations(arrays) {
-        const result = [];
-        const helper = (prefix, remainingArrays) => {
-            if (remainingArrays.length === 0) {
-                result.push(prefix);
+            // Validate that both names and values are filled
+            if (attributeNames.includes("") || attributeValues.includes("")) {
+                alert("Please provide both attribute names and values.");
                 return;
             }
-            remainingArrays[0].forEach(value => {
-                helper([...prefix, value], remainingArrays.slice(1));
-            });
-        };
-        helper([], arrays);
-        return result;
-    }
 
-    // Generate all combinations of attributes
-    const allCombinations = generateCombinations(attributeCombinations);
+            // Split values by commas and prepare combinations
+            const attributeCombinations = attributeValues.map(values => values.split(",").map(value => value
+            .trim()));
 
-    // Display each combination as a variation
-    allCombinations.forEach(combination => {
-        const variationHTML = `
+            // Helper function to generate all combinations
+            function generateCombinations(arrays) {
+                const result = [];
+                const helper = (prefix, remainingArrays) => {
+                    if (remainingArrays.length === 0) {
+                        result.push(prefix);
+                        return;
+                    }
+                    remainingArrays[0].forEach(value => {
+                        helper([...prefix, value], remainingArrays.slice(1));
+                    });
+                };
+                helper([], arrays);
+                return result;
+            }
+
+            // Generate all combinations of attributes
+            const allCombinations = generateCombinations(attributeCombinations);
+
+            // Display each combination as a variation
+            allCombinations.forEach(combination => {
+                const variationHTML = `
             <div class="variation-item bg-white p-3 mb-3">
                 <p class="text-dark"><strong>Variation:</strong> ${combination.join(" | ")}</p>
                 <div class="d-flex justify-content-between align-items-center">
@@ -179,19 +102,17 @@
                 </div>
             </div>
         `;
-        allVariationsContainer.innerHTML += variationHTML;
-    });
+                allVariationsContainer.innerHTML += variationHTML;
+            });
 
-    // Add event listeners to delete buttons for each variation
-    document.querySelectorAll(".delete-btn").forEach(button => {
-        button.addEventListener("click", function() {
-            const variationDiv = button.closest(".variation-item");
-            variationDiv.remove();
+            // Add event listeners to delete buttons for each variation
+            document.querySelectorAll(".delete-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    const variationDiv = button.closest(".variation-item");
+                    variationDiv.remove();
+                });
+            });
         });
-    });
-});
-
-
     </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
