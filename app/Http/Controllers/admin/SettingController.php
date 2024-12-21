@@ -31,6 +31,9 @@ class SettingController extends Controller
             $seeting->twitter = $request->twitter;
             $seeting->whatsapp = $request->whatsapp;
             $seeting->appurl = $request->appurl;
+            $seeting->appurl = $request->appurl;
+            $seeting->currency_en = $request->currency_en;
+            $seeting->currency_ar = $request->currency_ar;
            
             $logo = $request->logo;
             if($logo){

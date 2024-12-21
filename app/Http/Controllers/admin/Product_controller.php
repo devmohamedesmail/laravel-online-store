@@ -164,4 +164,49 @@ class Product_controller extends Controller
             $this->combine(array_merge($prefix, [$value]), array_slice($arrays, 1), $result);
         }
     }
+
+
+
+    // update_product
+    public function update_product($id){
+        $product = Product::findOrFail($id);
+        return view('admin/pages.products.edit',compact('product'));
+    }
+
+
+    public function update_product_confirmation(Request $request,$id){
+        $product = Product::findOrFail($id);
+
+        $product->category_id = $request->category;
+        $product->name = $request->name;
+        $product->slug = $request->slug;
+        $product->description = $request->description;
+        $product->long_description = $request->long_description;
+
+        $image = $request->file('image');
+        if ($image) {
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/products'), $imageName);
+            $product->image = $imageName;
+        }
+
+
+
+        $gallery = [];
+        if ($request->hasFile('gallery')) {
+            foreach ($request->file('gallery') as $image) {
+                $name = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/products'), $name);
+                $gallery[] = $name;
+            }
+            $product->gallery = $gallery;
+        }
+
+        $product->price = $request->price;
+        $product->sale_price = $request->sale_price;
+        $product->featured = $request->featured;
+        $product->type = $request->type;
+        $product->save();
+        return redirect()->back()->with('success',__('translate.updated'));
+    }
 }

@@ -26,7 +26,7 @@ class StoreProductRequest extends FormRequest
             "category" => "required",
             "image"=> "required",
             "price"=> "required|numeric",
-            "sale_price"=> "numeric",
+           
         ];
     }
 
@@ -39,7 +39,7 @@ class StoreProductRequest extends FormRequest
             'image.required' => __('products.image-required'),
             'price.required' => __('products.price-required'),
             'price.integer' => __('products.price-integer'),
-            'sale_price.integer' => __('products.price-integer'),
+            
         ];
     }
 }

@@ -24,16 +24,56 @@
                 <p class="phone-no"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
             </div>
             <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
-                <div class="text-center"><p class="top-header_middle-text"> Worldwide Express Shipping</p></div>
+                <div class="text-center">
+                    <p class="top-header_middle-text"> Worldwide Express Shipping</p>
+                </div>
             </div>
             <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
                 <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
                 <ul class="customer-links list-inline">
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Create Account</a></li>
-                    <li><a href="wishlist.html">Wishlist</a></li>
+
+                    <li><a href="#">Wishlist</a></li>
+
+
+
+
+
+                    @guest
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('register') }}">Create Account</a></li>
+                    @else
+                     
+
+
+                        <li><a href="#">{{ Auth::user()->name }}</a></li>
+                        <li>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                        </li>
+
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
+
+
+                    @endguest
+
+
+
+
+
+
+
+
+
                 </ul>
             </div>
+
+
+
         </div>
     </div>
 </div>

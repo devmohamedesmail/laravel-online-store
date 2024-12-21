@@ -23,7 +23,7 @@ return new class extends Migration
             $table->longText('long_description')->nullable();
             $table->decimal('price', 8, 2)->nullable();
             $table->decimal('sale_price', 8, 2)->nullable();
-            $table->string('featured')->default(false);
+            $table->string('featured')->nullable();
             $table->string('type')->nullable();
             $table->timestamps();
         });

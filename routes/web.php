@@ -1,45 +1,28 @@
 <?php
 
+use App\Http\Controllers\admin\Cart_admin_conroller;
+use App\Http\Controllers\admin\Country_controller;
 use App\Http\Controllers\admin\Product_controller;
 use App\Http\Controllers\admin\SettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\Category_controller;
+use App\Http\Controllers\front\UserController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-
-
-
-
-
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
 
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
+    Auth::routes();
 
-    Route::get('/', function () {
-        return view('admin.index');
-    });
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+   
+
+  // ++++++++++++++++++++++++++++++++++++++++++++ Admin Panel Routes Start +++++++++++++++++++++++++++++++++++++++++++++++
     Route::controller(SettingController::class)->group(function () {
         Route::get('/setting/page', 'setting')->name('setting.page');
         Route::post('/setting', 'update_setting')->name('update.setting');
@@ -63,8 +46,49 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('add/product/page', 'add_product_page')->name('add.product.page');
         Route::get('show/products/page', 'show_products_page')->name('show.products.page');
         Route::post('add/products', 'add_product')->name('add.new.product');
+        Route::get('update/product/{id}', 'update_product')->name('update.product');
+        Route::post('update/product/confirmation/{id}', 'update_product_confirmation')->name('update.product.confirmation');
        
     });
+
+
+
+
+    Route::controller(Cart_admin_conroller::class)->group(function () {
+        Route::get('admin/cart/page','admin_cart_page')->name('admin.cart.page.control');
+    });
+
+
+    Route::controller(Country_controller::class)->group(function () {
+        Route::get('countries/page','countries_page')->name('countries.page');
+        Route::post('add/new/country','add_country')->name('add.country');
+        Route::post('add/new/city','add_city')->name('add.city');
+    });
+
+
+
+    // ++++++++++++++++++++++++++++++++++++++++++++ Admin Panel Routes End +++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes Start +++++++++++++++++++++++++++++++++++++++++++++++
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/', 'index')->name('user.index');
+        Route::get('poroduct/details/{id}','product_details')->name('product.details');
+        Route::post('add/product/to/cart/{id}/{title}','add_cart')->name('add.cart');
+    });
+    // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes End +++++++++++++++++++++++++++++++++++++++++++++++
 
 
 });

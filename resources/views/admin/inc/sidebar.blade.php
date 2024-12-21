@@ -1,7 +1,11 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html"> <img alt="image" src="/uploads/setting/{{ $setting->logo }}" class="header-logo" />
+            <a href="index.html">
+                
+                 @if ($setting->logo)
+                 <img alt="image" src="/uploads/setting/{{ $setting->logo }}" alt="{{ $setting->description }}" class="header-logo" /> 
+                 @endif
                 <span class="logo-name " style="font-size: 12px">
 
                     @if (app()->getLocale() == 'en')
@@ -52,6 +56,23 @@
                     </li>
 
                 </ul>
+            </li>
+
+
+
+
+
+            <li class="dropdown active">
+                <a href="{{ route('admin.cart.page.control') }}" class="nav-link">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>{{ __('products.cart') }}</span></a>
+            </li>
+
+
+            <li class="dropdown active">
+                <a href="{{ route('countries.page') }}" class="nav-link">
+                    <i class="fa-solid fa-globe"></i>
+                    <span>{{ __('countries.countries') }}</span></a>
             </li>
 
 

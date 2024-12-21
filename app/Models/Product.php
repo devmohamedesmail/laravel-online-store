@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -25,5 +26,9 @@ class Product extends Model
 
     public function variations(){
         return $this->hasMany(Variation::class);
+    }
+
+    public function carts(){
+        return $this->hasMany(Cart::class);
     }
 }

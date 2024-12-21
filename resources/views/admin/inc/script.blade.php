@@ -8,6 +8,7 @@
   
 
   <script src="/templates/admin/assets/js/app.min.js"></script>
+  <script src="/templates/admin/assets/bundles/summernote/summernote-bs4.js"></script>
   <script src="/templates/admin/assets/bundles/izitoast/js/iziToast.min.js"></script>
   <script src="/templates/admin/assets/js/page/toastr.js"></script>
   <script src="/templates/admin/assets/bundles/cleave-js/dist/cleave.min.js"></script>

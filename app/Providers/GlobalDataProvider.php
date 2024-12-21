@@ -41,6 +41,7 @@ class GlobalDataProvider extends ServiceProvider
 
         $categories = Category::all();
         view()->share('categories', $categories);
-        // $products = Product::with('category','attributes.values',)->get();
+        $all_products = Product::all();
+        view()->share('all_products', $all_products);
     }
 }

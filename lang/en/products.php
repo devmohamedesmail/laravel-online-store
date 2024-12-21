@@ -20,4 +20,6 @@ return [
     'slug'=> 'Slug',
     'category-image-required'=>' Category Image is required',
     'category-image'=>'Category Image',
+    'image'=>'Image',
+    'cart'=> 'Cart',
 ];

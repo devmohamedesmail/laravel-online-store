@@ -30,6 +30,8 @@ return new class extends Migration
             $table->string('telegram')->nullable();
             $table->string('website')->nullable();
             $table->string('appurl')->nullable();
+            $table->string('currency_en')->default('US');
+            $table->string('currency_ar')->default(' دولار ');
             $table->timestamps();
         });
     }

@@ -5,7 +5,7 @@
         <section class="section">
             <h6>{{ __('translate.setting') }}</h6>
             <div>
-                <form action="{{ route('update.setting') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('update.setting') }}" method="post" enctype="multipart/form-data" id="tag-form">
                     @csrf
 
                     <div class="row">
@@ -175,6 +175,23 @@
                         </div>
 
 
+
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label> {{ __('translate.currency_en') }} </label>
+                                <input type="text" class="form-control" name="currency_en" value="{{ $setting->currency_en }}">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label> {{ __('translate.currency_ar') }} </label>
+                                <input type="text" class="form-control" name="currency_ar" value="{{ $setting->currency_ar }}">
+                            </div>
+                        </div>
+
+
                         <div class="col-12 col-md-6">
                             @if (!$setting->logo)
                                 <p class="text-center font-weight-bold"> {{ __('translate.no-image') }}</p>
@@ -189,6 +206,9 @@
                             </div>
                         </div>
 
+
+
+                      
 
                     </div>
 

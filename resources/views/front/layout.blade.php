@@ -5,11 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Belle Multipurpose Bootstrap 4 Html Template</title>
-<meta name="description" content="description">
+<title>
+{{ $setting->name_ar }}
+</title>
+<meta name="description" content="{{ $setting->description }}" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Favicon -->
-<link rel="shortcut icon" href="/templates/front/assets/images/favicon.png" />
+<link rel="shortcut icon" href="/uploads/setting/{{ $setting->logo }}" />
 <!-- Plugins CSS -->
 <link rel="stylesheet" href="/templates/front/assets/css/plugins.css">
 <!-- Bootstap CSS -->
