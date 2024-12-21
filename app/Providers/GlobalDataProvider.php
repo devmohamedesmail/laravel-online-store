@@ -25,7 +25,7 @@ class GlobalDataProvider extends ServiceProvider
         $setting = Setting::first();
 
         if (!$setting) {
-            $setting = new Setting(); 
+            $setting = new Setting();
             $setting->name_en = "Default Name En";
             $setting->name_ar = "Default Name Ar";
             $setting->email = "default@domain.com";
@@ -34,7 +34,7 @@ class GlobalDataProvider extends ServiceProvider
             $setting->logo = null;
             $setting->favicon = null;
             $setting->save();
-             
+
         }
 
         view()->share('setting', $setting);
@@ -43,5 +43,7 @@ class GlobalDataProvider extends ServiceProvider
         view()->share('categories', $categories);
         $all_products = Product::all();
         view()->share('all_products', $all_products);
+
+        
     }
 }

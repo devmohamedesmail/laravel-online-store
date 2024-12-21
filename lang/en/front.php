@@ -1,0 +1,22 @@
+<?php
+return [
+    "add-to-cart"=> "Add to cart",
+    "buy-now"=> "Buy Now",
+    "add-to-wishlist"=> "Add To Wishlist",
+    "share"=> "Share",
+    "product-details"=> "Product Details",
+    "product-reviews"=> "Product Reviews",
+    "related_products"=> "Related Products",
+    "top-header-message"=> "Shop All Brands in One Place",
+    "wishlist"=> "Wishlist",
+    "login"=> "Login",
+    "register"=> "Register",
+    "contact"=> "Contact us",
+    "home"=> "Home",
+    "categories"=> "Categories",
+    "search"=> "Search",
+    "name"=> "Name",
+    "phone"=> "Phone",
+    "address"=> "Address",
+    "select-country"=> "Select Country",
+]; 

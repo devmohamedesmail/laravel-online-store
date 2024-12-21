@@ -87,6 +87,12 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('/', 'index')->name('user.index');
         Route::get('poroduct/details/{id}','product_details')->name('product.details');
         Route::post('add/product/to/cart/{id}/{title}','add_cart')->name('add.cart');
+        Route::get('wishlist/page','wishlist')->name('wishlist');
+        Route::get('contact/page','contact_page')->name('contact.page');
+        Route::get('checkout/page/{product_id?}','checkout_page')->name('checkout.page');
+        Route::get('shop/page','shop_page')->name('shop.page');
+        Route::get('cart/page','cart_page')->name('cart.page');
+        Route::get('/get-cities/{country_id}',  'getCitiesByCountry');
     });
     // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes End +++++++++++++++++++++++++++++++++++++++++++++++
 

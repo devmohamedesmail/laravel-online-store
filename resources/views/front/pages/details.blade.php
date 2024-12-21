@@ -124,37 +124,42 @@
                                 enctype="multipart/form-data">
                                 @csrf
 
-                                <div class="swatch clearfix swatch-0 option1" data-option-index="0">
 
 
-                                    @foreach ($product->attributes as $attribute)
-                                    <div class="product-form__item my-4">
-                                        <label class="header">{{ $attribute->name }}</label>
-                                        
-                                        @if ($attribute->values && $attribute->values->count() > 0)
-                                            <div class="swatch-options">
-                                                @foreach ($attribute->values as $value)
-                                                    <div class="swatch-element">
-                                                        <input type="radio" 
-                                                               id="swatch-{{ $attribute->id }}-{{ $value->id }}" 
-                                                               name="attributes[{{ $attribute->id }}]" 
-                                                               value="{{ $value->id }}" 
-                                                               class="swatchInput" 
-                                                               required>  <!-- The `required` ensures selection -->
-                                                        <label for="swatch-{{ $attribute->id }}-{{ $value->id }}" 
-                                                               title="{{ $value->value }}">
-                                                            <span>{{ $value->value }}</span>
-                                                        </label>
-                                                    </div>
-                                                @endforeach
+                                @if ($product->attributes && $product->attributes->count() > 0)
+                                    <div class="swatch clearfix swatch-0 option1" data-option-index="0">
+                                        @foreach ($product->attributes as $attribute)
+                                            <div class="swatch clearfix swatch-1 option2" data-option-index="1">
+                                                <div class="product-form__item">
+                                                    <label class="header">{{ $attribute->name }}</label>
+
+                                                    @if ($attribute->values && $attribute->values->count() > 0)
+                                                        @foreach ($attribute->values as $value)
+                                                            <div data-value="XS" class="swatch-element xs available">
+                                                                <input class="swatchInput" id="swatch{{ $value->id }}"
+                                                                    type="radio"
+                                                                    name="attributes[{{ $attribute->name }}]"
+                                                                    value="{{ $value->value }}">
+                                                                <label class="swatchLbl large rectangle"
+                                                                    for="swatch{{ $value->id }}"
+                                                                    title="{{ $value->value }}">{{ $value->value }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
+                                                </div>
                                             </div>
-                                        @endif
+                                        @endforeach
                                     </div>
-                                @endforeach
-                                
+                                @else
+                                @endif
 
 
-                                </div>
+
+                                @if ($errors->has('error'))
+                                    <div class="alert alert-danger">
+                                        {{ $errors->first('error') }}
+                                    </div>
+                                @endif
 
 
 
@@ -178,13 +183,16 @@
                                     </div>
                                     <div class="product-form__item--submit">
                                         <button type="submit" name="add" class="btn product-form__cart-submit">
-                                            <span>Add to cart</span>
+                                            <span>
+                                                {{ __('front.add-to-cart') }}
+                                            </span>
                                         </button>
                                     </div>
                                     <div class="shopify-payment-button" data-shopify="payment-button">
-                                        <button type="button"
-                                            class="shopify-payment-button__button shopify-payment-button__button--unbranded">Buy
-                                            it now</button>
+                                        <a href="{{ route('checkout.page', $product->id) }}" type="button"
+                                            class="shopify-payment-button__button shopify-payment-button__button--unbranded">
+                                            {{ __('front.buy-now') }}
+                                        </a>
                                     </div>
                                 </div>
                                 <!-- End Product Action -->
@@ -201,8 +209,9 @@
                                 <div class="display-table-cell medium-up--one-third">
                                     <div class="wishlist-btn">
                                         <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist"><i
-                                                class="icon anm anm-heart-l" aria-hidden="true"></i> <span>Add to
-                                                Wishlist</span></a>
+                                                class="icon anm anm-heart-l" aria-hidden="true"></i> <span>
+                                                {{ __('front.add-to-wishlist') }}
+                                            </span></a>
                                     </div>
                                 </div>
                                 <div class="display-table-cell text-right">
@@ -211,7 +220,7 @@
                                             class="btn btn--small btn--secondary btn--share share-facebook"
                                             title="Share on Facebook">
                                             <i class="fa fa-facebook-square" aria-hidden="true"></i> <span
-                                                class="share-title" aria-hidden="true">Share</span>
+                                                class="share-title" aria-hidden="true">{{ __('front.share') }}</span>
                                         </a>
                                         <a target="_blank" href="#"
                                             class="btn btn--small btn--secondary btn--share share-twitter"
@@ -238,17 +247,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <p id="freeShipMsg" class="freeShipMsg" data-price="199"><i class="fa fa-truck"
-                                    aria-hidden="true"></i> GETTING CLOSER! ONLY <b class="freeShip"><span class="money"
-                                        data-currency-usd="$199.00" data-currency="USD">$199.00</span></b> AWAY FROM
-                                <b>FREE SHIPPING!</b>
-                            </p>
-                            <p class="shippingMsg"><i class="fa fa-clock-o" aria-hidden="true"></i> ESTIMATED DELIVERY
-                                BETWEEN <b id="fromDate">Wed. May 1</b> and <b id="toDate">Tue. May 7</b>.</p>
-                            <div class="userViewMsg" data-user="20" data-time="11000"><i class="fa fa-users"
-                                    aria-hidden="true"></i> <strong class="uersView">14</strong> PEOPLE ARE LOOKING FOR
-                                THIS PRODUCT</div>
                         </div>
                     </div>
                 </div>
@@ -257,8 +255,8 @@
                 <!--Product Tabs-->
                 <div class="tabs-listing">
                     <ul class="product-tabs d-flex justify-content-center list-unstyled">
-                        <li rel="tab1"><a class="tablink mx-3">Product Details</a></li>
-                        <li rel="tab2"><a class="tablink mx-3">Product Reviews</a></li>
+                        <li rel="tab1"><a class="tablink mx-3"> {{ __('front.product-details') }} </a></li>
+                        <li rel="tab2"><a class="tablink mx-3"> {{ __('front.product-reviews') }} </a></li>
 
                     </ul>
                     <div class="tab-container">
@@ -435,101 +433,105 @@
                 <!--Related Product Slider-->
                 <div class="related-product grid-products">
                     <header class="section-header">
-                        <h2 class="section-header__title text-center h2"><span>Related Products</span></h2>
-                        <p class="sub-heading">You can stop autoplay, increase/decrease aniamtion speed and number of grid
-                            to show and products from store admin.</p>
+                        <h2 class="section-header__title text-center h2"><span>
+                                {{ __('front.related_products') }}
+                            </span></h2>
+
                     </header>
                     <div class="productPageSlider">
 
-                        <div class="col-12 item">
-                            <!-- start product image -->
-                            <div class="product-image">
-                                <!-- start product image -->
-                                <a href="#">
-                                    <!-- image -->
-                                    <img class="primary blur-up lazyload"
-                                        data-src="/templates/front/assets/images/product-images/product-image1.jpg"
-                                        src="/templates/front/assets/images/product-images/product-image1.jpg"
-                                        alt="image" title="product">
-                                    <!-- End image -->
-                                    <!-- Hover image -->
-                                    <img class="hover blur-up lazyload"
-                                        data-src="/templates/front/assets/images/product-images/product-image1-1.jpg"
-                                        src="/templates/front/assets/images/product-images/product-image1-1.jpg"
-                                        alt="image" title="product">
-                                    <!-- End hover image -->
-                                    <!-- product label -->
-                                    <div class="product-labels rectangular"><span class="lbl on-sale">-16%</span> <span
-                                            class="lbl pr-label1">new</span></div>
-                                    <!-- End product label -->
-                                </a>
-                                <!-- end product image -->
 
-                                <!-- Start product button -->
-                                <form class="variants add" action="#"
-                                    onclick="window.location.href='cart.html'"method="post">
-                                    <button class="btn btn-addto-cart" type="button" tabindex="0">Select
-                                        Options</button>
-                                </form>
-                                <div class="button-set">
-                                    <a href="#" title="Quick View" class="quick-view" tabindex="0">
-                                        <i class="icon anm anm-search-plus-r"></i>
+                        @foreach ($related_products as $item)
+                            <div class="col-12 item">
+
+                                <div class="product-image">
+
+                                    <a href="{{ route('product.details', $item->id) }}">
+
+                                        <img class="primary blur-up lazyload"
+                                            data-src="/uploads/products/{{ $item->image }}"
+                                            src="/uploads/products/{{ $item->image }}" alt="{{ $item->name }}"
+                                            title="product">
+
+                                        <img class="hover blur-up lazyload"
+                                            data-src="/uploads/products/{{ $item->image }}"
+                                            src="/uploads/products/{{ $item->image }}" alt="{{ $item->name }}"
+                                            title="product">
+
+
                                     </a>
-                                    <div class="wishlist-btn">
-                                        <a class="wishlist add-to-wishlist" href="wishlist.html">
-                                            <i class="icon anm anm-heart-l"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- end product button -->
-                            </div>
-                            <!-- end product image -->
-                            <!--start product details -->
-                            <div class="product-details text-center">
-                                <!-- product name -->
-                                <div class="product-name">
-                                    <a href="#">Edna Dress</a>
-                                </div>
-                                <!-- End product name -->
-                                <!-- product price -->
-                                <div class="product-price">
-                                    <span class="old-price">$500.00</span>
-                                    <span class="price">$600.00</span>
-                                </div>
-                                <!-- End product price -->
+                                    <!-- end product image -->
 
-                                <div class="product-review">
-                                    <i class="font-13 fa fa-star"></i>
-                                    <i class="font-13 fa fa-star"></i>
-                                    <i class="font-13 fa fa-star"></i>
-                                    <i class="font-13 fa fa-star-o"></i>
-                                    <i class="font-13 fa fa-star-o"></i>
+                                    <!-- Start product button -->
+                                    <form class="variants add" action="#"
+                                        onclick="window.location.href='cart.html'"method="post">
+                                        <button class="btn btn-addto-cart" type="button" tabindex="0">Select
+                                            Options</button>
+                                    </form>
+                                    <div class="button-set">
+                                        <a href="#" title="Quick View" class="quick-view" tabindex="0">
+                                            <i class="icon anm anm-search-plus-r"></i>
+                                        </a>
+                                        <div class="wishlist-btn">
+                                            <a class="wishlist add-to-wishlist" href="wishlist.html">
+                                                <i class="icon anm anm-heart-l"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <!-- end product button -->
                                 </div>
-                                <!-- Variant -->
-                                <ul class="swatches">
-                                    <li class="swatch medium rounded"><img
-                                            src="/templates/front/assets/images/product-images/variant1.jpg"
-                                            alt="image" /></li>
-                                    <li class="swatch medium rounded"><img
-                                            src="/templates/front/assets/images/product-images/variant2.jpg"
-                                            alt="image" /></li>
-                                    <li class="swatch medium rounded"><img
-                                            src="/templates/front/assets/images/product-images/variant3.jpg"
-                                            alt="image" /></li>
-                                    <li class="swatch medium rounded"><img
-                                            src="/templates/front/assets/images/product-images/variant4.jpg"
-                                            alt="image" /></li>
-                                    <li class="swatch medium rounded"><img
-                                            src="/templates/front/assets/images/product-images/variant5.jpg"
-                                            alt="image" /></li>
-                                    <li class="swatch medium rounded"><img
-                                            src="/templates/front/assets/images/product-images/variant6.jpg"
-                                            alt="image" /></li>
-                                </ul>
-                                <!-- End Variant -->
+                                <!-- end product image -->
+                                <!--start product details -->
+                                <div class="product-details text-center">
+                                    <!-- product name -->
+                                    <div class="product-name">
+                                        <a href="{{ route('product.details', $item->id) }}">{{ $item->name }}</a>
+                                    </div>
+                                    <!-- End product name -->
+                                    <!-- product price -->
+
+                                    @if ($item->sale_price)
+                                        <div class="product-price">
+                                            <span class="old-price">{{ $item->price }}
+                                                @if (app()->getLocale() == 'ar')
+                                                    {{ $setting->currency_ar }}
+                                                @else
+                                                    {{ $setting->currency_en }}
+                                                @endif
+                                            </span>
+                                            <span class="price">{{ $item->sale_price }}
+
+                                                @if (app()->getLocale() == 'ar')
+                                                    {{ $setting->currency_ar }}
+                                                @else
+                                                    {{ $setting->currency_en }}
+                                                @endif
+
+                                            </span>
+                                        </div>
+                                    @else
+                                        <div class="product-price">
+                                            <span class="old-price"></span>
+                                            <span class="price">
+                                                {{ $product->price }}
+
+                                                @if (app()->getLocale() == 'ar')
+                                                    {{ $setting->currency_ar }}
+                                                @else
+                                                    {{ $setting->currency_en }}
+                                                @endif
+
+                                            </span>
+                                        </div>
+                                    @endif
+
+
+
+                                </div>
+                                <!-- End product details -->
                             </div>
-                            <!-- End product details -->
-                        </div>
+                        @endforeach
+
 
 
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\front;
 
 use App\Models\Cart;
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,34 +22,34 @@ class UserController extends Controller
 
     public function product_details($id)
     {
+
         $product = Product::with('category', 'attributes.values', 'variations')->findOrFail($id);
-        return view("front.pages.details", compact("product"));
-        // return $product;
+        $related_products = Product::where('category_id', $product->category->id)->get();
+        return view("front.pages.details", compact("product", "related_products"));
+
     }
 
 
     public function add_cart(Request $request, $id)
     {
-        // Retrieve product and associated attributes
         $product = Product::with('attributes')->findOrFail($id);
         $user_id = auth()->check() ? auth()->id() : null;
         $session_id = !$user_id ? Session::getId() : null;
-        
-        // Get the selected variations from the request (the user's choices for each attribute)
+
+
         $selected_variations = $request->input('attributes', []);
-    
-        // Validation: Ensure all attributes are selected
+
         if ($product->attributes && $product->attributes->count() > 0) {
             foreach ($product->attributes as $attribute) {
-                // Check if the attribute is selected in the request
-                if (!isset($selected_variations[$attribute->id])) {
+
+                if (!isset($selected_variations[$attribute->name])) {
                     // If any attribute is not selected, return an error
                     return redirect()->back()->withErrors(['error' => 'Please select a value for "' . $attribute->name . '"'])->withInput();
                 }
             }
         }
-    
-        // Check if the product already exists in the cart for the current user or session
+
+
         $cartItem = Cart::where('product_id', $product->id)
             ->where(function ($query) use ($user_id, $session_id) {
                 if ($user_id) {
@@ -56,16 +58,17 @@ class UserController extends Controller
                     $query->where('session_id', $session_id);
                 }
             })
+            ->where('selected_variations', json_encode($selected_variations)) // Ensure the variations are unique for each combination
             ->first();
-    
-        // If the item is already in the cart, update the quantity, otherwise create a new cart item
+
+
         if ($cartItem) {
-            // Update the quantity if the item already exists
+
             $cartItem->quantity += $request->input('quantity', 1);
-            $cartItem->selected_variations = json_encode($selected_variations); // Store selected variations as JSON
+            $cartItem->selected_variations = $selected_variations;
             $cartItem->save();
+            return redirect()->back();
         } else {
-            // Create new cart item
             $cart = new Cart();
             $cart->user_id = $user_id;
             $cart->session_id = $session_id;
@@ -74,12 +77,56 @@ class UserController extends Controller
             $cart->price = $product->price;
             $cart->sale_price = $product->sale_price;
             $cart->image = $product->image;
-            $cart->selected_variations = json_encode($selected_variations); // Store selected variations as JSON
+            $cart->selected_variations = $selected_variations;
             $cart->status = 'active';
             $cart->save();
+            return redirect()->back();
         }
-    
-        return redirect()->back()->with('success', 'Product added to cart successfully!');
+
+
+
+
+
+        //    return $selected_variations;
     }
-    
+
+
+
+    // wishlist page
+    public function wishlist(){
+        return view('front.pages.wishlist');
+    }
+
+    public function contact_page(){
+        return view('front.pages.contact');
+    }
+
+
+
+    public function checkout_page($product_id = null){
+        $countries = Country::all();
+        return view('front.pages.checkout',compact('countries'));
+    }
+
+
+
+    public function shop_page(){
+        return view("front.pages.shop");
+    }
+    public function cart_page(){
+        return view("front.pages.cart");
+    }
+
+
+
+    public function getCitiesByCountry(Request $request)
+{
+    $countryId = $request->country_id;
+    $cities = City::where('country_id', $countryId)->get();
+
+    return response()->json($cities);
+}
+
+
+
 }

@@ -12,36 +12,34 @@
             <div class="row">
                 @foreach ($all_products as $product)
                     <div class="col-6 col-sm-2 col-md-3 col-lg-3 item">
-                   
+
                         <div class="product-image">
-                            
-                            <a href="{{ route('product.details',$product->id) }}" class="grid-view-item__link">
-                                
-                                <img class="primary blur-up lazyload"
-                                    data-src="/uploads/products/{{ $product->image }}"
-                                    src="/uploads/products/{{ $product->image }}"
-                                    alt="{{ $product->name }}" title="product">
-                               
+
+                            <a href="{{ route('product.details', $product->id) }}" class="grid-view-item__link">
+
+                                <img class="primary blur-up lazyload" data-src="/uploads/products/{{ $product->image }}"
+                                    src="/uploads/products/{{ $product->image }}" alt="{{ $product->name }}"
+                                    title="product">
+
 
 
 
 
                                 <!-- Hover image -->
-                                <img class="hover blur-up lazyload"
-                                    data-src="/uploads/products/{{ $product->image }}"
-                                    src="/uploads/products/{{ $product->image }}"
-                                    alt="{{ $product->name }}" title="product">
-                            
+                                <img class="hover blur-up lazyload" data-src="/uploads/products/{{ $product->image }}"
+                                    src="/uploads/products/{{ $product->image }}" alt="{{ $product->name }}"
+                                    title="product">
 
 
 
 
 
 
-                             
+
+
                                 <!-- product label -->
                                 <div class="product-labels rounded">
-                                    <span class="lbl on-sale">Sale</span> 
+                                    <span class="lbl on-sale">Sale</span>
                                     <span class="lbl pr-label1">new</span>
                                 </div>
                                 <!-- End product label -->
@@ -62,69 +60,69 @@
 
 
                             <div class="button-set">
-                               
+
                                 <div class="wishlist-btn">
                                     <a class="wishlist add-to-wishlist" href="wishlist.html">
                                         <i class="icon anm anm-heart-l"></i>
                                     </a>
                                 </div>
-                                
+
                             </div>
-                            
+
                         </div>
-                        
+
 
 
 
 
 
                         <div class="product-details text-center">
-                           
+
                             <div class="product-name">
                                 <a href="product-layout-1.html">{{ $product->name }}</a>
                             </div>
-                          
-                         
+
+
 
                             @if ($product->sale_price)
-                            <div class="product-price">
-                                <span class="old-price">{{ $product->price }} 
-                                @if (app()->getLocale() == 'ar')
-                                {{ $setting->currency_ar }}
-                                @else
-                                {{ $setting->currency_en }}
-                                @endif
-                            </span>
-                                <span class="price">{{ $product->sale_price }}
+                                <div class="product-price">
+                                    <span class="old-price">{{ $product->price }}
+                                        @if (app()->getLocale() == 'ar')
+                                            {{ $setting->currency_ar }}
+                                        @else
+                                            {{ $setting->currency_en }}
+                                        @endif
+                                    </span>
+                                    <span class="price">{{ $product->sale_price }}
 
-                                    @if (app()->getLocale() == 'ar')
-                                    {{ $setting->currency_ar }}
-                                    @else
-                                    {{ $setting->currency_en }}
-                                    @endif
+                                        @if (app()->getLocale() == 'ar')
+                                            {{ $setting->currency_ar }}
+                                        @else
+                                            {{ $setting->currency_en }}
+                                        @endif
 
-                                </span>
-                            </div> 
+                                    </span>
+                                </div>
                             @else
-                            <div class="product-price">
-                                <span class="old-price"></span>
-                                <span class="price">
-                                    {{ $product->price }}
+                                <div class="product-price">
+                                    <span class="old-price"></span>
+                                    <span class="price">
+                                        {{ $product->price }}
 
-                                    @if (app()->getLocale() == 'ar')
-                                    {{ $setting->currency_ar }}
-                                    @else
-                                    {{ $setting->currency_en }}
-                                    @endif
+                                        @if (app()->getLocale() == 'ar')
+                                            {{ $setting->currency_ar }}
+                                        @else
+                                            {{ $setting->currency_en }}
+                                        @endif
 
-                                </span>
-                            </div>
+                                    </span>
+                                </div>
                             @endif
-                        
-                           
-                       
+
+
+
                         </div>
-                   
+
                     </div>
                 @endforeach
 
