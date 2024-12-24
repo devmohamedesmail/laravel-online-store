@@ -49,5 +49,15 @@ return [
    "phone"=>" الهاتف ",
    "currency_en"=>" العمله باللغه الانجليزيه ",
    "currency_ar"=>" العمله باللغه العربيه  ",
+   "delete-confirm"=> " هل انت متاكد من الحذف ؟",
+   "title"=> "العنوان",
+   "slider-page"=> " السلايدر ",
+   "payment"=> " خيارات الدفع ",
+   "active"=> " مفعل ",
+   "not-active"=> " غير مفعل ",
+   "completed-orders" => " الطلبات المكتمله  ",
+   "pending-orders" => " الطلبات المعلقه ",
+   "non-completed-orders" => " الطلبات غير المكتمله ",
+   "orders"=> " الطلبات ",
 
 ];

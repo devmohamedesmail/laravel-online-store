@@ -8,7 +8,7 @@
                 <form action="{{ route('update.setting') }}" method="post" enctype="multipart/form-data" id="tag-form">
                     @csrf
 
-                    <div class="row">
+                    <div class="row bg-white my-3 py-3">
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label> {{ __('translate.name_en') }} </label>

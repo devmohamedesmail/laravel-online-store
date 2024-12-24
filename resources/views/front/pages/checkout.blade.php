@@ -125,7 +125,7 @@
                             <fieldset>
                                 <div class="row">
                                     <div class="form-group col-md-12 col-lg-12 col-xl-12">
-                                        <label for="input-company">Order Notes <span class="required-f">*</span></label>
+                                        <label for="input-company">{{ __('front.note') }}</label>
                                         <textarea class="form-control resize-both" rows="3"></textarea>
                                     </div>
                                 </div>

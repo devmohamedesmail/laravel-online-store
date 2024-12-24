@@ -5,7 +5,7 @@
             <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
                 <a href="{{ route('user.index') }}">
                     <img src="/uploads/setting/{{ $setting->logo }}" alt="{{ $setting->name }}"
-                        title="{{ $setting->name }}" />
+                        title="{{ $setting->name }}" width="60px" />
                 </a>
             </div>
             <!--End Desktop Logo-->
@@ -69,7 +69,7 @@
                 <div class="logo">
                     <a href="{{ route('user.index') }}">
                         <img src="/public/uploads/setting/{{ $setting->logo }}" alt="{{ $setting->name }}"
-                            title="{{ $setting->name }}" />
+                            title="{{ $setting->name }}" width="50px" />
                     </a>
                 </div>
             </div>
@@ -80,8 +80,11 @@
 
                     <a href="{{ route('cart.page') }}" >
                     
-                        <i class="icon anm anm-bag-l fs-2 text-dark"></i>
+                        <i class="icon anm anm-bag-l fs-2 text-dark" style="font-size: 20px"></i>
                     </a>
+                    
+                        <span class="site-header__cart-count" data-cart-render="item_count">2</span>
+                   
 
                 </div>
                

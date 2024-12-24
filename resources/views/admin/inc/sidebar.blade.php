@@ -78,6 +78,44 @@
 
 
 
+            <li class="dropdown active">
+                <a href="{{ route('slider.page') }}" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>{{ __('translate.slider-page') }}</span></a>
+            </li>
+
+
+            <li class="dropdown active">
+                <a href="{{ route('payment.page') }}" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>{{ __('translate.payment') }}</span></a>
+            </li>
+
+
+
+
+            <li class="dropdown">
+                <a href="#" class="menu-toggle nav-link has-dropdown">
+                    <i class="fab fa-product-hunt"></i>
+                    <span>{{ __('translate.orders') }}</span></a>
+
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="nav-link" href="{{ route('show.orders.page') }}">
+                            {{ __('translate.completed-orders') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{{ route('show.products.page') }}">
+                            {{ __('translate.non-completed-orders') }}
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+
 
 
         </ul>

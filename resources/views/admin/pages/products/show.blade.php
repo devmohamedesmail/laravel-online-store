@@ -40,7 +40,8 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                               <a class="dropdown-item" href="{{ route('update.product',$product->id) }}">{{__('translate.edit')}}  </a>
-                              <a class="dropdown-item" href="#">{{__('translate.delete')}}</a>
+                              <a class="dropdown-item" 
+                              onclick="return confirm('Are you sure you want to delete this item?')" href="{{ route('delete.product',$product->id) }}">{{__('translate.delete')}}</a>
                               
                             </div>
                           </div>

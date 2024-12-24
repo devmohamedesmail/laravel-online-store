@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\admin\Cart_admin_conroller;
 use App\Http\Controllers\admin\Country_controller;
+use App\Http\Controllers\admin\Order_controller;
+use App\Http\Controllers\admin\Payment_Options_controller;
 use App\Http\Controllers\admin\Product_controller;
 use App\Http\Controllers\admin\SettingController;
+use App\Http\Controllers\admin\Slider_Baner_controller;
+use App\Http\Controllers\front\Payment_controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\Category_controller;
@@ -48,6 +52,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::post('add/products', 'add_product')->name('add.new.product');
         Route::get('update/product/{id}', 'update_product')->name('update.product');
         Route::post('update/product/confirmation/{id}', 'update_product_confirmation')->name('update.product.confirmation');
+        Route::get('delete/product/{id}', 'delete_product')->name('delete.product');
        
     });
 
@@ -63,23 +68,34 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('countries/page','countries_page')->name('countries.page');
         Route::post('add/new/country','add_country')->name('add.country');
         Route::post('add/new/city','add_city')->name('add.city');
+        Route::get('delete/country/{id}','delete_country')->name('delete.country');
+        Route::get('delete/city/{id}','delete_city')->name('delete.city');
     });
 
 
 
+    Route::controller(Slider_Baner_controller::class)->group(function () {
+        Route::get('slider/page','slider_page')->name('slider.page');
+        Route::post('add/new/slider','add_new_slider')->name('add.new.slider');
+        Route::get('delete/slider/{id}','delete_slider')->name('delete.slider');
+    });
+
+
+    Route::controller(Payment_Options_controller::class)->group(function () { 
+        Route::get('payment/page','payment_page')->name('payment.page');
+        Route::post('add/new/payment','add_new_payment')->name('add.new.payment');
+        Route::get('toggle/active/payment/{id}','toggle_active_payment')->name('toggle.active.payment');
+     });
+
+
+
+     Route::controller(Order_controller::class)->group(function () {
+        Route::get('show/orders/page','show_orders_page')->name('show.orders.page');
+     });
+
+
+
     // ++++++++++++++++++++++++++++++++++++++++++++ Admin Panel Routes End +++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes Start +++++++++++++++++++++++++++++++++++++++++++++++
@@ -95,6 +111,13 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('/get-cities/{country_id}',  'getCitiesByCountry');
     });
     // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes End +++++++++++++++++++++++++++++++++++++++++++++++
+
+    Route::controller(Payment_controller::class)->group(function(){
+        Route::get('stripe','stripe')->name('stripe');
+        Route::get('/checkout',  'checkout')->name('checkout');
+        Route::get('/success',  'success')->name('success');
+        Route::get('/cancel',  'cancel')->name('cancel');
+    });
 
 
 });

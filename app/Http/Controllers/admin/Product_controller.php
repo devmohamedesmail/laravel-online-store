@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Product;
 use App\Models\Attribute;
 use App\Models\Variation;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\AttributeType;
 use App\Models\AttributeValue;
@@ -38,23 +39,23 @@ class Product_controller extends Controller
         $product->description = $request->description;
         $product->long_description = $request->long_description;
 
-        $image = $request->file('image');
+      $image = $request->file('image');
         if ($image) {
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            
+            $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/products'), $imageName);
             $product->image = $imageName;
         }
-
-
-
+        
         $gallery = [];
         if ($request->hasFile('gallery')) {
             foreach ($request->file('gallery') as $image) {
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploads/products'), $name);
-                $gallery[] = $name;
+                // Generate a unique name for each gallery image
+                $galleryImageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/products'), $galleryImageName);
+                $gallery[] = $galleryImageName;
             }
-            $product->gallery = $gallery;
+            $product->gallery = $gallery;  // Assuming you want to store the gallery as a JSON array
         }
 
         $product->price = $request->price;
@@ -64,10 +65,6 @@ class Product_controller extends Controller
 
 
         $product->save();
-        // dd($request);
-
-
-
         if ($request->type === 'variations') {
             $product->type = $request->type;
             if (count($request->attribute_name) > 0) {
@@ -185,19 +182,19 @@ class Product_controller extends Controller
 
         $image = $request->file('image');
         if ($image) {
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            
+            $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/products'), $imageName);
             $product->image = $imageName;
         }
-
-
-
+        
         $gallery = [];
         if ($request->hasFile('gallery')) {
             foreach ($request->file('gallery') as $image) {
-                $name = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploads/products'), $name);
-                $gallery[] = $name;
+                // Generate a unique name for each gallery image
+                $galleryImageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/products'), $galleryImageName);
+                $gallery[] = $galleryImageName;
             }
             $product->gallery = $gallery;
         }
@@ -208,5 +205,13 @@ class Product_controller extends Controller
         $product->type = $request->type;
         $product->save();
         return redirect()->back()->with('success',__('translate.updated'));
+    }
+
+
+
+    public function delete_product($id){
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect()->back()->with('success',__('translate.deleted'));
     }
 }

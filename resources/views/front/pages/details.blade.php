@@ -140,7 +140,7 @@
                                                                     type="radio"
                                                                     name="attributes[{{ $attribute->name }}]"
                                                                     value="{{ $value->value }}">
-                                                                <label class="swatchLbl large rectangle"
+                                                                <label class="swatchLbl large rectangle" style="width: fit-content;"
                                                                     for="swatch{{ $value->id }}"
                                                                     title="{{ $value->value }}">{{ $value->value }}</label>
                                                             </div>

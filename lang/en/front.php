@@ -19,4 +19,11 @@ return [
     "phone"=> "Phone",
     "address"=> "Address",
     "select-country"=> "Select Country",
+    "subscribe"=> "Subscribe",
+    "customer-services"=> "Customer Services",
+    "contact-us"=> "Conact Us",
+    "email"=>"Email",
+    "password"=> "Password",
+    "select-city"=> "Selec City",
+    "note"=> "Order Notes (optional)",
 ]; 

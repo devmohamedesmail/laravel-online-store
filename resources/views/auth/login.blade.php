@@ -9,7 +9,7 @@
         <div class="page section-header text-center mt-5">
             <div class="page-title">
                 <div class="wrapper">
-                    <h1 class="page-width">Login To Account</h1>
+                    <h1 class="page-width">{{ __('front.login') }}</h1>
                 </div>
             </div>
         </div>
@@ -27,7 +27,7 @@
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        <label for="CustomerEmail">Email</label>
+                                        <label for="CustomerEmail">{{ __('front.email') }}</label>
                                         <input type="email" name="email" id="CustomerEmail"
                                             class="@error('email') is-invalid @enderror" name="email"
                                             value="{{ old('email') }}" required autocomplete="email">
@@ -43,7 +43,7 @@
 
                                 <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="form-group">
-                                        <label for="CustomerPassword">Password</label>
+                                        <label for="CustomerPassword">{{ __('front.password') }}</label>
                                         <input type="password" class="@error('password') is-invalid @enderror"
                                             id="CustomerPassword" name="password" required autocomplete="new-password">
                                     </div>
@@ -57,7 +57,7 @@
                             </div>
                             <div class="row">
                                 <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
-                                    <input type="submit" class="btn mb-3" value="Login">
+                                    <input type="submit" class="btn mb-3" value={{ __('front.login') }}>
                                 </div>
                             </div>
                         </form>

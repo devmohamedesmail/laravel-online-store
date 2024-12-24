@@ -12,8 +12,9 @@ class Country_controller extends Controller
     //
 
     public function countries_page(){
-        $countries = Country::all();
+        $countries = Country::with("cities")->get();
         return view("admin.pages.countries.index",compact("countries"));
+    //    return response()->json($countries);
     }
 
 
@@ -30,6 +31,21 @@ class Country_controller extends Controller
         $city->city_en = $request->city_en;
         $city->city_ar = $request->city_ar;
         $city->save();
+        return redirect()->back();
+    }
+
+
+
+    public function delete_country($id){
+        $country = Country::find($id);
+        $country->delete();
+        return redirect()->back();
+    }
+
+
+    public function delete_city($id){
+        $city = City::find($id);
+        $city->delete();
         return redirect()->back();
     }
 }
