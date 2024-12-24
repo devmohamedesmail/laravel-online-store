@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="/templates/front/assets/css/style.css">
     <link rel="stylesheet" href="/templates/front/assets/css/responsive.css">
 	<link rel="stylesheet" href="/templates/front/assets/css/custom-styles.css">
+    <meta http-equiv="Content-Security-Policy" content="font-src 'self' https://js.stripe.com;">
+
+    <script src="https://js.stripe.com/v3/"></script>
 </head>
 
 <body class="template-index belle template-index-belle">
@@ -39,6 +42,7 @@
         <script src="/templates/front/assets/js/popper.min.js"></script>
         <script src="/templates/front/assets/js/lazysizes.js"></script>
         <script src="/templates/front/assets/js/main.js"></script>
+        <script src="/templates//front/assets/js/checkout.js" defer></script>
         <!--For Newsletter Popup-->
         <script>
             jQuery(document).ready(function() {

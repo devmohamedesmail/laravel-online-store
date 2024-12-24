@@ -1,65 +1,65 @@
 <?php
 
 namespace App\Http\Controllers\front;
-
 use Stripe\Stripe;
-use Stripe\PaymentIntent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Session;
 use Stripe\StripeClient;
+
 
 
 class Payment_controller extends Controller
 {
 
+    public $stripe;
    
-    public function stripe()
+    public function __construct()
     {
-        return view("stripe");
+        $this->stripe = new StripeClient(
+            config('stripe.api_key.secret')
+        );
     }
-    public function checkout(Request $request)
+
+
+    public function createCheckoutSession(Request $request)
     {
-        // Set Stripe API key from environment file
-        Stripe::setApiKey(env('STRIPE_SECRET'));
-
         try {
-            // Create Stripe Checkout Session
-            $checkout_session = Session::create([
+            
+    
+            // Create the checkout session
+            $checkoutSession = $this->stripe->checkout->sessions->create([
                 'payment_method_types' => ['card'],
-                'line_items' => [[
-                    'price_data' => [
-                        'currency' => 'usd',
-                        'product_data' => [
-                            'name' => 'T-shirt',
+                'line_items' => [
+                    [
+                        'price_data' => [
+                            'currency' => 'usd',
+                            'product_data' => ['name' => 'Product'],
+                            'unit_amount' => 1000, // $10.00 in cents
                         ],
-                        'unit_amount' => 2000, // Amount in cents ($20.00)
+                        'quantity' => 1,
                     ],
-                    'quantity' => 1,
-                ]],
-                'mode' => 'payment',  // Payment mode, 'payment' for one-time payments
-                'success_url' => route('success'),  // After successful payment
-                'cancel_url' => route('cancel'),    // If the user cancels
+                ],
+                'mode' => 'payment',
+                'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('checkout.cancel'),
             ]);
+    
+            return redirect($checkoutSession->url);
 
-            // Redirect the user to the Stripe Checkout page
-            return redirect($checkout_session->url);
+            // return response()->json(['clientSecret' => $checkoutSession->client_secret]);
+    
         } catch (\Exception $e) {
-            // Handle any errors that occur during session creation
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Failed to create checkout session: ' . $e->getMessage()], 500);
         }
     }
 
-    public function success()
-    {
-        return view('success'); // Show success page
-    }
 
-    public function cancel()
-    {
-        return view('cancel'); // Show cancellation page
-    }
+
+
+    // -----------------------------------------------
+    
+    
 
 
 }

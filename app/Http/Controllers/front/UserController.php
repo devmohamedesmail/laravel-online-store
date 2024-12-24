@@ -105,7 +105,7 @@ class UserController extends Controller
 
     public function checkout_page($product_id = null){
         $countries = Country::all();
-        return view('front.pages.checkout',compact('countries'));
+        return view('front.pages.checkout.checkout',compact('countries'));
     }
 
 

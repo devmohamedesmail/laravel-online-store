@@ -24,22 +24,22 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-   
 
-  // ++++++++++++++++++++++++++++++++++++++++++++ Admin Panel Routes Start +++++++++++++++++++++++++++++++++++++++++++++++
+
+    // ++++++++++++++++++++++++++++++++++++++++++++ Admin Panel Routes Start +++++++++++++++++++++++++++++++++++++++++++++++
     Route::controller(SettingController::class)->group(function () {
         Route::get('/setting/page', 'setting')->name('setting.page');
         Route::post('/setting', 'update_setting')->name('update.setting');
     });
 
-    
+
     Route::controller(Category_controller::class)->group(function () {
         Route::get('/categories/page', 'categories_page')->name('categories.page');
         Route::post('add/categories', 'add_category')->name('add.category');
         Route::get('edit/category/{id}', 'edit_category')->name('edit.category');
-        Route::post('edit/category/confirmation/{id}', 'edit_category_confirmartion')->name('edit.category.confirmation');  
+        Route::post('edit/category/confirmation/{id}', 'edit_category_confirmartion')->name('edit.category.confirmation');
         Route::get('delete/category/{id}', 'delete_category')->name('delete.category');
-   
+
     });
 
 
@@ -53,46 +53,54 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('update/product/{id}', 'update_product')->name('update.product');
         Route::post('update/product/confirmation/{id}', 'update_product_confirmation')->name('update.product.confirmation');
         Route::get('delete/product/{id}', 'delete_product')->name('delete.product');
-       
+
     });
 
 
 
 
     Route::controller(Cart_admin_conroller::class)->group(function () {
-        Route::get('admin/cart/page','admin_cart_page')->name('admin.cart.page.control');
+        Route::get('admin/cart/page', 'admin_cart_page')->name('admin.cart.page.control');
     });
 
 
     Route::controller(Country_controller::class)->group(function () {
-        Route::get('countries/page','countries_page')->name('countries.page');
-        Route::post('add/new/country','add_country')->name('add.country');
-        Route::post('add/new/city','add_city')->name('add.city');
-        Route::get('delete/country/{id}','delete_country')->name('delete.country');
-        Route::get('delete/city/{id}','delete_city')->name('delete.city');
+        Route::get('countries/page', 'countries_page')->name('countries.page');
+        Route::post('add/new/country', 'add_country')->name('add.country');
+        Route::post('add/new/city', 'add_city')->name('add.city');
+        Route::get('delete/country/{id}', 'delete_country')->name('delete.country');
+        Route::get('delete/city/{id}', 'delete_city')->name('delete.city');
     });
 
 
 
     Route::controller(Slider_Baner_controller::class)->group(function () {
-        Route::get('slider/page','slider_page')->name('slider.page');
-        Route::post('add/new/slider','add_new_slider')->name('add.new.slider');
-        Route::get('delete/slider/{id}','delete_slider')->name('delete.slider');
+        Route::get('slider/page', 'slider_page')->name('slider.page');
+        Route::post('add/new/slider', 'add_new_slider')->name('add.new.slider');
+        Route::get('delete/slider/{id}', 'delete_slider')->name('delete.slider');
     });
 
 
-    Route::controller(Payment_Options_controller::class)->group(function () { 
-        Route::get('payment/page','payment_page')->name('payment.page');
-        Route::post('add/new/payment','add_new_payment')->name('add.new.payment');
-        Route::get('toggle/active/payment/{id}','toggle_active_payment')->name('toggle.active.payment');
-     });
+    Route::controller(Payment_Options_controller::class)->group(function () {
+        Route::get('payment/page', 'payment_page')->name('payment.page');
+        Route::post('add/new/payment', 'add_new_payment')->name('add.new.payment');
+        Route::get('toggle/active/payment/{id}', 'toggle_active_payment')->name('toggle.active.payment');
+    });
 
 
 
-     Route::controller(Order_controller::class)->group(function () {
-        Route::get('show/orders/page','show_orders_page')->name('show.orders.page');
-     });
+    Route::controller(Order_controller::class)->group(function () {
+        Route::get('show/orders/page', 'show_orders_page')->name('show.orders.page');
+    });
 
+
+
+    Route::controller(Payment_controller::class)->group(function () {
+        Route::get('/checkout',  'index');
+        Route::post('/checkout/session', 'createCheckoutSession')->name('checkout.session.create');
+        Route::get('/checkout/success', 'success_payment')->name('checkout.success');
+        Route::get('/checkout/cancel', 'cancel_payment')->name('checkout.cancel');
+    });
 
 
     // ++++++++++++++++++++++++++++++++++++++++++++ Admin Panel Routes End +++++++++++++++++++++++++++++++++++++++++++++++
@@ -101,22 +109,22 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes Start +++++++++++++++++++++++++++++++++++++++++++++++
     Route::controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('user.index');
-        Route::get('poroduct/details/{id}','product_details')->name('product.details');
-        Route::post('add/product/to/cart/{id}/{title}','add_cart')->name('add.cart');
-        Route::get('wishlist/page','wishlist')->name('wishlist');
-        Route::get('contact/page','contact_page')->name('contact.page');
-        Route::get('checkout/page/{product_id?}','checkout_page')->name('checkout.page');
-        Route::get('shop/page','shop_page')->name('shop.page');
-        Route::get('cart/page','cart_page')->name('cart.page');
-        Route::get('/get-cities/{country_id}',  'getCitiesByCountry');
+        Route::get('poroduct/details/{id}', 'product_details')->name('product.details');
+        Route::post('add/product/to/cart/{id}/{title}', 'add_cart')->name('add.cart');
+        Route::get('wishlist/page', 'wishlist')->name('wishlist');
+        Route::get('contact/page', 'contact_page')->name('contact.page');
+        Route::get('checkout/page/{product_id?}', 'checkout_page')->name('checkout.page');
+        Route::get('shop/page', 'shop_page')->name('shop.page');
+        Route::get('cart/page', 'cart_page')->name('cart.page');
+        Route::get('/get-cities/{country_id}', 'getCitiesByCountry');
     });
     // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes End +++++++++++++++++++++++++++++++++++++++++++++++
 
-    Route::controller(Payment_controller::class)->group(function(){
-        Route::get('stripe','stripe')->name('stripe');
-        Route::get('/checkout',  'checkout')->name('checkout');
-        Route::get('/success',  'success')->name('success');
-        Route::get('/cancel',  'cancel')->name('cancel');
+    Route::controller(Payment_controller::class)->group(function () {
+        Route::get('stripe', 'stripe')->name('stripe');
+        Route::get('/checkout', 'checkout')->name('checkout');
+        Route::get('/success', 'success')->name('success');
+        Route::get('/cancel', 'cancel')->name('cancel');
     });
 
 
