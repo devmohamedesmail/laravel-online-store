@@ -25,9 +25,9 @@
   <!-- Page Specific JS File -->
   {{-- <script src="/templates/admin/assets/js/page/forms-advanced-forms.js"></script> --}}
   <!-- Template JS File -->
-  <script src="/templates/admin/assets/bundles/izitoast/js/iziToast.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
   <!-- Page Specific JS File -->
-  <script src="/templates/admin/assets/js/page/toastr.js"></script>
+  {{-- <script src="/templates/admin/assets/js/page/toastr.js"></script> --}}
 
 
   {{-- datatables start --}}

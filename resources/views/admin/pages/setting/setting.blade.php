@@ -3,7 +3,7 @@
 @section('content')
     <div class="main-content">
         <section class="section">
-            <h6>{{ __('translate.setting') }}</h6>
+            <h6 class="row bg-white text-dark p-2">{{ __('translate.setting') }}</h6>
             <div>
                 <form action="{{ route('update.setting') }}" method="post" enctype="multipart/form-data" id="tag-form">
                     @csrf

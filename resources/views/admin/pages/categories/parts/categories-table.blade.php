@@ -23,7 +23,7 @@
                             <td>
 
                                 @if ($category->image)
-                                    <img src="/uploads/category/{{ $category->image }}" width="50px" />
+                                    <img src="{{ asset('uploads/' . $category->image) }}" width="50px" />
                                 @else
                                     <p>{{ __('translate.no-image') }}</p>
                                 @endif

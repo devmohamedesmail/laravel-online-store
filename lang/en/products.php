@@ -22,4 +22,5 @@ return [
     'category-image'=>'Category Image',
     'image'=>'Image',
     'cart'=> 'Cart',
+    'select-image-variant'=> 'Select Image Variant',
 ];

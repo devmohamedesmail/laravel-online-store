@@ -59,4 +59,7 @@ return [
    "pending-orders" => "Pending Orders",
    "non-completed-orders" => "Non Completed Orders",
    "orders"=> " Orders",
+   "parent"=> "Parent",
+   "deleted"=> "Deleted Successfully",
+   "add-payment-method"=> "Add New Payment Method",
 ];

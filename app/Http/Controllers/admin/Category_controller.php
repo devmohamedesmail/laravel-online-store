@@ -21,24 +21,29 @@ class Category_controller extends Controller
             return view('admin.404');
         }
 
-       
+
     }
 
     public function add_category(StoreCategoryRequest $request)
     {
-        $category = new Category();
-        $category->parent_id = $request->parent_id;
-        $category->name = $request->name;
-        $category->slug = $request->slug;
-        $category->description = $request->description;
-        $image = $request->image;
+
+        try {
+            $category = new Category();
+            $category->parent_id = $request->parent_id;
+            $category->name = $request->name;
+            $category->slug = $request->slug;
+            $category->description = $request->description;
+            $image = $request->image;
             if ($image) {
                 $image_name = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploads/category'), $image_name);
+                $image->move(public_path('uploads'), $image_name);
                 $category->image = $image_name;
             }
-        $category->save();
-        return redirect()->back()->with('success',__('translate.added'));
+            $category->save();
+            return redirect()->back()->with('success', __('translate.added'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', __('translate.error'));
+        }
     }
 
 
@@ -46,9 +51,14 @@ class Category_controller extends Controller
     // delete_category
     public function delete_category($id)
     {
-        $category = Category::find($id);
-        $category->delete();
-        return redirect()->back()->with('success', 'Category Deleted Successfully');
+        
+        try {
+            $category = Category::find($id);
+            $category->delete();
+            return redirect()->back()->with('success', __('translate.deleted'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('success', __('translate.error'));
+        }
     }
 
 
@@ -74,12 +84,12 @@ class Category_controller extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $image = $request->image;
-            if ($image) {
-                $image_name = time() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploads/category'), $image_name);
-                $category->image = $image_name;
-            }
+        if ($image) {
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/category'), $image_name);
+            $category->image = $image_name;
+        }
         $category->save();
-        return redirect()->back()->with('success',__('translate.updated'));
+        return redirect()->back()->with('success', __('translate.updated'));
     }
 }

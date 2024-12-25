@@ -12,16 +12,17 @@
                 });
             </script>
         @endif
+
+
+
         <section class="section">
 
 
             <form action="{{ route('add.new.product') }}" method="post" enctype="multipart/form-data" id="tag-form">
                 @csrf
-                <div class="row d-flex justify-content-around">
-                    <div class="col-12 my-3">
-                        <h6 class="mx-4">{{ __('translate.add-new-product') }}
-                        </h6>
-                    </div>
+                <h6 class="row bg-white text-dark p-2">{{ __('translate.add-new-product') }}</h6>
+                <div class="row d-flex justify-content-between">
+
                     @include('admin.pages.products.parts.add-product-details')
                     @include('admin.pages.products.parts.add-product-images')
                 </div>
@@ -35,8 +36,6 @@
 
 
     <script>
-
-
         document.getElementById("generate-variations").addEventListener("click", function(event) {
             event.preventDefault();
             const allVariationsContainer = document.getElementById("all-variation");
@@ -59,7 +58,7 @@
 
             // Split values by commas and prepare combinations
             const attributeCombinations = attributeValues.map(values => values.split(",").map(value => value
-            .trim()));
+                .trim()));
 
             // Helper function to generate all combinations
             function generateCombinations(arrays) {
@@ -87,7 +86,8 @@
                 <p class="text-dark"><strong>Variation:</strong> ${combination.join(" | ")}</p>
                 <div class="d-flex justify-content-between align-items-center">
                     <label for="image" class="text-dark">
-                        <i class="fas fa-images fs-1"></i>
+                         
+                        <p>{{ __('products.select-image-variant') }}</p>
                         <input id="image" class="d-none" name="image_variant[]" type="file" class="form-control mb-2">
                     </label>
                     <div>
@@ -167,5 +167,9 @@
                 reader.readAsDataURL(file);
             }
         }
+
+
+
+
     </script>
 @endsection

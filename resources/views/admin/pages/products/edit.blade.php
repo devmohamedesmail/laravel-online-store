@@ -12,16 +12,18 @@
                 });
             </script>
         @endif
+
+        <h6 class="row bg-white text-dark p-2">{{ __('translate.edit') }}</h6>
+
+
         <section class="section">
 
 
-            <form action="{{ route('update.product.confirmation',$product->id) }}" method="post" enctype="multipart/form-data" id="tag-form">
+            <form action="{{ route('update.product.confirmation', $product->id) }}" method="post"
+                enctype="multipart/form-data" id="tag-form">
                 @csrf
-                <div class="row d-flex justify-content-around">
-                    <div class="col-12 my-3">
-                        <h6 class="mx-4">{{ __('translate.update-product') }}
-                        </h6>
-                    </div>
+                <div class="row d-flex justify-content-between bg-white my-3">
+
 
                     <div class="col-12 col-md-8 col-lg-8 bg-white p-3">
 
@@ -99,8 +101,14 @@
 
                         <div class="row">
                             <div class="col-12 col-md-6">
-                                <div class="pretty p-icon p-smooth">
-                                    <input type="checkbox" name="featured" />
+                                <div class="pretty p-icon p-smooth d-flex align-items-center">
+                                    <input 
+                                       type="checkbox" 
+                                       name="featured" 
+                                       value="{{ $product->featured }}"
+                                       @if ($product->featured)
+                                           checked
+                                       @endif  />
                                     <div class="state p-success">
                                         <i class="icon fa fa-check"></i>
                                         <label class="form-check-label text-dark">
@@ -109,10 +117,11 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 col-md-6">
-                                <div class="pretty p-switch p-fill">
+                                <div class="pretty p-switch p-fill d-flex align-items-center">
                                     <input type="checkbox" name="type" id="switch" value="variations" />
-                                    <div class="state">
+                                    <div class="state mx-2">
                                         <label class="text-dark">{{ __('products.product-type') }}</label>
                                     </div>
                                 </div>
@@ -120,9 +129,40 @@
                         </div>
 
 
+                        {{-- <div class="d-flex mt-4">
+                            <div class="form-group">
+                                <label>{{ __('translate.attribute-name') }}</label>
+                                <input type="text" class="form-control" name="attribute_name[]">
+                            </div>
+                            <div class="form-group w-100 mx-4">
+                                <label>{{ __('translate.attribute-value') }}
+                                </label>
+                                <textarea class="form-control inputtags" name="attribute_values[]"></textarea>
+                            </div>
+                        </div> --}}
 
 
-
+                        @if ($product->attributes && $product->attributes->count() > 0)
+                            @foreach ($product->attributes as $attribute)
+                                <div class="d-flex mt-4">
+                                    <div class="form-group">
+                                        <label>{{ __('translate.attribute-name') }}</label>
+                                        <input type="text" class="form-control" name="attribute_name[]"
+                                            value="{{ $attribute->name }}">
+                                    </div>
+                                    <div class="form-group w-100 mx-4">
+                                        <label>{{ __('translate.attribute-value') }} </label>
+                                        <textarea class="form-control inputtags text-dark" name="attribute_values[]">
+                                           
+                                           dfdsf
+                                        </textarea>
+                                        
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                           
+                        @endif
 
 
 
@@ -173,39 +213,42 @@
                     <div class="col-12 col-md-3 col-lg-3 p-2 bg-white">
 
 
-    <div class="text-center mt-3">
-        <label for="main-image">
-            <img id="preview-image" src="/uploads/products/{{ $product->image }}" width="100px" alt="">
-            <input id="main-image" type="file" class="d-none" name="image" onchange="previewImage(event)">
-            <p class="text-center mt-2 text-dark">{{ __('products.main-image') }}</p>
-        </label>
+                        <div class="text-center mt-3">
+                            <label for="main-image">
+                                <img id="preview-image" src="/uploads/products/{{ $product->image }}" width="100px"
+                                    alt="">
+                                <input id="main-image" type="file" class="d-none" name="image"
+                                    onchange="previewImage(event)">
+                                <p class="text-center mt-2 text-dark">{{ __('products.main-image') }}</p>
+                            </label>
 
-        @error('image')
-            <div class="alert alert-danger my-1">{{ $message }}</div>
-        @enderror
-    </div>
-
-
-    <hr>
-
-    <div class="text-center">
-        <div class="gallery"></div>
-        <label for="gallery-input">
-            <img id="gallery" src="/templates/admin/assets/icons/picture.png" width="100px" alt="">
-
-            <input id="gallery-input" class="d-none" type="file" multiple name="gallery[]"
-                onchange="galleryPreview(event)">
-            <p class="text-center mt-2 text-dark">{{ __('products.add-images') }}</p>
-        </label>
-
-    </div>
+                            @error('image')
+                                <div class="alert alert-danger my-1">{{ $message }}</div>
+                            @enderror
+                        </div>
 
 
-    <div class="text-center ">
-        <button class="btn btn-primary w-50" type="submit">{{ __('translate.add') }}</button>
-    </div>
+                        <hr>
 
-</div>
+                        <div class="text-center">
+                            <div class="gallery"></div>
+                            <label for="gallery-input">
+                                <img id="gallery" src="/templates/admin/assets/icons/picture.png" width="100px"
+                                    alt="">
+
+                                <input id="gallery-input" class="d-none" type="file" multiple name="gallery[]"
+                                    onchange="galleryPreview(event)">
+                                <p class="text-center mt-2 text-dark">{{ __('products.add-images') }}</p>
+                            </label>
+
+                        </div>
+
+
+                        <div class="text-center ">
+                            <button class="btn btn-primary w-50" type="submit">{{ __('translate.add') }}</button>
+                        </div>
+
+                    </div>
                 </div>
 
             </form>
@@ -214,6 +257,53 @@
         @include('admin.inc.setting')
 
     </div>
+
+
+
+
+
+
+
+
+    <script>
+        const switchBtn = document.getElementById('switch');
+        const attributeContainer = document.getElementById('product-attribute-variation-container').style.display = 'none';
+
+        switchBtn.addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('product-attribute-variation-container').style.display = 'block';
+            } else {
+                document.getElementById('product-attribute-variation-container').style.display = 'none';
+            }
+        })
+
+
+        document.getElementById("add-attribute-btn").addEventListener("click", function(event) {
+            event.preventDefault();
+            console.log("new attribute added");
+
+            const attributeGroup = document.createElement("div");
+            attributeGroup.classList.add("d-flex");
+
+            attributeGroup.innerHTML = `
+            <div class="form-group">
+                <label>{{ __('translate.attribute-name') }}</label>
+                <input type="text" class="form-control" name="attribute_name[]">
+            </div>
+            <div class="form-group w-100 mx-4">
+                <label>{{ __('translate.attribute-value') }} </label>
+                <textarea class="form-control inputtags" name="attribute_values[]"></textarea>
+            </div>
+        `;
+
+            // Append the new group to the container
+            document.getElementById("attributes-container-group").appendChild(attributeGroup);
+
+            // Reinitialize tagsinput for the newly added textarea
+            $(attributeGroup).find(".inputtags").tagsinput();
+        });
+    </script>
+
 
 
     <script>

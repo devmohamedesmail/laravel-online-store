@@ -1,5 +1,6 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
+
         <div class="sidebar-brand">
             <a href="index.html">
                 
@@ -16,11 +17,12 @@
                 </span>
             </a>
         </div>
+
         <ul class="sidebar-menu">
-            <li class="menu-header">Main</li>
+            
 
 
-            <li class="dropdown active">
+            <li class="dropdown ">
                 <a href="{{ route('setting.page') }}" class="nav-link">
                     <i class="fas fa-cog"></i>
                     <span>{{ __('translate.setting') }}</span></a>
@@ -62,14 +64,14 @@
 
 
 
-            <li class="dropdown active">
+            <li class="dropdown ">
                 <a href="{{ route('admin.cart.page.control') }}" class="nav-link">
                     <i class="fa-solid fa-cart-shopping"></i>
                     <span>{{ __('products.cart') }}</span></a>
             </li>
 
 
-            <li class="dropdown active">
+            <li class="dropdown">
                 <a href="{{ route('countries.page') }}" class="nav-link">
                     <i class="fa-solid fa-globe"></i>
                     <span>{{ __('countries.countries') }}</span></a>
@@ -78,14 +80,14 @@
 
 
 
-            <li class="dropdown active">
+            <li class="dropdown ">
                 <a href="{{ route('slider.page') }}" class="nav-link">
                     <i class="fas fa-cog"></i>
                     <span>{{ __('translate.slider-page') }}</span></a>
             </li>
 
 
-            <li class="dropdown active">
+            <li class="dropdown ">
                 <a href="{{ route('payment.page') }}" class="nav-link">
                     <i class="fas fa-cog"></i>
                     <span>{{ __('translate.payment') }}</span></a>

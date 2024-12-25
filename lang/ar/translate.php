@@ -59,5 +59,8 @@ return [
    "pending-orders" => " الطلبات المعلقه ",
    "non-completed-orders" => " الطلبات غير المكتمله ",
    "orders"=> " الطلبات ",
+   "parent"=>  " قسم رئيسي ",
+   "deleted"=> "  تم الحذف ",
+   "add-payment-method"=> " اضافه خيار الدفع ",
 
 ];

@@ -3,7 +3,7 @@
 @section('content')
     <div class="main-content">
 
-
+        <h6 class="row bg-white text-dark p-2">{{ __('countries.countries') }}</h6>
         <div class="row bg-white py-3">
             <div class="col-12 col-md-6 bg-white">
 
@@ -38,7 +38,13 @@
 
                             @if ($categories->count() > 0)
                                 @foreach ($countries as $country)
-                                    <option value="{{ $country->id }}">{{ $country->country_en }}</option>
+                                    <option value="{{ $country->id }}">
+                                        @if (app()->getLocale() == 'en')
+                                        {{ $country->country_en }}
+                                        @else
+                                        {{ $country->country_ar }}
+                                        @endif
+                                    </option>
                                 @endforeach
                             @endif
 

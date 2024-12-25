@@ -11,8 +11,19 @@
                     iziToast.success({
                         title: 'Success',
                         message: '{{ session('success') }}',
-                        position: 'topRight', // You can adjust the position of the toast
-                        timeout: 3000 // Timeout in ms (3 seconds)
+                        position: 'topRight', 
+                        timeout: 3000 
+                    });
+                </script>
+            @endif
+
+            @if (session('error'))
+                <script>
+                    iziToast.success({
+                        title: 'Error',
+                        message: '{{ session('error') }}',
+                        position: 'topRight', 
+                        timeout: 3000 
                     });
                 </script>
             @endif
@@ -60,7 +71,7 @@
                                 <label>{{ __('translate.select-category') }}</label>
                                 <select class="form-control selectric" name="parent_id">
 
-                                    <option value="0" selected>{{ __('parent') }}</option>
+                                    <option value="0" selected>{{ __('translate.parent') }}</option>
 
                                     @if ($categories->count() > 0)
                                         @foreach ($categories as $category)

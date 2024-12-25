@@ -17,13 +17,24 @@ class Product_controller extends Controller
     // add_product_page
     public function add_product_page()
     {
-        return view('admin.pages.products.index');
+        try {
+            return view('admin.pages.products.index');
+        } catch (\Throwable $th) {
+            return view('admin.404');
+        }
+       
     }
     // show products page
     public function show_products_page()
     {   
-        $products = Product::all();
-        return view('admin.pages.products.show',compact('products'));
+        try {
+            $products = Product::all();
+            return view('admin.pages.products.show',compact('products'));
+        } catch (\Throwable $th) {
+            return view('admin.404');
+        }
+        
+      
     }
 
 
@@ -32,6 +43,9 @@ class Product_controller extends Controller
     public function add_product(StoreProductRequest $request)
     {
 
+
+
+        // dd($request);
         $product = new Product();
         $product->category_id = $request->category;
         $product->name = $request->name;
@@ -62,10 +76,10 @@ class Product_controller extends Controller
         $product->sale_price = $request->sale_price;
         $product->featured = $request->featured;
         $product->type = $request->type;
-
+        
 
         $product->save();
-        if ($request->type === 'variations') {
+        if ($request->filled('type') && $request->type === 'variable' ) {
             $product->type = $request->type;
             if (count($request->attribute_name) > 0) {
                 foreach ($request->attribute_name as $index => $name) {
@@ -166,8 +180,15 @@ class Product_controller extends Controller
 
     // update_product
     public function update_product($id){
-        $product = Product::findOrFail($id);
-        return view('admin/pages.products.edit',compact('product'));
+
+        try {
+            
+            $product = Product::with('attributes.values' , 'variations')->findOrFail($id);
+            return view('admin/pages.products.edit',compact('product'));
+          
+        } catch (\Throwable $th) {
+           return view('admin.404');
+        }
     }
 
 
@@ -210,8 +231,13 @@ class Product_controller extends Controller
 
 
     public function delete_product($id){
-        $product = Product::findOrFail($id);
-        $product->delete();
-        return redirect()->back()->with('success',__('translate.deleted'));
+       
+        try {
+            $product = Product::findOrFail($id);
+            $product->delete();
+            return redirect()->back()->with('success',__('translate.deleted'));
+        } catch (\Throwable $th) {
+            return view('admin.404');
+        }
     }
 }

@@ -1,4 +1,4 @@
-<div class="col-12 col-md-8 col-lg-8 bg-white p-3">
+<div class="col-12 col-md-9 col-lg-9 bg-white p-3 ">
 
 
     <div class="form-group">
@@ -73,7 +73,7 @@
 
     <div class="row">
         <div class="col-12 col-md-6">
-            <div class="pretty p-icon p-smooth">
+            <div class="pretty p-icon p-smooth d-flex align-items-center">
                 <input type="checkbox" name="featured" />
                 <div class="state p-success">
                     <i class="icon fa fa-check"></i>
@@ -84,24 +84,14 @@
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <div class="pretty p-switch p-fill">
-                <input type="checkbox" name="type" id="switch" value="variations" />
-                <div class="state">
+            <div class="pretty p-switch p-fill d-flex align-items-center">
+                <input type="checkbox" name="type" id="switch" value="variable" />
+                <div class="state mx-2">
                     <label class="text-dark">{{ __('products.product-type') }}</label>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
 
 
 
