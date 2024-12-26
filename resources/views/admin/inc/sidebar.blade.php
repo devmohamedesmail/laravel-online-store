@@ -3,10 +3,11 @@
 
         <div class="sidebar-brand">
             <a href="index.html">
-                
-                 @if ($setting->logo)
-                 <img alt="image" src="/uploads/setting/{{ $setting->logo }}" alt="{{ $setting->description }}" class="header-logo" /> 
-                 @endif
+
+                @if ($setting->logo)
+                    <img alt="image" src="{{ asset('/uploads/' . $setting->logo) }}" alt="{{ $setting->description }}"
+                        class="header-logo" />
+                @endif
                 <span class="logo-name " style="font-size: 12px">
 
                     @if (app()->getLocale() == 'en')
@@ -19,7 +20,7 @@
         </div>
 
         <ul class="sidebar-menu">
-            
+
 
 
             <li class="dropdown ">
@@ -93,6 +94,12 @@
                     <span>{{ __('translate.payment') }}</span></a>
             </li>
 
+            <li class="dropdown ">
+                <a href="{{ route('media.library.page') }}" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    <span>{{ __('translate.media-library') }}</span></a>
+            </li>
+
 
 
 
@@ -107,6 +114,7 @@
                             {{ __('translate.completed-orders') }}
                         </a>
                     </li>
+
                     <li>
                         <a class="nav-link" href="{{ route('show.products.page') }}">
                             {{ __('translate.non-completed-orders') }}

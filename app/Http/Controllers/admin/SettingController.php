@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\File;
 
 class SettingController extends Controller
 {
@@ -38,7 +39,7 @@ class SettingController extends Controller
             $logo = $request->logo;
             if($logo){
                 $imageName = time() . '.' . $logo->getClientOriginalExtension();
-                $logo->move(public_path('/uploads/setting'), $imageName);
+                $logo->move(public_path('/uploads'), $imageName);
                 $seeting->logo = $imageName;
             }
             
@@ -49,4 +50,22 @@ class SettingController extends Controller
             //throw $th;
         }
     }
+
+
+
+    // media library page
+    public function media_library_page(){
+        $imagePath = public_path('uploads'); // Path to the media folder
+        $images = File::files($imagePath);
+        return view("admin.pages.media-library.index", compact("images"));
+    }
+
+
+
+
+
+
+
+
+
 }

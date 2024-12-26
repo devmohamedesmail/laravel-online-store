@@ -12,13 +12,33 @@ class Api_controller extends Controller
     // 
 
     public function showCategories(){
-        $categories = Category::all();
-        return response()->json($categories);
+      
+        try {
+            $categories = Category::all();
+            return response()->json(['data'=>$categories,'status'=>200,'msg'=> 'success']);
+        } catch (\Throwable $th) {
+            return response()->json(['data'=>$categories,'status'=> 500,'msg'=> $th->getMessage()]);
+        }
     }
 
 
-    public function products(){
-        $products = Product::with('category','attributes.values','variations')->get();
-        return response()->json($products);
+
+    public function show_category_products($id){
+        try {
+            $products = Category::with('products.attributes.values','products.variations')->findOrFail($id);
+            return response()->json(['data'=>$products,'status'=>200,'msg'=> 'success']);
+        } catch (\Throwable $th) {
+            return response()->json(['data'=>$products,'status'=> 500,'msg'=> $th->getMessage()]);
+        }
+    }
+
+
+    public function show_products(){    
+        try {
+            $products = Product::with('category','attributes.values','variations')->get();
+            return response()->json(['data'=>$products,'status'=> 200,'msg'=> 'success']);
+        } catch (\Throwable $th) {
+            return response()->json(['data'=>$products,'status'=> 500,'msg'=> $th->getMessage()]);
+        }
     }
 }

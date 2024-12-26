@@ -33,12 +33,12 @@
                                     <div id="gallery" class="product-dec-slider-2 product-tab-left">
                                         @if ($product->gallery != null)
                                             @foreach ($product->gallery as $img)
-                                                <a data-image="/uploads/products/{{ $img }}"
-                                                    data-zoom-image="/uploads/products/{{ $img }}"
+                                                <a data-image="{{ asset('/uploads/'. $img) }}"
+                                                    data-zoom-image="{{ asset('/uploads/'. $img) }}"
                                                     class="slick-slide slick-cloned" data-slick-index="-4"
                                                     aria-hidden="true" tabindex="-1">
                                                     <img class="blur-up lazyload"
-                                                        src="/uploads/products/{{ $img }}"
+                                                        src="{{ asset('/uploads/'. $img) }}"
                                                         alt="{{ $product->name }}" />
                                                 </a>
                                             @endforeach
@@ -47,12 +47,13 @@
                                     </div>
                                 </div>
 
-
+                               
                                 <div class="zoompro-wrap product-zoom-right pl-20">
                                     <div class="zoompro-span">
                                         <img class="blur-up lazyload zoompro"
-                                            data-zoom-image="/uploads/products/{{ $product->image }}"
-                                            alt="{{ $product->name }}" src="/uploads/products/{{ $product->image }}" />
+                                            data-zoom-image="{{ asset('uploads'. $product->image) }}"
+                                            alt="{{ $product->name }}" src="{{ asset('/uploads/'. $product->image) }}"
+                                            width="100%" />
                                     </div>
 
 
@@ -194,6 +195,17 @@
                                             {{ __('front.buy-now') }}
                                         </a>
                                     </div>
+
+
+                                    
+                                </div>
+
+
+                                <div class="shopify-payment-button my-3 w-100" style="margin-top: 10px" data-shopify="payment-button">
+                                    <a href="{{ route('checkout.page') }}" type="button"
+                                        class="shopify-payment-button__button shopify-payment-button__button--unbranded">
+                                        {{ __('front.checkout') }}
+                                    </a>
                                 </div>
                                 <!-- End Product Action -->
                             </form>
@@ -252,19 +264,38 @@
                 </div>
                 <!--End-product-single-->
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <!--Product Tabs-->
                 <div class="tabs-listing">
                     <ul class="product-tabs d-flex justify-content-center list-unstyled">
-                        <li rel="tab1"><a class="tablink mx-3"> {{ __('front.product-details') }} </a></li>
-                        <li rel="tab2"><a class="tablink mx-3"> {{ __('front.product-reviews') }} </a></li>
+                        <li rel="tab1"><a class="tablink mx-3 bg-dark p-3 text-white"> {{ __('front.product-details') }} </a></li>
+                        <li rel="tab2"><a class="tablink mx-3 bg-dark p-3 text-white"> {{ __('front.product-reviews') }} </a></li>
 
                     </ul>
                     <div class="tab-container">
+
                         <div id="tab1" class="tab-content">
                             <div class="product-description rte">
                                 {!! $product->long_description !!}
                             </div>
                         </div>
+
 
                         <div id="tab2" class="tab-content">
                             <div id="shopify-product-reviews">
@@ -369,55 +400,7 @@
                                                         consequat.</p>
                                                 </div>
                                             </div>
-                                            <div class="spr-review">
-                                                <div class="spr-review-header">
-                                                    <span
-                                                        class="product-review spr-starratings spr-review-header-starratings"><span
-                                                            class="reviewLink"><i class="fa fa-star"></i><i
-                                                                class="font-13 fa fa-star"></i><i
-                                                                class="font-13 fa fa-star"></i><i
-                                                                class="font-13 fa fa-star"></i><i
-                                                                class="font-13 fa fa-star"></i></span></span>
-                                                    <h3 class="spr-review-header-title">Lorem Ipsum is simply dummy text of
-                                                        the printing</h3>
-                                                    <span class="spr-review-header-byline"><strong>larrydude</strong> on
-                                                        <strong>Dec 30, 2018</strong></span>
-                                                </div>
-
-                                                <div class="spr-review-content">
-                                                    <p class="spr-review-content-body">Sed ut perspiciatis unde omnis iste
-                                                        natus error sit voluptatem accusantium doloremque laudantium, totam
-                                                        rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
-                                                        architecto beatae vitae dicta sunt explicabo.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            <div class="spr-review">
-                                                <div class="spr-review-header">
-                                                    <span
-                                                        class="product-review spr-starratings spr-review-header-starratings"><span
-                                                            class="reviewLink"><i class="fa fa-star"></i><i
-                                                                class="font-13 fa fa-star"></i><i
-                                                                class="font-13 fa fa-star"></i><i
-                                                                class="font-13 fa fa-star"></i><i
-                                                                class="font-13 fa fa-star"></i></span></span>
-                                                    <h3 class="spr-review-header-title">Neque porro quisquam est qui
-                                                        dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...
-                                                    </h3>
-                                                    <span class="spr-review-header-byline"><strong>quoctri1905</strong> on
-                                                        <strong>Dec 30, 2018</strong></span>
-                                                </div>
-
-                                                <div class="spr-review-content">
-                                                    <p class="spr-review-content-body">Lorem Ipsum is simply dummy text of
-                                                        the printing and typesetting industry. Lorem Ipsum has been the
-                                                        industry's standard dummy text ever since the 1500s, when an unknown
-                                                        printer took a galley of type and scrambled.<br>
-                                                        <br>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                                        industry.
-                                                    </p>
-                                                </div>
-                                            </div>
+                                         
                                         </div>
                                     </div>
                                 </div>
@@ -449,13 +432,13 @@
                                     <a href="{{ route('product.details', $item->id) }}">
 
                                         <img class="primary blur-up lazyload"
-                                            data-src="/uploads/products/{{ $item->image }}"
-                                            src="/uploads/products/{{ $item->image }}" alt="{{ $item->name }}"
+                                            data-src="{{ asset('uploads/' . $item->image) }}"
+                                            src="{{ asset('uploads/' . $item->image) }}" alt="{{ $item->name }}"
                                             title="product">
 
                                         <img class="hover blur-up lazyload"
-                                            data-src="/uploads/products/{{ $item->image }}"
-                                            src="/uploads/products/{{ $item->image }}" alt="{{ $item->name }}"
+                                            data-src="{{ asset('uploads/' . $item->image) }}"
+                                            src="{{ asset('uploads/' . $item->image) }}" alt="{{ $item->name }}"
                                             title="product">
 
 

@@ -12,10 +12,10 @@
 
     <!--Body Content-->
     <div id="page-content mt-4">
-        <div class="page section-header text-center">
+        <div class="page section-header text-center mt-5">
             <div class="page-title">
                 <div class="wrapper">
-                    <h1 class="page-width">Checkout</h1>
+                    <h1 class="page-width">{{ __('front.checkout') }}</h1>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
             </div>
 
             <div class="row billing-fields">
-                {{-- @include('front.pages.checkout.parts.billing-info') --}}
+                @include('front.pages.checkout.parts.billing-info')
 
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="your-order-payment">
@@ -97,15 +97,46 @@
 
 
                         <section>
-                            <div class="product">
+                            {{-- <div class="product">
                                 <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
                                 <div class="description">
                                     <h3>Stubborn Attachments</h3>
                                     <h5>$20.00</h5>
                                 </div>
-                            </div>
+                            </div> --}}
+
+
+                            @if ($cartItems->count() > 0)
+                                @foreach ($cartItems as $item)
+                                    <div class="d-flex my-2">
+                                        <div>
+                                            <img src="{{ asset('/uploads/' . $item->image) }}" width="50px" />
+                                        </div>
+                                        <div>
+                                            <p>{{ $item->product->name }} </p>
+                                            <p>{{ $item->price }}
+                                                @if (app()->getLocale() == 'ar')
+                                                    {{ $setting->currency_ar }}
+                                                @else
+                                                    {{ $setting->currency_en }}
+                                                @endif
+                                            </p>
+                                            <p>
+                                                {{ $item->quantity }} {{ __('front.quantity') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                no
+                            @endif
+
+
+
+
                             <form action="{{ route('checkout.session.create') }}" method="POST">
                                 @csrf
+                                <input type="hidden" name="cartItems" value="{{ json_encode($cartItems) }}">
                                 <button type="submit" class="btn btn-primary" id="checkout-button">Checkout</button>
                             </form>
                         </section>
@@ -114,7 +145,18 @@
 
                         <div class="your-payment">
                             <h2 class="payment-title mb-3">payment method</h2>
-
+                            @if ($payment_methods->count() > 0)
+                               
+                                <div class="d-flex flex-column">
+                                    @foreach ($payment_methods as $method)
+                                    <input type="radio" id="{{ $method->id }}" name="payment_methodd"
+                                        value="{{ $method->id }}">
+                                    <label for="{{ $method->id }}">{{ $method->type_en }} </label>
+                                @endforeach
+                                </div>
+                            @else
+                                <p>No payment method</p>
+                            @endif
                         </div>
                     </div>
                 </div>

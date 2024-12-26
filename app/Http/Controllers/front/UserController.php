@@ -4,9 +4,11 @@ namespace App\Http\Controllers\front;
 
 use App\Models\Cart;
 use App\Models\City;
+use App\Models\Slider;
 use App\Models\Country;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\Paymentmethod;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
@@ -14,8 +16,9 @@ class UserController extends Controller
 {
     // index
     public function index()
-    {
-        return view("front.index");
+    { 
+        $sliders = Slider::all();
+        return view("front.index", compact("sliders"));
     }
 
 
@@ -43,7 +46,7 @@ class UserController extends Controller
             foreach ($product->attributes as $attribute) {
 
                 if (!isset($selected_variations[$attribute->name])) {
-                    // If any attribute is not selected, return an error
+                    
                     return redirect()->back()->withErrors(['error' => 'Please select a value for "' . $attribute->name . '"'])->withInput();
                 }
             }
@@ -81,6 +84,8 @@ class UserController extends Controller
             $cart->status = 'active';
             $cart->save();
             return redirect()->back();
+
+            
         }
 
 
@@ -105,7 +110,8 @@ class UserController extends Controller
 
     public function checkout_page($product_id = null){
         $countries = Country::all();
-        return view('front.pages.checkout.checkout',compact('countries'));
+        $payment_methods = Paymentmethod::where('status', 1)->get();
+        return view('front.pages.checkout.checkout',compact('countries','payment_methods'));
     }
 
 

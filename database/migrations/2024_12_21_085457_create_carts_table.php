@@ -21,8 +21,7 @@ return new class extends Migration
             $table->longText('image')->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->decimal('sale_price', 10, 2)->nullable();
-            $table->enum('status', ['active', 'abandoned', 'completed', 'cancelled'])->default('active');
-           
+            $table->enum('status', ['active', 'abandoned', 'completed', 'cancelled'])->default('active'); 
             $table->string('session_id')->nullable();
             $table->json('selected_variations')->nullable();
 

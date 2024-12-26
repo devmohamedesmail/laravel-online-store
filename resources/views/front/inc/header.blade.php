@@ -4,7 +4,7 @@
             <!--Desktop Logo-->
             <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
                 <a href="{{ route('user.index') }}">
-                    <img src="/uploads/setting/{{ $setting->logo }}" alt="{{ $setting->name }}"
+                    <img src="{{ asset('/uploads/' . $setting->logo) }}" alt="{{ $setting->name }}"
                         title="{{ $setting->name }}" width="60px" />
                 </a>
             </div>
@@ -68,7 +68,7 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
                 <div class="logo">
                     <a href="{{ route('user.index') }}">
-                        <img src="/public/uploads/setting/{{ $setting->logo }}" alt="{{ $setting->name }}"
+                        <img src="{{ asset('/uploads/' . $setting->logo) }}" alt="{{ $setting->name }}"
                             title="{{ $setting->name }}" width="50px" />
                     </a>
                 </div>
@@ -82,8 +82,9 @@
                     
                         <i class="icon anm anm-bag-l fs-2 text-dark" style="font-size: 20px"></i>
                     </a>
-                    
-                        <span class="site-header__cart-count" data-cart-render="item_count">2</span>
+                   
+                   
+                        <span class="site-header__cart-count" data-cart-render="item_count">{{ $cartItems->count() }}</span>
                    
 
                 </div>

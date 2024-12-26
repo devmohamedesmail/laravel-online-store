@@ -62,5 +62,6 @@ return [
    "parent"=>  " قسم رئيسي ",
    "deleted"=> "  تم الحذف ",
    "add-payment-method"=> " اضافه خيار الدفع ",
+   "media-library"=> " مكتبة الوسائط ",
 
 ];

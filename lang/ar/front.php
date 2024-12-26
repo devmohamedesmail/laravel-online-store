@@ -26,4 +26,9 @@ return [
     "password"=> " كلمة المرور ",
     "select-city"=> " اختر المدينة",
     "note"=> " ملاحظات الطلب ",
+    "new_arrivals"=> " المنتجات الجديدة",
+    "featured"=> " مميز ",
+    "cart"=> " سلة المشتريات ",
+    "checkout"=> " الدفع ",
+    "quantity"=> " الكمية ",
 ]; 

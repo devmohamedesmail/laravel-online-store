@@ -30,6 +30,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::controller(SettingController::class)->group(function () {
         Route::get('/setting/page', 'setting')->name('setting.page');
         Route::post('/setting', 'update_setting')->name('update.setting');
+        Route::get('media/library/page','media_library_page')->name('media.library.page');
     });
 
 
@@ -97,7 +98,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     Route::controller(Payment_controller::class)->group(function () {
         Route::get('/checkout',  'index');
-        Route::post('/checkout/session', 'createCheckoutSession')->name('checkout.session.create');
+        Route::post('/checkout/session/', 'createCheckoutSession')->name('checkout.session.create');
         Route::get('/checkout/success', 'success_payment')->name('checkout.success');
         Route::get('/checkout/cancel', 'cancel_payment')->name('checkout.cancel');
     });
@@ -120,12 +121,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     });
     // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes End +++++++++++++++++++++++++++++++++++++++++++++++
 
-    Route::controller(Payment_controller::class)->group(function () {
-        Route::get('stripe', 'stripe')->name('stripe');
-        Route::get('/checkout', 'checkout')->name('checkout');
-        Route::get('/success', 'success')->name('success');
-        Route::get('/cancel', 'cancel')->name('cancel');
-    });
+    
 
 
 });

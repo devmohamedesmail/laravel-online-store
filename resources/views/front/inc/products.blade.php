@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="section-header text-center">
-                    <h2 class="h2">New Arrivals</h2>
-                    <p>Grab these new items before they are gone!</p>
+                    <h2 class="h2">{{ __('front.new_arrivals') }}</h2>
+                   
                 </div>
             </div>
         </div>
@@ -17,18 +17,18 @@
 
                             <a href="{{ route('product.details', $product->id) }}" class="grid-view-item__link">
 
-                                <img class="primary blur-up lazyload" data-src="/uploads/products/{{ $product->image }}"
-                                    src="/uploads/products/{{ $product->image }}" alt="{{ $product->name }}"
-                                    title="product">
+                                <img class="primary blur-up lazyload" data-src="{{ asset('/uploads/' . $product->image) }}"
+                                    src="{{ asset('/uploads/' . $product->image) }}" alt="{{ $product->name }}"
+                                    title="{{ $product->name }}">
 
 
 
 
 
                                 <!-- Hover image -->
-                                <img class="hover blur-up lazyload" data-src="/uploads/products/{{ $product->image }}"
-                                    src="/uploads/products/{{ $product->image }}" alt="{{ $product->name }}"
-                                    title="product">
+                                <img class="hover blur-up lazyload" data-src="{{ asset('/uploads/' . $product->image) }}"
+                                    src="{{ asset('/uploads/' . $product->image) }}" alt="{{ $product->name }}"
+                                    title="{{ $product->name }}">
 
 
 
@@ -39,16 +39,18 @@
 
                                 <!-- product label -->
                                 <div class="product-labels rounded">
-                                    <span class="lbl on-sale">Sale</span>
-                                    <span class="lbl pr-label1">new</span>
+                                    <span class="lbl on-sale">
+                                        @if ($product->featured)
+                                          {{ __('front.featured') }}
+                                        @endif
+                                    </span>
+                                   
                                 </div>
                                 <!-- End product label -->
                             </a>
                             <!-- end product image -->
 
-                            <!-- countdown start -->
-                            <div class="saleTime desktop" data-countdown="2022/03/01"></div>
-                            <!-- countdown end -->
+                           
 
                             <!-- Start product button -->
                             <form class="variants add" action="#"

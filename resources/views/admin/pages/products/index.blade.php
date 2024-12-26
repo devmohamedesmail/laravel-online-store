@@ -80,15 +80,15 @@
             const allCombinations = generateCombinations(attributeCombinations);
 
             // Display each combination as a variation
-            allCombinations.forEach(combination => {
+            allCombinations.forEach((combination, index) => {
                 const variationHTML = `
             <div class="variation-item bg-white p-3 mb-3">
                 <p class="text-dark"><strong>Variation:</strong> ${combination.join(" | ")}</p>
                 <div class="d-flex justify-content-between align-items-center">
-                    <label for="image" class="text-dark">
+                    <label for="image_variant_${index}"  class="text-dark">
                          
                         <p>{{ __('products.select-image-variant') }}</p>
-                        <input id="image" class="d-none" name="image_variant[]" type="file" class="form-control mb-2">
+                        <input id="image_variant_${index}"  class="d-none" name="image_variant[]" type="file" class="form-control mb-2">
                     </label>
                     <div>
                         <label class="text-dark">{{ __('Price') }}</label>

@@ -26,7 +26,7 @@ class Slider_Baner_controller extends Controller
         $image = $request->image;
         if($image){
             $imageName = time() .'.'. $image->getClientOriginalExtension();
-            $request->image->move(public_path('uploads/sliders'), $imageName);
+            $request->image->move(public_path('uploads'), $imageName);
             $slider->image = $imageName;
         }
         $slider->save();

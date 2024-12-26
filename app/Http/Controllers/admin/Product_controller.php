@@ -57,7 +57,7 @@ class Product_controller extends Controller
         if ($image) {
             
             $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/products'), $imageName);
+            $image->move(public_path('uploads'), $imageName);
             $product->image = $imageName;
         }
         
@@ -66,7 +66,7 @@ class Product_controller extends Controller
             foreach ($request->file('gallery') as $image) {
                 // Generate a unique name for each gallery image
                 $galleryImageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploads/products'), $galleryImageName);
+                $image->move(public_path('uploads'), $galleryImageName);
                 $gallery[] = $galleryImageName;
             }
             $product->gallery = $gallery;  // Assuming you want to store the gallery as a JSON array
@@ -104,52 +104,46 @@ class Product_controller extends Controller
         }
 
     // Handle variations if the product type is 'variations'
-    if ($request->type === 'variations') {
-        // Get attribute names and values
+    if ($request->type === 'variable') {
         $attributeNames = $request->attribute_name;
         $attributeValues = $request->attribute_values;
         $prices = $request->price_variant;
         $salePrices = $request->sale_price_variant;
-        $images = $request->image_variant;
-
-        // Split attribute values by commas for multiple options
+        $images = $request->file('image_variant'); // Access the image files
+    
         $attributeCombinations = [];
         foreach ($attributeValues as $values) {
             $attributeCombinations[] = explode(',', $values);
         }
-
-        // Generate all possible combinations of attributes
+    
         $allCombinations = $this->generateCombinations($attributeCombinations);
-
-        // Loop through each combination and create a variation
-        foreach ($allCombinations as $combination) {
-            // Combine attributes into one string for the variation name (e.g., 'Red | Small')
+    
+        foreach ($allCombinations as $index => $combination) {
             $variationName = implode(' | ', $combination);
-
-            // Find the corresponding prices, images, etc., for this combination
-            // If a variation has a specific price, use it, else default to product price
-            $priceIndex = count($combination) - 1; // Assumes price corresponds to the last attribute (e.g., for color/size combinations)
-            $price = $prices[$priceIndex] ?? $product->price;
-            $salePrice = $salePrices[$priceIndex] ?? $product->sale_price;
-            $image = $images[$priceIndex] ?? null;
-
+    
+            // Handle image for this variation
+            $imageName = null;
+            if (isset($images[$index]) && $images[$index] instanceof \Illuminate\Http\UploadedFile) {
+                $uploadedImage = $images[$index];
+                $imageName = Str::uuid() . '.' . $uploadedImage->getClientOriginalExtension();
+                $uploadedImage->move(public_path('uploads'), $imageName);
+            }
+    
             // Create the variation
             $variation = new Variation();
             $variation->product_id = $product->id;
-            $variation->variation_name = $variationName; // Save full combination
-            $variation->price = $price;
-            $variation->sale_price = $salePrice;
-            $variation->sku = 'SKU' . time(); // Customize SKU generation if needed
-            $variation->barcode = 'Barcode' . time(); // Customize Barcode generation if needed
-            $variation->image = $image; // Save the image for this specific variation
-            $variation->status = 'active'; // Assuming the default status is active
+            $variation->variation_name = $variationName;
+            $variation->price = $prices[$index] ?? $product->price;
+            $variation->sale_price = $salePrices[$index] ?? $product->sale_price;
+            $variation->sku = 'SKU' . time() . $index; // Unique SKU
+            $variation->barcode = 'Barcode' . time() . $index; // Unique Barcode
+            $variation->image = $imageName; // Save the image name
+            $variation->status = 'active';
             $variation->save();
         }
     }
-
-
-
-
+    
+    
 
 
         return redirect()->back()->with('success', __('translate.added'));

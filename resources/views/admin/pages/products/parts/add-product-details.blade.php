@@ -4,8 +4,21 @@
     <div class="form-group">
         <label> {{ __('products.product-name') }} </label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-            value="{{ old('name') }}">
+            value="{{ old('name') }}" id="category_name" onchange="generateSlug()">
         @error('name')
+            <div class="alert alert-danger my-1">{{ $message }}</div>
+        @enderror
+    </div>
+
+
+
+
+
+    <div class="form-group">
+        <label> {{ __('products.slug') }} </label>
+        <input type="text" class="form-control" name="slug" readonly
+            value="{{ old('slug') }}" id="slug">
+        @error('slug')
             <div class="alert alert-danger my-1">{{ $message }}</div>
         @enderror
     </div>

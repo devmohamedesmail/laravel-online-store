@@ -49,7 +49,7 @@
             <div class="row bg-white py-3 px-2">
                 @foreach ($sliders as $slider)
                     <div class="col-12 col-md-6">
-                        <img src="/uploads/sliders/{{ $slider->image }}" width="100%" alt="{{ $slider->title }}">
+                        <img src="{{ asset('uploads/' . $slider->image)  }}" width="100%" alt="{{ $slider->title }}">
                         <h6>{{ $slider->title }}</h6>
                         <h6>{{ $slider->description }}</h6>
                         <a href="{{ route('delete.slider', $slider->id) }}"

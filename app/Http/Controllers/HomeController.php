@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slider;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,11 +27,13 @@ class HomeController extends Controller
         // return view('home');
         $user = auth()->user();
         if($user->role ==="user"){
-            return view("front.index");
+            $sliders = Slider::all();
+            return view("front.index",compact("sliders"));
         }if ($user->role ==="admin") {
             return view("admin.index");
         } else {
-            return view("front.index");
+            $sliders = Slider::all();
+            return view("front.index",compact("sliders"));
         }
         
     }

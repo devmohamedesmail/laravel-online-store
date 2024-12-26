@@ -26,4 +26,9 @@ return [
     "password"=> "Password",
     "select-city"=> "Selec City",
     "note"=> "Order Notes (optional)",
+    "new_arrivals"=> " New Arrivals",
+    "featured"=> "Featured",
+    "cart"=> "Cart",
+    "checkout"=> " Checkout ",
+    "quantity"=> "Quantity",
 ]; 
