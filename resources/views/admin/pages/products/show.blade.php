@@ -28,7 +28,7 @@
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->category->name }}</td>
                                         <td>
-                                            <img src="/uploads/products/{{ $product->image }}" width="100" height="100"
+                                            <img src="/uploads/{{ $product->image }}" width="100" height="100"
                                                 alt="{{ $product->name }}">
                                         </td>
                                         <td>{{ $product->price }}</td>

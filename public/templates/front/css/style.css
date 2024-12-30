@@ -1,0 +1,63 @@
+:root{
+    --primary-color: #f25202;
+    --secondary-color: #000000;
+}
+
+.input{
+    border: 1px solid #d7d7d7;
+    padding: 5px 10px;
+    height: 45px;
+}
+.input:focus{
+    border: 1px solid #000000;
+    outline: none;
+    padding: 5px 10px;
+    height: 45px;
+}
+
+
+
+.primary-button{
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+   
+    width: 100%;
+}
+.primary-button:hover{
+    background-color: var(--secondary-color);
+    transition: all 0.3s ease-in-out;
+}
+
+.switch-label {
+    border: 2px solid rgb(112, 110, 110);
+    transition: border 0.3s ease-in-out;
+}
+
+/* This selector works when the radio input is checked */
+.switch-input:checked + .switch-label {
+    border: 2px solid var(--primary-color) !important;
+}
+
+
+
+
+
+ 
+
+  
+  /* Fading animation */
+  .fade {
+    animation-name: fade;
+    animation-duration: 10s;
+  }
+  
+  @keyframes fade {
+    from {opacity: .8}
+    to {opacity: 1}
+  }
+
+

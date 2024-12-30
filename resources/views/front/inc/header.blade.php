@@ -1,98 +1,99 @@
-<div class="header-wrap classicHeader animated d-flex mb-3">
-    <div class="container-fluid">
-        <div class="row align-items-center">
-            <!--Desktop Logo-->
-            <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
+<header class="sticky bg-white top-0 p-3 z-50">
+    <div class="container m-auto">
+        <div class="flex justify-between items-center">
+            <div>
+
                 <a href="{{ route('user.index') }}">
-                    <img src="{{ asset('/uploads/' . $setting->logo) }}" alt="{{ $setting->name }}"
-                        title="{{ $setting->name }}" width="60px" />
+                    <img src="{{ asset('/uploads/' . $setting->logo) }}" alt="{{ $setting->name }}" width="90px">
                 </a>
             </div>
-            <!--End Desktop Logo-->
-            <div class="col-2 col-sm-3 col-md-3 col-lg-8">
-                <div class="d-block d-lg-none">
-                    <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
-                        <i class="icon anm anm-times-l"></i>
-                        <i class="anm anm-bars-r"></i>
-                    </button>
-                </div>
-                <!--Desktop Menu-->
-                <nav class="grid__item" id="AccessibleNav"><!-- for mobile -->
-                    <ul id="siteNav" class="site-nav medium center hidearrow">
-                        <li class="lvl1 parent megamenu"><a href="{{ route('user.index') }}">{{ __('front.home') }} <i
-                                    class="anm anm-angle-down-l"></i></a>
 
+
+
+            <div class="menu-navbar">
+
+                <button id="menu-toggle" class="bg-white border-0 text-black md:hidden">
+                    <i class="bi bi-list text-xl"></i>
+                </button>
+
+                <!-- Navigation Menu -->
+                <nav id="menu"
+                    class="absolute hidden md:block bg-white md:static z-10 w-full md:w-auto left-0 transition-all duration-300">
+                    <ul class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                        <li>
+                            <a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm"
+                                href="{{ route('user.index') }}">{{ __('front.home') }}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm"
+                                href="{{ route('shop.page') }}">{{ __('front.shop') }}
+                            </a>
                         </li>
 
 
-                        <li class="lvl1 parent dropdown"><a href="#">{{ __('front.categories') }} <i
-                                    class="anm anm-angle-down-l"></i></a>
-                            <ul class="dropdown">
+
+
+
+                        <li class="relative group">
+                            <a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm"
+                                href="{{ route('user.index') }}">{{ __('front.categories') }}
+                            </a>
+
+                            <ul class="absolute hidden group-hover:block bg-white shadow-lg left-0 top-full w-48">
+
+
+
                                 @foreach ($categories as $category)
-                                    <li>
-                                        <a href="cart-variant1.html" class="site-nav">
+                                    <li><a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm" href="#">
                                             {{ $category->name }}
-                                            
-                                            <i
-                                                class="anm anm-angle-right-l"></i></a>
-                                        <ul class="dropdown">
-                                            <li><a href="cart-variant1.html" class="site-nav">Cart Variant1</a></li>
-                                            <li><a href="cart-variant2.html" class="site-nav">Cart Variant2</a></li>
-                                        </ul>
-                                    </li>
+                                        </a></li>
                                 @endforeach
-
-
-
-
                             </ul>
                         </li>
 
-                        <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
-                            <ul class="dropdown">
-                                <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                                <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                                <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
-                                <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
-                                <li><a href="blog-article.html" class="site-nav">Article</a></li>
-                            </ul>
-                        </li>
 
-                        <li class="lvl1"><a href="{{ route('contact.page') }}"><b> {{ __('front.contact') }}</b> <i class="anm anm-angle-down-l"></i></a>
+
+                        <li>
+                            <a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm"
+                                href="{{ route('contact.page') }}">
+                                {{ __('front.contact-us') }}
+                            </a>
                         </li>
                     </ul>
                 </nav>
-                <!--End Desktop Menu-->
             </div>
-            <!--Mobile Logo-->
-            <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
-                <div class="logo">
-                    <a href="{{ route('user.index') }}">
-                        <img src="{{ asset('/uploads/' . $setting->logo) }}" alt="{{ $setting->name }}"
-                            title="{{ $setting->name }}" width="50px" />
-                    </a>
-                </div>
-            </div>
-            <!--Mobile Logo-->
-            <div class="col-4 col-sm-3 col-md-3 col-lg-2">
-                <div class="site-cart">
-                   
 
-                    <a href="{{ route('cart.page') }}" >
-                    
-                        <i class="icon anm anm-bag-l fs-2 text-dark" style="font-size: 20px"></i>
-                    </a>
-                   
-                   
-                        <span class="site-header__cart-count" data-cart-render="item_count">{{ $cartItems->count() }}</span>
-                   
 
+            <div class=" hidden md:flex">
+
+                <div class="relative mx-1">
+                    <a href="{{ route('cart.page') }}"><i class="bi bi-cart2 text-black text-2xl"></i></a>
+                    <span
+                        class="absolute top-0 right-0 w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-black rounded-full">{{ $cartItems->count() }}</span>
                 </div>
-               
-                <div class="site-header__search">
-                    <button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
+                <div class="relative mx-1">
+                    <a href=""><i class="bi bi-suit-heart text-black text-2xl"></i></a>
+                    <span
+                        class="absolute top-0 right-0 w-4 h-4 flex items-center justify-center text-xs font-bold text-white bg-black rounded-full">{{ $cartItems->count() }}</span>
                 </div>
+
             </div>
         </div>
     </div>
-</div>
+
+
+
+    <div class="container m-auto mt-3">
+     
+        <form action="{{ route('product.search') }}" method="GET">
+            @csrf
+            <div class="flex items-center justify-center w-full md:w-1/2 m-auto border border-gray-300">
+                <input type="search" name="search" class="px-2 flex-1 focus:outline-none"
+                    placeholder="{{ __('front.search') }}" id="">
+                <button class="bg-black text-white px-2 h-10 w-10"><i class="bi bi-search"></i></button>
+            </div>
+        </form>
+    </div>
+</header>

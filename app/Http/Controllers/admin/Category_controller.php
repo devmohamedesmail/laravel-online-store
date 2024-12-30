@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Models\Subcategory;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCategoryRequest;
 
 class Category_controller extends Controller
 {
@@ -85,7 +86,7 @@ class Category_controller extends Controller
         $category->description = $request->description;
         $image = $request->image;
         if ($image) {
-            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $image_name = Str::uuid() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/category'), $image_name);
             $category->image = $image_name;
         }

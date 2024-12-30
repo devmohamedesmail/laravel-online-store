@@ -2,70 +2,63 @@
 @section('content')
     @include('front.inc.top-header')
     @include('front.inc.header')
-    @include('front.inc.mobile-nav')
-
-    <div id="page-content">
-
-        <div class="page section-header text-center mt-5">
-            <div class="page-title">
-                <div class="wrapper">
-                    <h1 class="page-width">{{ __('front.login') }}</h1>
-                </div>
-            </div>
-        </div>
+   
 
 
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6 main-col offset-md-3">
+    <h2 class="bg-gray-300 text-black font-bold text-center py-10 my-10">{{ __('front.login') }}</h2>
+    <div class="container m-auto px-3">
+        <div class="w-full md:w-1/2 m-auto my-10">
+           
+            <form method="post" action="{{ route('login') }}" id="CustomerLoginForm" accept-charset="UTF-8"
+                class="contact-form">
+                @csrf
+                <div class="row">
+                    
+
                     <div class="mb-4">
-                        <form method="post" action="{{ route('login') }}" id="CustomerLoginForm" accept-charset="UTF-8"
-                            class="contact-form">
-                            @csrf
-                            <div class="row">
-                                
+                        <div >
+                            <label class="text-sm block">{{ __('front.email') }}</label>
+                            <input type="email" name="email" 
+                                class="input w-full @error('email') is-invalid @enderror" name="email"
+                                value="{{ old('email') }}" required autocomplete="email">
+                        </div>
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                    <div class="form-group">
-                                        <label for="CustomerEmail">{{ __('front.email') }}</label>
-                                        <input type="email" name="email" id="CustomerEmail"
-                                            class="@error('email') is-invalid @enderror" name="email"
-                                            value="{{ old('email') }}" required autocomplete="email">
-                                    </div>
-
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+                        @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
 
 
-                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                    <div class="form-group">
-                                        <label for="CustomerPassword">{{ __('front.password') }}</label>
-                                        <input type="password" class="@error('password') is-invalid @enderror"
-                                            id="CustomerPassword" name="password" required autocomplete="new-password">
-                                    </div>
+                    <div class="mb-4">
+                        <div>
+                            <label class="text-sm block">{{ __('front.password') }}</label>
+                            <input type="password" class="input w-full @error('password') is-invalid @enderror"
+                                 name="password" required autocomplete="new-password">
+                        </div>
 
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="text-center col-12 col-sm-12 col-md-12 col-lg-12">
-                                    <input type="submit" class="btn mb-3" value={{ __('front.login') }}>
-                                </div>
-                            </div>
-                        </form>
+                        @error('password')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
-            </div>
-        </div>
 
+
+                <div class="flex justify-center">
+                    <button class="primary-button" type="submit">{{ __('front.login') }}</button>
+                </div>
+
+                <div class="flex justify-center my-3">
+                    
+                    <a href="{{ route('register') }}">{{ __(('front.register')) }}</a>
+                </div>
+            </form>
+        </div>
     </div>
+
+   
     @include('front.inc.footer')
 @endsection

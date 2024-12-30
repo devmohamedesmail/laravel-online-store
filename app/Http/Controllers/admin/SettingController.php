@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Models\Setting;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -38,7 +39,7 @@ class SettingController extends Controller
            
             $logo = $request->logo;
             if($logo){
-                $imageName = time() . '.' . $logo->getClientOriginalExtension();
+                $imageName = Str::uuid() . '.' . $logo->getClientOriginalExtension();
                 $logo->move(public_path('/uploads'), $imageName);
                 $seeting->logo = $imageName;
             }

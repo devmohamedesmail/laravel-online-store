@@ -1,15 +1,18 @@
-<div class="container">
-    <h4 class="text-center h2">{{ __('front.categories') }}</h4>
 
-    <div class="row d-flex justify-content-between flex-wrap my-3">
+<div class="container m-auto">
+    <h5 class="text-center text-xl my-5">{{ __('front.categories') }}</h5>
+    <div class="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-7 gap-4 px-3 m-auto  items-center">
+
         @foreach ($categories as $category)
-            <a href="#" class="col-4  p-3 col-md-2 d-flex justify-content-center align-items-center flex-column " style="text-decoration: none; overflow: hidden !important;">
-             
-                <div style="width: 100px; height: 100px; overflow: hidden !important; border-radius: 100%;">
-                    <img src="/uploads/{{ $category->image }}" style="object-fit: cover !important;"  alt="{{ $category->description }}">
-                </div>
-                <p class="text-center fw-bold fs-1" style="font-weight: bold; font-size: 14px; margin-top: 10px">{{ $category->name }}</p>
-            </a>
+            <div class="flex flex-col items-center justify-center mb-4">
+                <a href="{{ route('shop.page',  $category->id) }}" class="block w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
+                    <img src="/uploads/{{ $category->image }}" style="object-fit: cover !important;"
+                        alt="{{ $category->description }}">
+                </a>
+                <p class="text-center bold mt-3"> {{ $category->name }}</p>
+                </p>
+            </div>
         @endforeach
+
     </div>
 </div>

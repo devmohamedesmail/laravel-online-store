@@ -67,7 +67,7 @@ class GlobalDataProvider extends ServiceProvider
             }
 
             $view->with('cartItems', $cartItems);
-            // dd($cartItems);
+           
         });
       
 

@@ -1,173 +1,222 @@
 @extends('front.layout')
 
 @section('content')
-    @include('front.inc.search')
-
     @include('front.inc.top-header')
-
     @include('front.inc.header')
 
-    @include('front.inc.mobile-nav')
 
 
-    <!--Body Content-->
-    <div id="page-content mt-4">
-        <div class="page section-header text-center mt-5">
-            <div class="page-title">
-                <div class="wrapper">
-                    <h1 class="page-width">{{ __('front.checkout') }}</h1>
-                </div>
-            </div>
-        </div>
-        <!--End Page Title-->
+    @if (session('success'))
+        <script>
+            iziToast.success({
+                title: 'Success',
+                message: '{{ session('success') }}',
+                position: 'topRight',
+                timeout: 3000
+            });
+        </script>
+    @endif
 
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3">
-                    <div class="customer-box returning-customer">
-                        <h3><i class="icon anm anm-user-al"></i> Returning customer? <a href="#customer-login" id="customer"
-                                class="text-white text-decoration-underline" data-toggle="collapse">Click here to login</a>
-                        </h3>
-                        <div id="customer-login" class="collapse customer-content">
-                            <div class="customer-info">
-                                <p class="coupon-text">If you have shopped with us before, please enter your details in the
-                                    boxes below. If you are a new customer, please proceed to the Billing &amp; Shipping
-                                    section.</p>
-                                <form>
-                                    <div class="row">
-                                        <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                            <label for="exampleInputEmail1">Email address <span
-                                                    class="required-f">*</span></label>
-                                            <input type="email" class="no-margin" id="exampleInputEmail1">
-                                        </div>
-                                        <div class="form-group col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                            <label for="exampleInputPassword1">Password <span
-                                                    class="required-f">*</span></label>
-                                            <input type="password" id="exampleInputPassword1">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-check width-100 margin-20px-bottom">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input" value=""> Remember
-                                                    me!
-                                                </label>
-                                                <a href="#" class="float-right">Forgot your password?</a>
-                                            </div>
-                                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    @if (session('error'))
+        <script>
+            iziToast.success({
+                title: 'Error',
+                message: '{{ session('error') }}',
+                position: 'topRight',
+                timeout: 3000
+            });
+        </script>
+    @endif
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-3">
-                    <div class="customer-box customer-coupon">
-                        <h3 class="font-15 xs-font-13"><i class="icon anm anm-gift-l"></i> Have a coupon? <a
-                                href="#have-coupon" class="text-white text-decoration-underline"
-                                data-toggle="collapse">Click here to enter your code</a></h3>
-                        <div id="have-coupon" class="collapse coupon-checkout-content">
-                            <div class="discount-coupon">
-                                <div id="coupon" class="coupon-dec tab-pane active">
-                                    <p class="margin-10px-bottom">Enter your coupon code if you have one.</p>
-                                    <label class="required get" for="coupon-code"><span class="required-f">*</span>
-                                        Coupon</label>
-                                    <input id="coupon-code" required="" type="text" class="mb-3">
-                                    <button class="coupon-btn btn" type="submit">Apply Coupon</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row billing-fields">
+
+
+
+    <div class="container m-auto px-2 my-5">
+        <h3 class="text-center text-2xl bg-priamry p-2">{{ __('front.checkout') }}</h3>
+
+        <form action="{{ route('add.order') }}" method="post" id="checkout-form">
+            @csrf
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                 @include('front.pages.checkout.parts.billing-info')
 
-                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                    <div class="your-order-payment">
-                        <div class="your-order">
-                            <h2 class="order-title mb-4">Your Order</h2>
-
-
-                        </div>
-
-
-                        <section>
-                            {{-- <div class="product">
-                                <img src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
-                                <div class="description">
-                                    <h3>Stubborn Attachments</h3>
-                                    <h5>$20.00</h5>
-                                </div>
-                            </div> --}}
-
-
-                            @if ($cartItems->count() > 0)
-                                @foreach ($cartItems as $item)
-                                    <div class="d-flex my-2">
-                                        <div>
-                                            <img src="{{ asset('/uploads/' . $item->image) }}" width="50px" />
-                                        </div>
-                                        <div>
-                                            <p>{{ $item->product->name }} </p>
-                                            <p>{{ $item->price }}
-                                                @if (app()->getLocale() == 'ar')
-                                                    {{ $setting->currency_ar }}
-                                                @else
-                                                    {{ $setting->currency_en }}
-                                                @endif
-                                            </p>
-                                            <p>
-                                                {{ $item->quantity }} {{ __('front.quantity') }}
-                                            </p>
-                                        </div>
+                <div class="second-column">
+                    <div>
+                        <h5 class="text-center bg-gray-100 p-3">{{ __('front.your_order') }}</h5>
+                        @if ($cartItems->count() > 0)
+                            @foreach ($cartItems as $item)
+                                <div class="flex my-2 border border-gray-300 h-24">
+                                    <div class="w-40">
+                                        <img src="{{ asset('/uploads/' . $item->product->image) }}" class="w-full h-full" />
                                     </div>
-                                @endforeach
-                            @else
-                                no
-                            @endif
+                                    <div class="mx-2">
+                                        <p class="text-xs">{{ $item->product->name }} </p>
+                                        <div>
+
+                                            @if ($item->product->sale_price !== null)
+                                                <div class="flex items-center">
+                                                    <p class="text-sm mr-2 text-primary">{{ $item->product->sale_price }}
+                                                        @if (app()->getLocale() == 'ar')
+                                                            {{ $setting->currency_ar }}
+                                                        @else
+                                                            {{ $setting->currency_en }}
+                                                        @endif
+                                                    </p>
+                                                    <p class="line-through text-sm mr-2 text-gray-500">
+                                                        {{ $item->product->price }} @if (app()->getLocale() == 'ar')
+                                                            {{ $setting->currency_ar }}
+                                                        @else
+                                                            {{ $setting->currency_en }}
+                                                        @endif
+                                                    </p>
+                                                </div>
+                                            @else
+                                                <p class="text-sm text-primary">
+                                                    {{ $item->product->price }} @if (app()->getLocale() == 'ar')
+                                                        {{ $setting->currency_ar }}
+                                                    @else
+                                                        {{ $setting->currency_en }}
+                                                    @endif
+                                                </p>
+                                            @endif
 
 
-
-
-                            <form action="{{ route('checkout.session.create') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="cartItems" value="{{ json_encode($cartItems) }}">
-                                <button type="submit" class="btn btn-primary" id="checkout-button">Checkout</button>
-                            </form>
-                        </section>
-
-                        <hr />
-
-                        <div class="your-payment">
-                            <h2 class="payment-title mb-3">payment method</h2>
-                            @if ($payment_methods->count() > 0)
-                               
-                                <div class="d-flex flex-column">
-                                    @foreach ($payment_methods as $method)
-                                    <input type="radio" id="{{ $method->id }}" name="payment_methodd"
-                                        value="{{ $method->id }}">
-                                    <label for="{{ $method->id }}">{{ $method->type_en }} </label>
-                                @endforeach
+                                        </div>
+                                        <p class="">
+                                            {{ __('front.quantity') }} {{ $item->quantity }}
+                                        </p>
+                                    </div>
                                 </div>
-                            @else
-                                <p>No payment method</p>
-                            @endif
-                        </div>
+                            @endforeach
+                        @else
+                            <p>{{ __('front.your_cart_is_empty') }}</p>
+                        @endif
                     </div>
+
+
+
+
+                    <div class="mt-5">
+                        <h2 class="text-center bg-gray-100 p-3">
+                            {{ __('front.payment_method') }}
+                        </h2>
+                        @if ($payment_methods->count() > 0)
+                            <div class="flex flex-col my-3">
+                                @foreach ($payment_methods as $method)
+                                    <label for="{{ $method->id }}"
+                                        class="flex items-center justify-between border border-gray-300 py-4 px-2 mb-2">
+                                        <span>{{ $method->type_en }}</span>
+                                        <input type="radio" id="{{ $method->id }}" name="payment_method"
+                                            value="{{ $method->id }}" class="payment-method-radio"
+                                            data-type="{{ $method->type_en }}">
+                                    </label>
+                                @endforeach
+                            </div>
+                        @else
+                            <p class="bg-gray-300 p-4">No payment method</p>
+                        @endif
+                    </div>
+
+
+                    <div id="card-element" class="hidden my-5 border border-gray-300 py-4 px-2"></div>
+
+
+
+
+
+
+                    <input type="hidden" name="cartItems" value="{{ json_encode($cartItems) }}">
+                    <input type="hidden" name="stripeToken" id="stripeToken" value="">
+                    <button class="w-full bg-black py-3 text-white" type="button"
+                        onclick="createToken()">{{ __('front.order-now') }}</button>
+
+
+
                 </div>
+
+
+
+
+
+
             </div>
-        </div>
 
-
-
+        </form>
     </div>
 
-    @include('front.inc.footer')
 
-    <span id="site-scroll"><i class="icon anm anm-angle-up-r"></i></span>
+
+    @include('front.inc.footer')
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript">
+        var stripe = Stripe(
+            'pk_test_51QYXhyQCzh9jGNXoJVPGX8puPrj58gqc5DK7I3bFiyeGlvpr03877CPR2fX0u6aK5BmTtLkrirDovkI7Ms3ihYvq00ZXcVGx6w'
+        );
+        var elements = stripe.elements();
+        var cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+
+        function createToken() {
+            stripe.createToken(cardElement).then(function(result) {
+                if (result.token) {
+                    document.getElementById('stripeToken').value = result.token.id;
+                    document.getElementById('checkout-form').submit();
+                } else {
+                    document.getElementById('checkout-form').submit();
+                }
+
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // function createToken() {
+        //     paymentInputs = document.querySelectorAll('.payment-method-radio');
+        //     let selectedValue = null;
+
+        //     paymentInputs.forEach((input) => {
+        //         if (input.checked) {
+        //             selectedValue = input.value;
+        //         }
+        //     });
+
+        //     if (selectedValue && selectedValue === '2') {
+
+
+
+
+        //         console.log('you are using stripe');
+        //         var stripe = Stripe(
+        //             'pk_test_51QYXhyQCzh9jGNXoJVPGX8puPrj58gqc5DK7I3bFiyeGlvpr03877CPR2fX0u6aK5BmTtLkrirDovkI7Ms3ihYvq00ZXcVGx6w'
+        //         );
+        //         var elements = stripe.elements();
+        //         var cardElement = elements.create('card');
+        //         cardElement.mount('#card-element');
+        //         stripe.createToken(cardElement).then(function(result) {
+        //             if (result.token) {
+        //                 document.getElementById('stripeToken').value = result.token.id;
+        //                 document.getElementById('checkout-form').submit();
+        //             }
+
+        //         });
+        //     } else {
+        //         document.getElementById('checkout-form').submit();
+        //     }
+        // }
+    </script>
+
+
 @endsection

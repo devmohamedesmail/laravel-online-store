@@ -17,6 +17,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 
+
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     Auth::routes();
@@ -30,7 +31,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::controller(SettingController::class)->group(function () {
         Route::get('/setting/page', 'setting')->name('setting.page');
         Route::post('/setting', 'update_setting')->name('update.setting');
-        Route::get('media/library/page','media_library_page')->name('media.library.page');
+        Route::get('media/library/page', 'media_library_page')->name('media.library.page');
     });
 
 
@@ -96,12 +97,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
 
 
-    Route::controller(Payment_controller::class)->group(function () {
-        Route::get('/checkout',  'index');
-        Route::post('/checkout/session/', 'createCheckoutSession')->name('checkout.session.create');
-        Route::get('/checkout/success', 'success_payment')->name('checkout.success');
-        Route::get('/checkout/cancel', 'cancel_payment')->name('checkout.cancel');
-    });
+   
 
 
     // ++++++++++++++++++++++++++++++++++++++++++++ Admin Panel Routes End +++++++++++++++++++++++++++++++++++++++++++++++
@@ -112,16 +108,42 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('/', 'index')->name('user.index');
         Route::get('poroduct/details/{id}', 'product_details')->name('product.details');
         Route::post('add/product/to/cart/{id}/{title}', 'add_cart')->name('add.cart');
+        Route::get('cart/delete/{id}', 'cart_delete')->name('cart.delete');
+        Route::post('/cart/increase/{id}',  'increaseQuantity')->name('cart.increase');
+        Route::post('/cart/decrease/{id}', 'decreaseQuantity')->name('cart.decrease');
         Route::get('wishlist/page', 'wishlist')->name('wishlist');
         Route::get('contact/page', 'contact_page')->name('contact.page');
         Route::get('checkout/page/{product_id?}', 'checkout_page')->name('checkout.page');
-        Route::get('shop/page', 'shop_page')->name('shop.page');
+        Route::get('shop/page/{id?}', 'shop_page')->name('shop.page');
         Route::get('cart/page', 'cart_page')->name('cart.page');
-        Route::get('/get-cities/{country_id}', 'getCitiesByCountry');
+        Route::get('/cities/{country}', 'getCities')->name('get.cities');
+        Route::get('/search', 'search')->name('product.search');
+    });
+
+
+
+
+
+    Route::controller(Payment_controller::class)->group(function () {
+        Route::post('add/order', 'add_order')->name('add.order');
+
+        // stripe routes
+        // Route::get('/checkout', 'index');
+        // Route::post('/checkout/session/', 'createCheckoutSession')->name('checkout.session.create');
+        // Route::get('/checkout/success', 'success_payment')->name('checkout.success');
+        // Route::get('/checkout/cancel', 'cancel_payment')->name('checkout.cancel');
+
+
+
+        // paypal routes
+        Route::get('create-transaction', 'createTransaction')->name('createTransaction');
+        Route::get('process-transaction', 'processTransaction')->name('processTransaction');
+        Route::get('success-transaction',  'successTransaction')->name('successTransaction');
+        Route::get('cancel-transaction',  'cancelTransaction')->name('cancelTransaction');
     });
     // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes End +++++++++++++++++++++++++++++++++++++++++++++++
 
-    
+
 
 
 });

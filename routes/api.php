@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\api\Api_controller;
-use App\Http\Controllers\api\front\CategoriesController;
-use App\Http\Controllers\api\Payment_api_controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\Api_controller;
+use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\Payment_api_controller;
+use App\Http\Controllers\api\front\CategoriesController;
 
 
 
@@ -27,7 +28,15 @@ Route::controller(Api_controller::class)->group(function () {
 
 Route::controller(Payment_api_controller::class)->group(function () { 
     // stripe payment
-    Route::post('/checkout/session', 'createCheckoutSession')->name('checkout.session.create');
-    Route::get('/checkout/success', 'success_payment')->name('checkout.success');
-    Route::get('/checkout/cancel', 'cancel_payment')->name('checkout.cancel');
+
  });
+
+
+
+ Route::controller(AuthController::class)->group(function () {
+    Route::post('login', 'login');
+    Route::post('register', 'register');
+    Route::post('logout', 'logout');
+    Route::post('refresh', 'refresh');
+
+});
