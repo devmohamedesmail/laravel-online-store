@@ -63,4 +63,6 @@ return [
    "deleted"=> "Deleted Successfully",
    "add-payment-method"=> "Add New Payment Method",
    "media-library"=> " Media Library",
+   "status" => "Status",
+   "completed"=> "Completed",
 ];

@@ -5,7 +5,7 @@
 
 
 
-    <div class="grid grid-cols-2 md:grid-cols-7 lg:grid-cols-7 gap-2">
+    <div class="grid grid-cols-2 md:grid-cols-7 lg:grid-cols-7 gap-2 my-10">
 
         @foreach ($all_products as $product)
             <div class="product-card">
@@ -22,7 +22,7 @@
                       <span class="mx-1 text-sm">  {{ __('front.add-to-cart') }}</a></span>
                 </div>
 
-                <p class="text-center text-sm mt-2"> 
+                <p class="text-center text-sm mt-2 h-10"> 
                     {{ \Illuminate\Support\Str::words($product->name, 5, '...') }}
                 </p>
 

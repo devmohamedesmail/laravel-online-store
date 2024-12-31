@@ -38,7 +38,7 @@ return [
     "added"=>"Added Successfully",
     "updated"=>"Updated Successfully",
     "fast-order"=> "Fast Order",
-    "error-select"=> "Please Select a Value",
+    "error-select"=> 'Please select a :attribute.',
     "total"=> "Total",
     "your_order"=> " Your Order ",
     "payment_method"=> " Select Your Payment Method ",
@@ -49,4 +49,6 @@ return [
     "safe-payment"=> " Safe Payment",
     "cart-content"=> " Cart Content ",
     "deleted"=>"Deleted Successfully",
+    "your_cart_is_empty"=> "Your Cart Is Empty",
+    "guarantee"=> "30 Days Money Back Guarantee",
 ]; 

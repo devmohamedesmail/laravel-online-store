@@ -33,14 +33,22 @@
 
 
     <div class="container m-auto px-2 my-5">
-        <h3 class="text-center text-2xl bg-priamry p-2">{{ __('front.checkout') }}</h3>
+        <h3 class="text-center text-2xl bg-gray-200 py-4">{{ __('front.checkout') }}</h3>
 
         <form action="{{ route('add.order') }}" method="post" id="checkout-form">
             @csrf
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 my-10">
                 @include('front.pages.checkout.parts.billing-info')
 
+                
+
+
+
+               
+
+
+                @if ($cartItems->count() > 0)
                 <div class="second-column">
                     <div>
                         <h5 class="text-center bg-gray-100 p-3">{{ __('front.your_order') }}</h5>
@@ -90,7 +98,7 @@
                                 </div>
                             @endforeach
                         @else
-                            <p>{{ __('front.your_cart_is_empty') }}</p>
+                            <p class="text-center py-3 text-red-600">{{ __('front.your_cart_is_empty') }}</p>
                         @endif
                     </div>
 
@@ -134,6 +142,11 @@
 
 
                 </div>
+                @else
+                    <div>
+                        <p class="text-center py-3 text-red-600">{{ __('front.your_cart_is_empty') }}</p>
+                    </div>
+                @endif
 
 
 

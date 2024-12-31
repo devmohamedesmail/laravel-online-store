@@ -10,7 +10,7 @@ class Cart_admin_conroller extends Controller
 {
     // admin_cart_page
     public function admin_cart_page(){
-        $cart = Cart::with('user','products')->get();
+        $cart = Cart::with('user','product')->get();
         return view("admin.pages.cart.index",compact("cart"));
         
     }

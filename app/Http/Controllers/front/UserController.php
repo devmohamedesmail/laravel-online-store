@@ -48,7 +48,10 @@ class UserController extends Controller
 
                 if (!isset($selected_variations[$attribute->name])) {
 
-                    return redirect()->back()->withErrors(['error' => '__("front.error-select") "' . $attribute->name . '"'])->withInput();
+                    // return redirect()->back()->withErrors(['error' => '__("front.error-select") "' . $attribute->name . '"'])->withInput();
+                    return redirect()->back()->withErrors([
+                        'error' => __('front.error-select', ['attribute' => $attribute->name])
+                    ])->withInput();
                 }
             }
         }

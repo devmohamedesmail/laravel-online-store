@@ -36,49 +36,47 @@
 
 
 
-    <div class="conatiner m-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 m-auto bg-priamry p-2 gap-5">
-            <div class="images-gallery">
+    <div class="conatiner m-auto px-3 md:px-20">
+        <div>
+            <a href="{{ route('user.index') }}" class="text-primary text-xs">{{ __('front.home') }}</a>
+            <i class="bi bi-chevron-right text-xs"></i>
+            <a href="{{ route('product.details', $product->id) }}" class="text-priamry text-xs">{{ $product->name }}</a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 m-auto bg-priamry p-2 gap-3">
 
 
-                <div class="swiper mySwiper2">
-                    <div class="swiper-wrapper ">
-                        @if ($product->gallery != null)
+
+            <div class="images-gallery ">
+               
+                <div class="main-gallery flex justify-center items-center overflow-hidden border border-gray-300"
+                    style="height: 400px;">
+                    <img id="mainImage" src="{{ asset('/uploads/' . $product->image) }}" class="object-cover h-full"
+                        alt="Product Image" />
+                </div>
+
+               
+                @if ($product->gallery != null)
+                    <div class="relative mt-4">
+                        <button onclick="scrollThumbnails(-100)"
+                            class="absolute left-0 top-5 bottom-0 z-10 rounded-full w-10 h-10 bg-gray-200 p-2 text-gray-700 hover:bg-gray-300">
+                            &#9664;
+                        </button>
+                        <div class="thumbnail-gallery flex justify-center space-x-2 overflow-x-auto scroll-smooth px-8">
+                            <!-- Thumbnails -->
                             @foreach ($product->gallery as $img)
-                                <div class="swiper-slide flex justify-center items-center" style="height: 400px !important">
-                                    <img src="{{ asset('/uploads/' . $img) }}"  />
+                                <div class="thumbnail border border-gray-300 overflow-hidden cursor-pointer w-14 h-14"
+                                    >
+                                    <img src="{{ asset('/uploads/' . $img) }}" class="w-full h-full object-cover"
+                                        alt="Thumbnail" onclick="updateMainImage('{{ asset('/uploads/' . $img) }}')" />
                                 </div>
                             @endforeach
-                        @else
-                            <div class="swiper-slide">
-                                <img src="{{ asset('/uploads/' . $product->image) }}" width="100%" />
-                            </div>
-                        @endif
-
-
+                        </div>
+                        <button onclick="scrollThumbnails(100)"
+                            class="absolute right-0 top-5 bottom-0 z-10 rounded-full w-10 h-10 bg-gray-200 p-2 text-gray-700 hover:bg-gray-300">&#9654;</button>
                     </div>
-
-                </div>
-                <div thumbsSlider="" class="swiper mySwiper">
-                    <div class="swiper-wrapper  flex justify-center items-center">
-
-
-
-
-                        @if ($product->gallery != null)
-                            @foreach ($product->gallery as $img)
-                                <div class="swiper-slide border border-gray-300 w-40 overflow-hidden" style="height: 100px !important; width: 40px !important">
-                                    <img src="{{ asset('/uploads/' . $img) }}" class="w-full h-full" />
-                                </div>
-                            @endforeach
-                        @else
-                        @endif
-
-
-
-                    </div>
-                </div>
+                @endif
             </div>
+
 
             <div class="product-deatils">
                 <h3 class="font-bold text-xl">{{ $product->name }}</h3>
@@ -121,24 +119,34 @@
 
                 <div class="flex justify-evenly my-4">
                     <div
-                        class="flex-1 border border-gray-300 p-2 mr-2 rounded-md flex flex-col justify-center items-center">
-                        <i class="bi bi-truck text-2xl"></i>
+                        class="flex-1 border rounded-md py-7 border-gray-300 p-2 mr-2  flex flex-col justify-center items-center">
+                        <i class="bi bi-truck text-2xl text-primary"></i>
                         <p class="text-sm">{{ __('front.free-delivery') }}</p>
                     </div>
 
                     <div
-                        class="flex-1 border border-gray-300 p-2 mr-2 rounded-md flex flex-col justify-center items-center">
+                        class="flex-1 border rounded-md py-7 border-gray-300 p-2 mr-2  flex flex-col justify-center items-center">
 
-                        <i class="bi bi-arrow-clockwise text-2xl"></i>
+                        <i class="bi bi-arrow-clockwise text-2xl text-primary"></i>
                         <p class="text-sm">{{ __('front.return') }}</p>
                     </div>
 
                     <div
-                        class="flex-1 border border-gray-300 p-2 mr-2 rounded-md flex flex-col justify-center items-center">
+                        class="flex-1 border rounded-md py-7  border-gray-300 p-2 mr-2 flex flex-col justify-center items-center">
 
-                        <i class="bi bi-stripe text-2xl"></i>
+                        <i class="bi bi-stripe text-2xl text-primary"></i>
                         <p class="text-sm">{{ __('front.safe-payment') }}</p>
                     </div>
+                </div>
+
+                <div>
+                    <p class="text-sm my-2 bg-gray-100 p-3 text-center">
+                        {{ __('front.guarantee') }}
+                    </p>
+                </div>
+
+                <div class="flex justify-center items-center">
+                    <img src="/templates/front/images/payment.png" class="my-4 w-70 h-12" alt="">
                 </div>
 
 
@@ -268,7 +276,11 @@
 
 
             </div>
+
         </div>
+
+
+    </div>
     </div>
     <div class="container m-auto">
         <div class="text-center">
@@ -277,5 +289,23 @@
     </div>
     @include('front.inc.footer')
     @include('front.inc.bottom-navbar')
+
+
+    <script>
+        // Function to update the main image
+        function updateMainImage(imageSrc) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = imageSrc;
+        }
+
+        // Function to scroll the thumbnail gallery
+        function scrollThumbnails(amount) {
+            const gallery = document.querySelector('.thumbnail-gallery');
+            gallery.scrollBy({
+                left: amount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 
 @endsection

@@ -12,7 +12,14 @@ class Order_controller extends Controller
 
     public function show_orders_page(){
         $orders = Order::orderBy("created_at","desc")->get();
-      
        return view("admin.pages.orders.index",compact("orders"));
+    }
+
+    public function admin_orders_completed($id){
+        $order = Order::findOrFail($id);
+        $order->status = "completed";
+        $order->save();
+        return redirect()->back()->with("success",__('translate.update'));
+
     }
 }

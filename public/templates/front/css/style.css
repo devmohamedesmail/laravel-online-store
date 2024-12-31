@@ -1,5 +1,5 @@
 :root{
-    --primary-color: #f25202;
+    --primary-color: green;
     --secondary-color: #000000;
 }
 
@@ -60,4 +60,12 @@
     to {opacity: 1}
   }
 
+
+  .thumbnail-gallery::-webkit-scrollbar {
+    display: none;
+}
+.thumbnail-gallery {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
 

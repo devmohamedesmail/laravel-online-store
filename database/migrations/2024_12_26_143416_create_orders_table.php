@@ -25,8 +25,8 @@ return new class extends Migration
             $table->json('products')->nullable();
             $table->string('order_total')->nullable();
             $table->string('order_subtotal')->nullable();
-            $table->string('order_shipping')->nullable();
-            $table->string('status')->nullable();
+            $table->string('order_shipping')->default(0);
+            $table->string('status')->default(0);
          
            
             $table->timestamps();
