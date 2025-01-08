@@ -52,4 +52,8 @@ return [
     "your_cart_is_empty"=> "Your Cart Is Empty",
     "guarantee"=> "30 Days Money Back Guarantee",
     "account"=>"Account",
+    "name-required"=> "Name is required",
+    "phone-required"=> " Phone is required",
+    "address-required"=> " Address is required",
+    "payment-method-required"=> " Payment Method is required",
 ]; 

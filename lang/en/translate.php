@@ -67,4 +67,5 @@ return [
    "completed"=> "Completed",
    "visit-website"=>"Visit website",
    "back"=>"Back",
+   "no_result"=>"No products found.",
 ];

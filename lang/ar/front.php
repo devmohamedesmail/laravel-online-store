@@ -51,4 +51,8 @@ return [
     "your_cart_is_empty"=> " سلة المشتريات فارغة ",
     "guarantee"=> " ضمان استرداد الأموال لمدة 30 يومًا ",
     "account"=>" الحساب ",
+    "name-required"=> " الاسم مطلوب ",
+    "phone-required"=> " الهاتف مطلوب ",
+    "address-required"=> " العنوان مطلوب ",
+    "payment-method-required"=> " طريقة الدفع مطلوبة ",
 ]; 

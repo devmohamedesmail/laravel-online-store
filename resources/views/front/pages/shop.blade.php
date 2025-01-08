@@ -10,18 +10,18 @@
 
 
     <div class="container m-auto px-3">
-     <div class="grid grid-cols-2 md:grid-cols-4 m-auto  gap-5">
+     <div class="grid grid-cols-2 md:grid-cols-6 m-auto  gap-5">
         @foreach ($products as $product)
         <div class="product-card">
 
             <div class="relative">
-                <a href="{{ route('product.details', $product->id) }}" class="block ">
+                <a href="{{ route('product.details', [$product->id, $product->slug ?? '']) }}" class="block ">
                     <img src="/uploads/{{ $product->image }}" width="100%" alt="{{ $product->name }}">
 
 
                 </a>
-                <a href="{{ route('product.details', $product->id) }}"
-                    class="absolute bottom-0 left-0 right-0 text-center py-2 bg-black text-white no-underline">
+                <a href="{{ route('product.details', [$product->id, $product->slug ?? '']) }}"
+                    class="absolute bottom-0 left-0 right-0 text-center py-2 bg-primary text-white no-underline">
                     <i class="bi bi-bag"></i>
                   <span class="mx-1 text-sm">  {{ __('front.add-to-cart') }}</a></span>
             </div>

@@ -30,6 +30,7 @@ class UserController extends Controller
         $product = Product::with('category', 'attributes.values', 'variations')->findOrFail($id);
         $related_products = Product::where('category_id', $product->category->id)->get();
         return view("front.pages.details", compact("product", "related_products"));
+        
        
 
     }

@@ -15,6 +15,10 @@
                         <img src="/uploads/{{ $product->image }}" width="100%" class="h-80" alt="{{ $product->name }}">
                     </a>
 
+                    <a href="" class="text-xs absolute top-2 right-2 bg-white  rounded-full w-6 h-6 flex justify-center items-center">
+                        <i class="bi bi-heart-fill text-primary text-md"></i>
+                    </a>
+
                     <a href="{{ route('product.details', [$product->id, $product->slug ?? '']) }}"
                         class="absolute bottom-0 left-0 right-0 text-center py-2 bg-primary text-white no-underline">
                         <i class="bi bi-bag"></i>

@@ -65,5 +65,6 @@ return [
    "media-library"=> " مكتبة الوسائط ",
     "visit-website"=>" عرض الموقع ",
     "back"=>" الرجوع ",
+    "no_result"=>" لا يوجد نتائج ",
 
 ];

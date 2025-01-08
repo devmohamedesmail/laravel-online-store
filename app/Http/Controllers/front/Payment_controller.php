@@ -8,6 +8,8 @@ use Stripe\StripeClient;
 use Illuminate\Http\Request;
 use App\Models\Paymentmethod;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaymentRequest;
+use Dotenv\Parser\Value;
 use Illuminate\Support\Facades\Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -18,8 +20,9 @@ class Payment_controller extends Controller
 
 
 
-    public function add_order(Request $request)
+    public function add_order(PaymentRequest $request)
     {
+        
         $order = new Order();
         $payment = Paymentmethod::findOrFail($request->payment_method);
         $country  = Country::findOrFail($request->country);

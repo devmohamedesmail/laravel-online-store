@@ -1,4 +1,4 @@
-<div class="fixed bottom-0 left-0 right-0 z-100 bg-white py-2 md:hidden">
+<div class="fixed bottom-0 left-0 right-0 z-100 bg-white py-2 md:hidden border-t-2 border-primary">
     <div class="flex justify-between items-center mx-3">
 
 

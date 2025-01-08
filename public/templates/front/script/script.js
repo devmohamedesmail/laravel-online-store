@@ -69,26 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
-
-
-
-
-
-    // function toggleDropdown() {
-    //     const menu = document.getElementById('dropdown-menu');
-    //     const isHidden = menu.classList.contains('hidden');
-    //     menu.classList.toggle('hidden', !isHidden); // Toggle the `hidden` class
-    // }
-
-    // Optional: Close dropdown if clicked outside
-    // window.addEventListener('click', (event) => {
-    //     const menu = document.getElementById('dropdown-menu');
-    //     const button = document.getElementById('menu-button');
-    //     if (!menu.contains(event.target) && !button.contains(event.target)) {
-    //         menu.classList.add('hidden');
-    //     }
-    // });
 });
 
 
@@ -101,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
     paymentRadios.forEach(radio => {
         radio.addEventListener('change', function () {
             
-            if (this.dataset.type === 'Pay with Visa') {
+            if (this.dataset.type === '2') {
                 cardElement.classList.remove('hidden');
             } else {
                 cardElement.classList.add('hidden');
