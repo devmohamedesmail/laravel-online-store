@@ -14,7 +14,7 @@ class Country_controller extends Controller
     public function countries_page(){
         $countries = Country::with("cities")->get();
         return view("admin.pages.countries.index",compact("countries"));
-    //    return response()->json($countries);
+  
     }
 
 
@@ -23,7 +23,7 @@ class Country_controller extends Controller
         $country->country_en = $request->country_en;
         $country->country_ar = $request->country_ar;
         $country->save();
-        return redirect()->back();
+        return redirect()->back()->with("success",__('translate.added'));
     }
     public function add_city(Request $request){
         $city = new City();
@@ -31,7 +31,7 @@ class Country_controller extends Controller
         $city->city_en = $request->city_en;
         $city->city_ar = $request->city_ar;
         $city->save();
-        return redirect()->back();
+        return redirect()->back()->with("success",__('translate.added'));
     }
 
 

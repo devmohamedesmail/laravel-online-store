@@ -40,7 +40,7 @@
         <div>
             <a href="{{ route('user.index') }}" class="text-primary text-xs">{{ __('front.home') }}</a>
             <i class="bi bi-chevron-right text-xs"></i>
-            <a href="{{ route('product.details', $product->id) }}" class="text-priamry text-xs">{{ $product->name }}</a>
+            <a href="{{ route('product.details', [$product->id, \Illuminate\Support\Str::slug($product->name)]) }}" class="text-priamry text-xs">{{ $product->name }}</a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 m-auto bg-priamry p-2 gap-3">
 
@@ -48,9 +48,9 @@
 
             <div class="images-gallery ">
                
-                <div class="main-gallery flex justify-center items-center overflow-hidden border border-gray-300"
+                <div class="main-gallery flex justify-center items-center overflow-hidden"
                     style="height: 400px;">
-                    <img id="mainImage" src="{{ asset('/uploads/' . $product->image) }}" class="object-cover h-full"
+                    <img id="mainImage" src="{{ asset('/uploads/' . $product->image) }}" class="object-cover h-full w-full"
                         alt="Product Image" />
                 </div>
 
@@ -80,7 +80,7 @@
 
             <div class="product-deatils">
                 <h3 class="font-bold text-xl">{{ $product->name }}</h3>
-                <h3 class="text-xl">{{ $product->description }}</h3>
+                <h3 class="text-md mt-10">{{ $product->description }}</h3>
 
                 <div class="mt-5">
                     @if ($product->sale_price != null)
@@ -117,37 +117,7 @@
 
 
 
-                <div class="flex justify-evenly my-4">
-                    <div
-                        class="flex-1 border rounded-md py-7 border-gray-300 p-2 mr-2  flex flex-col justify-center items-center">
-                        <i class="bi bi-truck text-2xl text-primary"></i>
-                        <p class="text-sm">{{ __('front.free-delivery') }}</p>
-                    </div>
-
-                    <div
-                        class="flex-1 border rounded-md py-7 border-gray-300 p-2 mr-2  flex flex-col justify-center items-center">
-
-                        <i class="bi bi-arrow-clockwise text-2xl text-primary"></i>
-                        <p class="text-sm">{{ __('front.return') }}</p>
-                    </div>
-
-                    <div
-                        class="flex-1 border rounded-md py-7  border-gray-300 p-2 mr-2 flex flex-col justify-center items-center">
-
-                        <i class="bi bi-stripe text-2xl text-primary"></i>
-                        <p class="text-sm">{{ __('front.safe-payment') }}</p>
-                    </div>
-                </div>
-
-                <div>
-                    <p class="text-sm my-2 bg-gray-100 p-3 text-center">
-                        {{ __('front.guarantee') }}
-                    </p>
-                </div>
-
-                <div class="flex justify-center items-center">
-                    <img src="/templates/front/images/payment.png" class="my-4 w-70 h-12" alt="">
-                </div>
+                
 
 
 
@@ -191,9 +161,9 @@
 
 
                     @if ($errors->has('error'))
-                        <div class="alert alert-danger">
+                        <p class="bg-primary text-white p-2 mt-5">
                             {{ $errors->first('error') }}
-                        </div>
+                        </p>
                     @endif
 
 
@@ -212,21 +182,21 @@
                     <div class="my-10">
                         <label class="text-sm mb-3">{{ __('front.quantity') }}</label>
                         <div class="mt-4">
-                            <button class="bg-gray-200 p-2 rounded-sm" id="increament_btn" type="button"><i
-                                    class="bi bi-plus-lg">
+                            <button class="bg-gray-200 p-2  rounded-md" id="increament_btn" type="button"><i
+                                    class="bi bi-plus-lg text-primary font-bold">
                                 </i></button>
                             <input type="text" name="quantity" id="quantity" value="1" readonly
                                 class="w-10 text-center focus:outline-none fo">
-                            <button class="bg-gray-200 p-2 rounded-sm" id="decreament_btn" type="button"> <i
-                                    class="bi bi-dash"></i></button>
+                            <button class="bg-gray-200 p-2 rounded-md" id="decreament_btn" type="button"> <i
+                                    class="bi bi-dash text-primary font-bold"></i></button>
                         </div>
                     </div>
 
 
-                    <div class="flex">
-                        <button class="flex-1 bg-black text-white text-center mx-2 p-3"
+                    <div class="flex flex-col md:flex-row">
+                        <button class="flex-1 bg-black text-white rounded-md text-center mx-2 p-3 my-1"
                             type="submit">{{ __('front.add-to-cart') }}</button>
-                        <a class="flex-1 bg-red-600 text-white text-center mx-2 p-3"
+                        <a class="flex-1 bg-red-600 text-white text-center rounded-md mx-2 p-3 my-1"
                             href="{{ route('checkout.page', $product->id) }}">{{ __('front.checkout') }}</a>
                     </div>
 

@@ -21,13 +21,13 @@
 
     <h4 class="bg-gray-200 py-6 text-center text-xl">
         {{ __('front.cart') }}</h4>
-    <div class="container m-auto">
+    <div class="container m-auto px-5">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-5 my-10">
             <div class="col-span-8  ">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 overflow-hidden">
                     @foreach ($cartItems as $item)
                         <div class="border border-gray-300 rounded-md">
-                            <a href="{{ route('product.details', $item->product_id) }}') }}"
+                            <a href="{{ route('product.details', [$item->id, $item->product->name]) }}') }}"
                                 class="overflow-hidden block h-60">
                                 <img src="{{ asset('/uploads/' . $item->product->image) }}" alt="{{ $item->name }}">
                             </a>

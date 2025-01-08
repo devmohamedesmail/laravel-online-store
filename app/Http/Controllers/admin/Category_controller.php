@@ -36,7 +36,7 @@ class Category_controller extends Controller
             $category->description = $request->description;
             $image = $request->image;
             if ($image) {
-                $image_name = time() . '.' . $image->getClientOriginalExtension();
+                $image_name = Str::uuid()  . '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('uploads'), $image_name);
                 $category->image = $image_name;
             }
@@ -87,7 +87,7 @@ class Category_controller extends Controller
         $image = $request->image;
         if ($image) {
             $image_name = Str::uuid() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/category'), $image_name);
+            $image->move(public_path('uploads'), $image_name);
             $category->image = $image_name;
         }
         $category->save();

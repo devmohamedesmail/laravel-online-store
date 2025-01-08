@@ -24,6 +24,13 @@
 
 
             <li class="dropdown ">
+                <a href="{{ route('visit.website') }}" class="nav-link" target="_blank">
+                    <i class="fas fa-cog"></i>
+                    <span>{{ __('translate.visit-website') }}</span></a>
+            </li>
+
+
+            <li class="dropdown ">
                 <a href="{{ route('setting.page') }}" class="nav-link">
                     <i class="fas fa-cog"></i>
                     <span>{{ __('translate.setting') }}</span></a>

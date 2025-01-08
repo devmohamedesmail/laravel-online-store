@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded",function(){
          .replace(/[^\w-]+/g, "");
 
      const randomNumber = Math.floor(Math.random() * 10000);
-     const uniqueSlug = slug + "/" + randomNumber;
+     const uniqueSlug = slug + "-" + randomNumber;
      document.querySelector("#slug").value = uniqueSlug;
  }
 

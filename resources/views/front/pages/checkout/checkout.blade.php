@@ -54,12 +54,12 @@
                         <h5 class="text-center bg-gray-100 p-3">{{ __('front.your_order') }}</h5>
                         @if ($cartItems->count() > 0)
                             @foreach ($cartItems as $item)
-                                <div class="flex my-2 border border-gray-300 h-24">
-                                    <div class="w-40">
+                                <div class="flex my-2 border border-gray-300 h-24 ">
+                                    <div class="w-24 h-24">
                                         <img src="{{ asset('/uploads/' . $item->product->image) }}" class="w-full h-full" />
                                     </div>
-                                    <div class="mx-2">
-                                        <p class="text-xs">{{ $item->product->name }} </p>
+                                    <div class="mx-2 pt-3">
+                                        <p class="text-xs font-bold">{{ $item->product->name }} </p>
                                         <div>
 
                                             @if ($item->product->sale_price !== null)
@@ -91,9 +91,9 @@
 
 
                                         </div>
-                                        <p class="">
-                                            {{ __('front.quantity') }} {{ $item->quantity }}
-                                        </p>
+                                        <div class="flex  items-center justify-between">
+                                            <p>{{ __('front.quantity') }} </p> <p class="mx-2 bg-primary text-white py-1 px-3 rounded-md">{{ $item->quantity }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach

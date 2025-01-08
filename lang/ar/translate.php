@@ -63,5 +63,7 @@ return [
    "deleted"=> "  تم الحذف ",
    "add-payment-method"=> " اضافه خيار الدفع ",
    "media-library"=> " مكتبة الوسائط ",
+    "visit-website"=>" عرض الموقع ",
+    "back"=>" الرجوع ",
 
 ];

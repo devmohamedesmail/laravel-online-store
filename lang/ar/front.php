@@ -50,6 +50,5 @@ return [
     "deleted"=>" تم الحذف ",
     "your_cart_is_empty"=> " سلة المشتريات فارغة ",
     "guarantee"=> " ضمان استرداد الأموال لمدة 30 يومًا ",
-    "status" => " الحالة ",
-    "completed"=> " مكتمل ",
+    "account"=>" الحساب ",
 ]; 

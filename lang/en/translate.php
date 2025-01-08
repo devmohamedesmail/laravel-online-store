@@ -65,4 +65,6 @@ return [
    "media-library"=> " Media Library",
    "status" => "Status",
    "completed"=> "Completed",
+   "visit-website"=>"Visit website",
+   "back"=>"Back",
 ];

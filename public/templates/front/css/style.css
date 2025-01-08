@@ -1,5 +1,5 @@
 :root{
-    --primary-color: green;
+    --primary-color: red;
     --secondary-color: #000000;
 }
 
@@ -33,13 +33,15 @@
 }
 
 .switch-label {
-    border: 2px solid rgb(112, 110, 110);
-    transition: border 0.3s ease-in-out;
+    border: 1px solid var(--primary-color);
+    transition: all 1s ease-in-out;
 }
 
 /* This selector works when the radio input is checked */
 .switch-input:checked + .switch-label {
-    border: 2px solid var(--primary-color) !important;
+    border: 1px solid var(--primary-color) !important;
+    background-color: var(--primary-color);
+    color: #fff;
 }
 
 

@@ -51,4 +51,5 @@ return [
     "deleted"=>"Deleted Successfully",
     "your_cart_is_empty"=> "Your Cart Is Empty",
     "guarantee"=> "30 Days Money Back Guarantee",
+    "account"=>"Account",
 ]; 

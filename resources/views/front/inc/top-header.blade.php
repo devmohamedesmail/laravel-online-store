@@ -1,11 +1,11 @@
 
 <div class="bg-black py-2">
-    <div class="container m-auto">
+    <div class="container m-auto px-10">
      <div class="flex justify-between items-center">
     
 
 
-        <div class="relative inline-block text-left z-50">
+        <div class="relative inline-block text-left z-50" style="z-index: 10000">
             <div>
                 <button type="button"
                     class="inline-flex w-full justify-center text-white border-0 text-sm"
@@ -18,7 +18,7 @@
             <div id="dropdown-menu"
                 class="hidden absolute right-0 z-50 mt-1 w-fit px-2  py-1 origin-top-right rounded-md  bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                <div class="py-1 flex flex-col justify-center items-center z-50  " role="none">
+                <div class="py-1 flex flex-col justify-center items-center z-50   " role="none">
                     @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                         <a class="text-dark block py-2 text-sm  w-full" rel="alternate" hreflang="{{ $localeCode }}"
                             href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">

@@ -15,11 +15,17 @@
             @endif
 
             <div class="row">
+              <div class="col-12">
+                @include('admin.inc.back')
+              </div>
+            </div>
+            <div class="row">
+               
                 <div class="col-12 ">
                     <div class="p-3 bg-white">
                         <h5 class="text-dark"> {{ __('translate.update-category') }} </h5>
                         <form action="{{ route('edit.category.confirmation', $category->id) }}" method="post"
-                            enctype="multipart/form-data">
+                            enctype="multipart/form-data" id="tag-form">
                             @csrf
                             <div class="form-group">
                                 <label> {{ __('translate.name_en') }} </label>
@@ -48,6 +54,15 @@
                                    {{ $category->description }}
                                 </textarea>
                             </div>
+
+
+                             <div>
+                                <img src="/uploads/{{ $category->image }}" alt="{{ $category->name }}" style="width: 100px;">
+                             </div>
+
+
+
+
                             <div class="form-group">
                                 <label> {{ __('translate.image') }} </label>
                                 <input type="file" class="form-control" name="image">

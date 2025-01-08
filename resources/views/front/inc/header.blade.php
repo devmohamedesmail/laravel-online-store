@@ -1,4 +1,4 @@
-<header class="sticky bg-white top-0 p-3 ">
+<header class="sticky bg-white top-0 p-3 z-50">
     <div class="container m-auto">
         <div class="flex justify-between items-center">
             <div>
@@ -20,14 +20,16 @@
                 <nav id="menu"
                     class="absolute hidden md:block bg-white md:static z-10 w-full md:w-auto left-0 transition-all duration-300">
                     <ul class="flex flex-col md:flex-row md:items-center md:space-x-4">
+                       
+                       
                         <li>
-                            <a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm"
+                            <a class="block px-4 py-2 text-black hover:bg-primary rounded-md hover:text-white transition-all ease-in-out duration-1000 text-sm"
                                 href="{{ route('user.index') }}">{{ __('front.home') }}
                             </a>
                         </li>
 
                         <li>
-                            <a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm"
+                            <a class="block px-4 py-2 text-black hover:bg-primary rounded-md hover:text-white transition-all ease-in-out duration-1000 text-sm"
                                 href="{{ route('shop.page') }}">{{ __('front.shop') }}
                             </a>
                         </li>
@@ -37,7 +39,7 @@
 
 
                         <li class="relative group">
-                            <a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm"
+                            <a class="block px-4 py-2 text-black hover:bg-primary rounded-md hover:text-white transition-all ease-in-out duration-1000 text-sm"
                                 href="{{ route('user.index') }}">{{ __('front.categories') }}
                             </a>
 
@@ -46,7 +48,7 @@
 
 
                                 @foreach ($categories as $category)
-                                    <li><a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm" href="#">
+                                    <li><a class="block px-4 py-2 text-black hover:bg-primary rounded-md hover:text-white transition-all ease-in-out duration-1000 text-sm" href="#">
                                             {{ $category->name }}
                                         </a></li>
                                 @endforeach
@@ -56,7 +58,7 @@
 
 
                         <li>
-                            <a class="block px-4 py-2 text-black hover:bg-gray-200 text-sm"
+                            <a class="block px-4 py-2 text-black hover:bg-primary rounded-md hover:text-white transition-all ease-in-out duration-1000 text-sm"
                                 href="{{ route('contact.page') }}">
                                 {{ __('front.contact-us') }}
                             </a>
@@ -89,10 +91,10 @@
      
         <form action="{{ route('product.search') }}" method="GET">
             @csrf
-            <div class="flex items-center justify-center w-full md:w-1/2 m-auto border border-gray-300">
-                <input type="search" name="search" class="px-2 flex-1 focus:outline-none"
+            <div class="flex items-center justify-center w-full md:w-1/2 m-auto ">
+                <input type="search" name="search" class="px-2 flex-1 focus:border-primary border h-10 focus:outline-none"
                     placeholder="{{ __('front.search') }}" id="">
-                <button class="bg-black text-white px-2 h-10 w-10"><i class="bi bi-search"></i></button>
+                <button class="bg-primary text-white px-2 h-10 w-10"><i class="bi bi-search"></i></button>
             </div>
         </form>
     </div>

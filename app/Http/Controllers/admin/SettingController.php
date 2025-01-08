@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\Slider;
 use App\Models\Setting;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -59,6 +60,12 @@ class SettingController extends Controller
         $imagePath = public_path('uploads'); // Path to the media folder
         $images = File::files($imagePath);
         return view("admin.pages.media-library.index", compact("images"));
+    }
+
+
+    public function visit_website(){
+        $sliders = Slider::all();
+        return view('front.index',compact('sliders'));
     }
 
 

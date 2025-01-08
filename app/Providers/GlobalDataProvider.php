@@ -58,7 +58,6 @@ class GlobalDataProvider extends ServiceProvider
       
         View::composer('*', function ($view) {
             $cartItems = collect(); 
-
             if (auth()->check()) {
                 $cartItems = Cart::with('product')->where('user_id', auth()->id())->get();
             } else {

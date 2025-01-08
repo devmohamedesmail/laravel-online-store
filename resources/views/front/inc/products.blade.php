@@ -1,28 +1,30 @@
 
-<div class="container m-auto">
-    <h5 class="text-center text-xl my-5">{{ __('front.new_arrivals') }}</h5>
+<div class="container m-auto px-3">
+    <h5 class="text-center text-3xl my-5 font-bold">{{ __('front.products') }}</h5>
 
 
 
 
-    <div class="grid grid-cols-2 md:grid-cols-7 lg:grid-cols-7 gap-2 my-10">
+    <div class="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-6 gap-2 my-10 ">
 
         @foreach ($all_products as $product)
-            <div class="product-card">
+            <div class="product-card hover:shadow-lg rounded-lg">
 
                 <div class="relative">
-                    <a href="{{ route('product.details', $product->id) }}" class="block  w-full h-80">
-                        <img src="/uploads/{{ $product->image }}" width="100%" class="w-full h-full" alt="{{ $product->name }}">
-
-
+                    <a href="{{ route('product.details', [$product->id, $product->slug ?? '']) }}" class="block w-full h-80">
+                        <img src="/uploads/{{ $product->image }}" width="100%" class="h-80" alt="{{ $product->name }}">
                     </a>
-                    <a href="{{ route('product.details', $product->id) }}"
-                        class="absolute bottom-0 left-0 right-0 text-center py-2 bg-black text-white no-underline">
+
+                    <a href="{{ route('product.details', [$product->id, $product->slug ?? '']) }}"
+                        class="absolute bottom-0 left-0 right-0 text-center py-2 bg-primary text-white no-underline">
                         <i class="bi bi-bag"></i>
                       <span class="mx-1 text-sm">  {{ __('front.add-to-cart') }}</a></span>
+
+
+
                 </div>
 
-                <p class="text-center text-sm mt-2 h-10"> 
+                <p class="text-center text-sm mt-2  h-10"> 
                     {{ \Illuminate\Support\Str::words($product->name, 5, '...') }}
                 </p>
 

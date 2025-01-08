@@ -32,6 +32,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('/setting/page', 'setting')->name('setting.page');
         Route::post('/setting', 'update_setting')->name('update.setting');
         Route::get('media/library/page', 'media_library_page')->name('media.library.page');
+        Route::get('visit/website','visit_website')->name('visit.website');
     });
 
 
@@ -107,7 +108,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     // ++++++++++++++++++++++++++++++++++++++++++++ User  Routes Start +++++++++++++++++++++++++++++++++++++++++++++++
     Route::controller(UserController::class)->group(function () {
         Route::get('/', 'index')->name('user.index');
-        Route::get('poroduct/details/{id}', 'product_details')->name('product.details');
+        Route::get('poroduct/details/{id}/{slug?}/{extra?}', 'product_details')->name('product.details');
         Route::post('add/product/to/cart/{id}/{title}', 'add_cart')->name('add.cart');
         Route::get('cart/delete/{id}', 'cart_delete')->name('cart.delete');
         Route::post('/cart/increase/{id}',  'increaseQuantity')->name('cart.increase');
@@ -127,13 +128,6 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     Route::controller(Payment_controller::class)->group(function () {
         Route::post('add/order', 'add_order')->name('add.order');
-
-        // stripe routes
-        // Route::get('/checkout', 'index');
-        // Route::post('/checkout/session/', 'createCheckoutSession')->name('checkout.session.create');
-        // Route::get('/checkout/success', 'success_payment')->name('checkout.success');
-        // Route::get('/checkout/cancel', 'cancel_payment')->name('checkout.cancel');
-
 
 
         // paypal routes

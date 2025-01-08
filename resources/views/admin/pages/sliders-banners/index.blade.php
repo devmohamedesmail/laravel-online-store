@@ -52,7 +52,7 @@
                         <img src="{{ asset('uploads/' . $slider->image)  }}" width="100%" alt="{{ $slider->title }}">
                         <h6>{{ $slider->title }}</h6>
                         <h6>{{ $slider->description }}</h6>
-                        <a href="{{ route('delete.slider', $slider->id) }}"
+                        <a href="{{ route('delete.slider', $slider->id) }}" onclick="return confirm('{{ __('translate.delete-confirm') }}')"
                             class="btn btn-danger">{{ __('translate.delete') }}</a>
                     </div>
                 @endforeach

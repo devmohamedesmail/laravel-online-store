@@ -15,7 +15,7 @@
 
 
 
-        <section class="section">
+        <section class="section" style="margin-bottom: 100px">
 
 
             <form action="{{ route('add.new.product') }}" method="post" enctype="multipart/form-data" id="tag-form">

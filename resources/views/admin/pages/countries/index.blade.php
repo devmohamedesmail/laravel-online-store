@@ -3,6 +3,28 @@
 @section('content')
     <div class="main-content">
 
+
+
+
+        @if (session('success'))
+            <script>
+                iziToast.success({
+                    title: 'Success',
+                    message: '{{ session('success') }}',
+                    position: 'topRight',
+                    timeout: 3000
+                });
+            </script>
+        @endif
+
+
+
+
+
+
+
+
+
         <h6 class="row bg-white text-dark p-2">{{ __('countries.countries') }}</h6>
         <div class="row bg-white py-3">
             <div class="col-12 col-md-6 bg-white">
@@ -40,9 +62,9 @@
                                 @foreach ($countries as $country)
                                     <option value="{{ $country->id }}">
                                         @if (app()->getLocale() == 'en')
-                                        {{ $country->country_en }}
+                                            {{ $country->country_en }}
                                         @else
-                                        {{ $country->country_ar }}
+                                            {{ $country->country_ar }}
                                         @endif
                                     </option>
                                 @endforeach
@@ -80,51 +102,55 @@
                                 <th>{{ __('countries.country_en') }}</th>
                                 <th>{{ __('countries.country_ar') }}</th>
                                 <th>{{ __('translate.actions') }}</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
 
                             @foreach ($countries as $country)
-                            <tr>
-                                <!-- Country Information -->
-                                <td colspan="2">{{ $country->country_en }} ({{ $country->country_ar }})</td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            {{ __('translate.actions') }}
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item"
-                                               onclick="return confirm('Are you sure you want to delete this item?')"
-                                               href="{{ route('delete.country', $country->id) }}">{{ __('translate.delete') }}</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        
-                            <!-- Cities under the country -->
-                            @foreach ($country->cities as $city)
                                 <tr>
-                                    <!-- City Information -->
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $city->city_en }}</td>
-                                    <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $city->city_ar }}</td>
+                                    <!-- Country Information -->
+                                    <td colspan="2">{{ $country->country_en }} ({{ $country->country_ar }})</td>
                                     <td>
                                         <div class="dropdown">
-                                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <button class="btn btn-primary dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
                                                 {{ __('translate.actions') }}
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" 
-                                                onclick="return confirm('Are you sure you want to delete this item?')"
-                                                href="{{ route('delete.city', $city->id) }}">{{ __('translate.delete') }}</a>
+                                                <a class="dropdown-item"
+                                                    onclick="return confirm('Are you sure you want to delete this item?')"
+                                                    href="{{ route('delete.country', $country->id) }}">{{ __('translate.delete') }}</a>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- Cities under the country -->
+                                @foreach ($country->cities as $city)
+                                    <tr>
+                                        <!-- City Information -->
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $city->city_en }}</td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;{{ $city->city_ar }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary dropdown-toggle" type="button"
+                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                    {{ __('translate.actions') }}
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item"
+                                                        onclick="return confirm('Are you sure you want to delete this item?')"
+                                                        href="{{ route('delete.city', $city->id) }}">{{ __('translate.delete') }}</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @endforeach
-                        @endforeach
-                        
+
 
 
                         </tbody>
