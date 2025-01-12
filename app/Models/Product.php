@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Cart;
+use App\Models\Option;
 use App\Models\Category;
 use App\Models\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -30,5 +31,10 @@ class Product extends Model
 
     public function carts(){
         return $this->hasMany(Cart::class,'product_id', 'id');
+    }
+
+    // relation with options
+    public function options(){
+        return $this->hasMany(Option::class);
     }
 }

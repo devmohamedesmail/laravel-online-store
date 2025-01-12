@@ -3,7 +3,7 @@
 @section('content')
     <div class="main-content">
 
-        <h6 class="row bg-white text-dark p-2">{{ __('translate.products') }}</h6>
+        <h6 class="row bg-white text-dark p-2">{{ __('translate.products') }} - {{ $products->count() }}</h6>
         <div class="row bg-white">
             <div class="col-12">
                 <div class="bg-white p-2">
@@ -12,11 +12,13 @@
 
                             <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>{{ __('products.product-name') }}</th>
                                     <th>{{ __('products.category-name') }}</th>
                                     <th>{{ __('products.image') }}</th>
                                     <th>{{ __('products.price') }}</th>
-                                    <th>{{ __('products.sale-price') }}</th>
+                                    <th>{{ __('products.variation') }}</th>
+                                    <th>{{ __('products.options') }}</th>
                                     <th><i class="fas fa-ellipsis-h"></i></th>
 
                                 </tr>
@@ -25,6 +27,7 @@
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr>
+                                        <td>{{ $product->id }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->category->name }}</td>
                                         <td>
@@ -32,7 +35,23 @@
                                                 alt="{{ $product->name }}">
                                         </td>
                                         <td>{{ $product->price }}</td>
-                                        <td>{{ $product->sale_price }}</td>
+                                        <td>
+                                            @if ($product->variations->count() > 0 )
+                                                <span class="badge badge-success">{{ __('products.yes') }}</span>
+                                                
+                                            @else
+                                            <span class="badge badge-danger">{{ __('products.no') }}</span>
+                                            @endif
+                                        </td>
+
+                                        <td>
+                                            @if ($product->options->count() > 0)
+                                                <span class="badge badge-success">{{ __('products.yes') }}</span>
+                                                
+                                            @else
+                                            <span class="badge badge-danger">{{ __('products.no') }}</span>
+                                            @endif
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-primary dropdown-toggle" type="button"

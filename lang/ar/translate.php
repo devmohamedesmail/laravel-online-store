@@ -66,5 +66,13 @@ return [
     "visit-website"=>" عرض الموقع ",
     "back"=>" الرجوع ",
     "no_result"=>" لا يوجد نتائج ",
+    "payment-setting"=> " اعدادات الدفع ",
+    "stripe-setting"=> " اعدادات الدفع بالبطاقه ",
+    "stripe-key"=> " مفتاح Stripe",
+    "stripe-secret"=> " سر Stripe",
+    "paypal-setting"=> " اعدادات الدفع بالبايبال ",
+    "paypal-key"=> " Paypal مفتاح",
+    "paypal-secret"=> " Paypal سر",
+    "save"=> " حفظ ", 
 
 ];

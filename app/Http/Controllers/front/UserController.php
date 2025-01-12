@@ -27,7 +27,7 @@ class UserController extends Controller
     public function product_details($id,$slug=null)
     {
 
-        $product = Product::with('category', 'attributes.values', 'variations')->findOrFail($id);
+        $product = Product::with('category', 'attributes.values', 'variations','options')->findOrFail($id);
         $related_products = Product::where('category_id', $product->category->id)->get();
         return view("front.pages.details", compact("product", "related_products"));
         
@@ -44,6 +44,7 @@ class UserController extends Controller
 
 
         $selected_variations = $request->input('attributes', []);
+        $selected_options = $request->input('options', []);
 
         if ($product->attributes && $product->attributes->count() > 0) {
             foreach ($product->attributes as $attribute) {
@@ -84,6 +85,7 @@ class UserController extends Controller
             $cart->product_id = $product->id;
             $cart->quantity = $request->input('quantity', 1);
             $cart->selected_variations = $selected_variations;
+            $cart->selected_options = $selected_options;
             $cart->status = 'active';
             $cart->save();
             return redirect()->back()->with('success', __('front.added'));
@@ -95,7 +97,7 @@ class UserController extends Controller
 
 
 
-        //    return $selected_variations;
+        
     }
 
 

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('status', ['active', 'abandoned', 'completed', 'cancelled'])->default('active'); 
             $table->string('session_id')->nullable();
             $table->json('selected_variations')->nullable();
+            $table->json('selected_options')->nullable();
 
             $table->timestamps();
         });

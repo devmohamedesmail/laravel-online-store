@@ -1,4 +1,7 @@
-<div class="col-12 col-md-9 col-lg-9 bg-white p-3 ">
+<div class="col-12 bg-primary text-white p-2">
+    {{ __('products.product-details') }}
+</div>
+<div class="col-12  bg-white p-3 my-2">
 
 
     <div class="form-group">
@@ -16,8 +19,7 @@
 
     <div class="form-group">
         <label> {{ __('products.slug') }} </label>
-        <input type="text" class="form-control" name="slug" readonly
-            value="{{ old('slug') }}" id="slug">
+        <input type="text" class="form-control" name="slug" readonly value="{{ old('slug') }}" id="slug">
         @error('slug')
             <div class="alert alert-danger my-1">{{ $message }}</div>
         @enderror
@@ -144,23 +146,16 @@
 
 
 
+
+
+
+
 </div>
 
 
-
+{{-- Add new Attribute --}}
 <script>
-    const switchBtn = document.getElementById('switch');
-    const attributeContainer = document.getElementById('product-attribute-variation-container').style.display = 'none';
-
-    switchBtn.addEventListener('change', function() {
-        if (this.checked) {
-            document.getElementById('product-attribute-variation-container').style.display = 'block';
-        } else {
-            document.getElementById('product-attribute-variation-container').style.display = 'none';
-        }
-    })
-
-
+  
     document.getElementById("add-attribute-btn").addEventListener("click", function(event) {
         event.preventDefault();
         console.log("new attribute added");
@@ -186,3 +181,103 @@
         $(attributeGroup).find(".inputtags").tagsinput();
     });
 </script>
+
+
+
+
+
+
+
+<script>
+    document.getElementById("generate-variations").addEventListener("click", function (event) {
+        event.preventDefault();
+        const allVariationsContainer = document.getElementById("all-variation");
+        allVariationsContainer.innerHTML = ""; // Clear previous variations
+
+        // Get all attribute names and values
+        const attributeNames = Array.from(document.querySelectorAll('input[name="attribute_name[]"]')).map(
+            input => input.value.trim()
+        );
+        const attributeValues = Array.from(document.querySelectorAll('textarea[name="attribute_values[]"]')).map(
+            input => input.value.trim()
+        );
+
+        // Validate that both names and values are filled
+        if (attributeNames.includes("") || attributeValues.includes("")) {
+            alert("Please provide both attribute names and values.");
+            return;
+        }
+
+        // Split values by commas and prepare combinations
+        const attributeCombinations = attributeValues.map(values => values.split(",").map(value => value.trim()));
+
+        // Helper function to generate all combinations
+        function generateCombinations(arrays) {
+            const result = [];
+            const helper = (prefix, remainingArrays) => {
+                if (remainingArrays.length === 0) {
+                    result.push(prefix);
+                    return;
+                }
+                remainingArrays[0].forEach(value => {
+                    helper([...prefix, value], remainingArrays.slice(1));
+                });
+            };
+            helper([], arrays);
+            return result;
+        }
+
+        // Generate all combinations of attributes
+        const allCombinations = generateCombinations(attributeCombinations);
+
+        // Display each combination as a variation
+        allCombinations.forEach((combination, index) => {
+            const variationHTML = `
+                <div class="variation-item bg-light p-3 mb-3">
+                    <p class="text-dark p-2">${combination.join(" | ")}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label for="image_variant_${index}" class="text-dark">
+                            <p>Select Image Variant</p>
+                            <input id="image_variant_${index}" class="d-none" name="image_variant[]" type="file" class="form-control mb-2">
+                            <img id="preview_image_${index}" src="#" alt="Image Preview" style="display: none; width: 100px; height: auto; margin-top: 10px;">
+                        </label>
+                        <div>
+                            <label class="text-dark">Price</label>
+                            <input type="number" class="form-control mb-2" name="price_variant[]" placeholder="Enter price">
+                        </div>
+                        <button class="btn btn-danger delete-btn"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            `;
+            allVariationsContainer.innerHTML += variationHTML;
+        });
+
+        // Add event listeners for image previews and delete buttons
+        allCombinations.forEach((_, index) => {
+            const imageInput = document.getElementById(`image_variant_${index}`);
+            const imagePreview = document.getElementById(`preview_image_${index}`);
+
+            imageInput.addEventListener("change", function (event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imagePreview.src = e.target.result;
+                        imagePreview.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = "none";
+                }
+            });
+
+            const deleteButton = document.querySelectorAll(".delete-btn")[index];
+            deleteButton.addEventListener("click", function () {
+                const variationDiv = deleteButton.closest(".variation-item");
+                variationDiv.remove();
+            });
+        });
+    });
+</script>
+
+

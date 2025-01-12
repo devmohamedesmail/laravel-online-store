@@ -139,6 +139,39 @@
         </div>
 
 
+
+
+
+        {{-- option sections --}}
+        <div class="font-bold text-primary">Options</div>
+
+        @if ($product->options && $product->options->count() > 0)
+            <div>
+                @foreach ($product->options as $option)
+                   <div class="flex justify-between items-center my-2">
+                    <div class="flex justify-between items-center">
+                        <input type="checkbox" name="options[]" value="{{ $option->name }}" class="mr-2 w-7 h-7 focus:outline-none accent-primary focus:bg-primary" />
+                            <label class="block my-2">{{ $option->name }} </label>
+                                     
+                    </div>
+
+                    <div class="bg-primary text-white px-3 py-2 rounded-md">
+                        <label class="block my-2">{{ $option->price }} </label>
+                    </div>
+                   </div>
+                @endforeach
+            </div>
+            
+        @else
+            
+        @endif
+
+
+
+
+        {{-- -------------------------------------------------- --}}
+
+
         <div class="flex flex-col md:flex-row">
             <button class="flex-1 bg-black text-white rounded-md text-center mx-2 p-3 my-1"
                 type="submit">{{ __('front.add-to-cart') }}</button>

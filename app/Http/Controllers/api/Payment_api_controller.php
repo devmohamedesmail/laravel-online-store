@@ -77,6 +77,28 @@ class Payment_api_controller extends Controller
         }
     }
 
+    /// create_stripe_payment
+    public function create_stripe_payment(){
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        \Stripe\Stripe::setApiVersion('2023-08-16');
+
+        $customer = \Stripe\Customer::create();
+        $ephemeralKey = \Stripe\EphemeralKey::create(['customer' => $customer->id], ['stripe_version' => '2023-08-16']);
+        $paymentIntent = \Stripe\PaymentIntent::create([
+            'amount' => 1099, // Amount in cents
+            'currency' => 'usd',
+            'customer' => $customer->id,
+            'automatic_payment_methods' => ['enabled' => true],
+        ]);
+    
+        return response()->json([
+            'paymentIntent' => $paymentIntent->client_secret,
+            'ephemeralKey' => $ephemeralKey->secret,
+            'customer' => $customer->id,
+            'publishableKey' => env('STRIPE_KEY'),
+        ]);
+    }
+
 
 
 }

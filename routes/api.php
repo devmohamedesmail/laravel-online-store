@@ -22,12 +22,19 @@ Route::controller(Api_controller::class)->group(function () {
     Route::get('show/categories', 'showCategories')->name('show.categroies');
     Route::get('show/products', 'show_products')->name('show.products');
     Route::get('show/category/products/{id}','show_category_products')->name('show.category.products');
+    
+    // 
+    Route::get('show/setting', 'showSetting')->name('show.setting');
+    Route::get('show/sliders','show_slider')->name('show.slider');
+    Route::get('show/payment/setting','show_payment_setting')->name('show.payment.setting');
 });
 
 
 
 Route::controller(Payment_api_controller::class)->group(function () { 
     // stripe payment
+    Route::post('create/stripe/payment','create_stripe_payment')->name('create.stripe.payment');
+    Route::post('add/order','add_order')->name('add.order');
 
  });
 

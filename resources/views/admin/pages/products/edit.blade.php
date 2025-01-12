@@ -22,233 +22,55 @@
             <form action="{{ route('update.product.confirmation', $product->id) }}" method="post"
                 enctype="multipart/form-data" id="tag-form">
                 @csrf
-                <div class="row d-flex justify-content-between bg-white my-3">
+                <div class="row d-flex justify-content-center  my-3">
 
 
-                    <div class="col-12 col-md-8 col-lg-8 bg-white p-3">
-
-
-                        <div class="form-group">
-                            <label> {{ __('products.product-name') }} </label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                value="{{ $product->name }}">
-                            @error('name')
-                                <div class="alert alert-danger my-1">{{ $message }}</div>
-                            @enderror
-                        </div>
+                   @include('admin.pages.products.edit-product-parts.product-details')
 
 
 
-                        <div class="form-group">
-                            <label> {{ __('products.short-description') }} </label>
-                            <textarea class="form-control" name="description">{{ $product->description }}</textarea>
-                        </div>
+                   {{-- ------------------------ product images ------------------------------------ --}}
+                  @include('admin.pages.products.edit-product-parts.product-images')
 
+                   
 
-                        <div class="form-group ">
-                            <label> {{ __('products.long-description') }} </label>
-                            <textarea class="summernote form-control" name="long_description">
-                            {{ $product->long_description }}
-                             </textarea>
-                        </div>
-
-
-
-                        <div class="form-group">
-                            <label>{{ __('products.select-category') }}</label>
-                            <select class="form-control selectric" name="category">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"
-                                        {{ old('category') == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('category')
-                                <div class="alert alert-danger my-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-
-
-                        <div class="row">
-
-
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label> {{ __('products.price') }} </label>
-                                    <input type="text" class="form-control @error('price') is-invalid @enderror"
-                                        name="price" value="{{ $product->price }}">
-                                    @error('price')
-                                        <div class="alert alert-danger my-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label> {{ __('products.sale-price') }} </label>
-                                    <input type="text" class="form-control @error('sale_price') is-invalid @enderror"
-                                        name="sale_price" value="{{ $product->sale_price }}">
-                                    @error('sale_price')
-                                        <div class="alert alert-danger my-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="pretty p-icon p-smooth d-flex align-items-center">
-                                    <input 
-                                       type="checkbox" 
-                                       name="featured" 
-                                       value="{{ $product->featured }}"
-                                       @if ($product->featured)
-                                           checked
-                                       @endif  />
-                                    <div class="state p-success">
-                                        <i class="icon fa fa-check"></i>
-                                        <label class="form-check-label text-dark">
-                                            {{ __('products.is-featured') }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-md-6">
-                                <div class="pretty p-switch p-fill d-flex align-items-center">
-                                    <input type="checkbox" name="type" id="switch" value="variations" />
-                                    <div class="state mx-2">
-                                        <label class="text-dark">{{ __('products.product-type') }}</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        {{-- <div class="d-flex mt-4">
-                            <div class="form-group">
-                                <label>{{ __('translate.attribute-name') }}</label>
-                                <input type="text" class="form-control" name="attribute_name[]">
-                            </div>
-                            <div class="form-group w-100 mx-4">
-                                <label>{{ __('translate.attribute-value') }}
-                                </label>
-                                <textarea class="form-control inputtags" name="attribute_values[]"></textarea>
-                            </div>
-                        </div> --}}
-
-
-                        @if ($product->attributes && $product->attributes->count() > 0)
-                            @foreach ($product->attributes as $attribute)
-                                <div class="d-flex mt-4">
-                                    <div class="form-group">
-                                        <label>{{ __('translate.attribute-name') }}</label>
-                                        <input type="text" class="form-control" name="attribute_name[]"
-                                            value="{{ $attribute->name }}">
-                                    </div>
-                                    <div class="form-group w-100 mx-4">
-                                        <label>{{ __('translate.attribute-value') }} </label>
-                                        <textarea class="form-control inputtags text-dark" name="attribute_values[]">
-                                           
-                                           dfdsf
-                                        </textarea>
-                                        
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                           
-                        @endif
+                    
 
 
 
 
+                  {{-- ------------------------------------------- Option Section -------------------------------- --}}
+                   @include('admin.pages.products.edit-product-parts.product-options')
 
-
-
-
-                        <div class="product-attribute-variation-container" id="product-attribute-variation-container">
-
-
-                            <div class="d-flex mt-4">
-                                <div class="form-group">
-                                    <label>{{ __('translate.attribute-name') }}</label>
-                                    <input type="text" class="form-control" name="attribute_name[]">
-                                </div>
-                                <div class="form-group w-100 mx-4">
-                                    <label>{{ __('translate.attribute-value') }}
-                                    </label>
-                                    <textarea class="form-control inputtags" name="attribute_values[]"></textarea>
-                                </div>
-                            </div>
-
-                            <div id="attributes-container-group">
-
-                            </div>
-
-
-
-
-                            <div class="d-flex mt-4">
-                                <button id="add-attribute-btn"
-                                    class="btn btn-primary mx-2">{{ __('translate.add-attribute') }}</button>
-                                <button id="generate-variations"
-                                    class="btn btn-success mx-2">{{ __('translate.generate-variations') }}</button>
-                            </div>
-
-
-
-                            <div id="all-variation" class="mt-4"></div>
-                        </div>
-
-
-
-
-                    </div>
-
-                    <div class="col-12 col-md-3 col-lg-3 p-2 bg-white">
-
-
-                        <div class="text-center mt-3">
-                            <label for="main-image">
-                                <img id="preview-image" src="/uploads/products/{{ $product->image }}" width="100px"
-                                    alt="">
-                                <input id="main-image" type="file" class="d-none" name="image"
-                                    onchange="previewImage(event)">
-                                <p class="text-center mt-2 text-dark">{{ __('products.main-image') }}</p>
-                            </label>
-
-                            @error('image')
-                                <div class="alert alert-danger my-1">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-
-                        <hr>
-
-                        <div class="text-center">
-                            <div class="gallery"></div>
-                            <label for="gallery-input">
-                                <img id="gallery" src="/templates/admin/assets/icons/picture.png" width="100px"
-                                    alt="">
-
-                                <input id="gallery-input" class="d-none" type="file" multiple name="gallery[]"
-                                    onchange="galleryPreview(event)">
-                                <p class="text-center mt-2 text-dark">{{ __('products.add-images') }}</p>
-                            </label>
-
-                        </div>
 
 
                         <div class="text-center ">
-                            <button class="btn btn-primary w-50" type="submit">{{ __('translate.add') }}</button>
+                            <button class="btn btn-primary w-50" type="submit">{{ __('translate.update') }}</button>
                         </div>
 
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
 
             </form>
@@ -265,125 +87,6 @@
 
 
 
-    <script>
-        const switchBtn = document.getElementById('switch');
-        const attributeContainer = document.getElementById('product-attribute-variation-container').style.display = 'none';
-
-        switchBtn.addEventListener('change', function() {
-            if (this.checked) {
-                document.getElementById('product-attribute-variation-container').style.display = 'block';
-            } else {
-                document.getElementById('product-attribute-variation-container').style.display = 'none';
-            }
-        })
-
-
-        document.getElementById("add-attribute-btn").addEventListener("click", function(event) {
-            event.preventDefault();
-            console.log("new attribute added");
-
-            const attributeGroup = document.createElement("div");
-            attributeGroup.classList.add("d-flex");
-
-            attributeGroup.innerHTML = `
-            <div class="form-group">
-                <label>{{ __('translate.attribute-name') }}</label>
-                <input type="text" class="form-control" name="attribute_name[]">
-            </div>
-            <div class="form-group w-100 mx-4">
-                <label>{{ __('translate.attribute-value') }} </label>
-                <textarea class="form-control inputtags" name="attribute_values[]"></textarea>
-            </div>
-        `;
-
-            // Append the new group to the container
-            document.getElementById("attributes-container-group").appendChild(attributeGroup);
-
-            // Reinitialize tagsinput for the newly added textarea
-            $(attributeGroup).find(".inputtags").tagsinput();
-        });
-    </script>
-
-
-
-    <script>
-        document.getElementById("generate-variations").addEventListener("click", function(event) {
-            event.preventDefault();
-            const allVariationsContainer = document.getElementById("all-variation");
-            allVariationsContainer.innerHTML = ""; // Clear previous variations
-
-            // Get all attribute names and values
-            const attributeNames = Array.from(document.querySelectorAll('input[name="attribute_name[]"]')).map(
-                input => input.value.trim()
-            );
-            const attributeValues = Array.from(document.querySelectorAll('textarea[name="attribute_values[]"]'))
-                .map(
-                    input => input.value.trim()
-                );
-
-            // Validate that both names and values are filled
-            if (attributeNames.includes("") || attributeValues.includes("")) {
-                alert("Please provide both attribute names and values.");
-                return;
-            }
-
-            // Split values by commas and prepare combinations
-            const attributeCombinations = attributeValues.map(values => values.split(",").map(value => value
-                .trim()));
-
-            // Helper function to generate all combinations
-            function generateCombinations(arrays) {
-                const result = [];
-                const helper = (prefix, remainingArrays) => {
-                    if (remainingArrays.length === 0) {
-                        result.push(prefix);
-                        return;
-                    }
-                    remainingArrays[0].forEach(value => {
-                        helper([...prefix, value], remainingArrays.slice(1));
-                    });
-                };
-                helper([], arrays);
-                return result;
-            }
-
-            // Generate all combinations of attributes
-            const allCombinations = generateCombinations(attributeCombinations);
-
-            // Display each combination as a variation
-            allCombinations.forEach(combination => {
-                const variationHTML = `
-            <div class="variation-item bg-white p-3 mb-3">
-                <p class="text-dark"><strong>Variation:</strong> ${combination.join(" | ")}</p>
-                <div class="d-flex justify-content-between align-items-center">
-                    <label for="image" class="text-dark">
-                        <i class="fas fa-images fs-1"></i>
-                        <input id="image" class="d-none" name="image_variant[]" type="file" class="form-control mb-2">
-                    </label>
-                    <div>
-                        <label class="text-dark">{{ __('Price') }}</label>
-                        <input type="number" class="form-control mb-2" name="price_variant[]" placeholder="Enter price">
-                    </div>
-                    <div>
-                        <label class="text-dark">{{ __('Sale Price') }}</label>
-                        <input type="number" class="form-control mb-2" name="sale_price_variant[]" placeholder="Enter sale price">
-                    </div>
-                    <button class="btn btn-danger delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        `;
-                allVariationsContainer.innerHTML += variationHTML;
-            });
-
-            // Add event listeners to delete buttons for each variation
-            document.querySelectorAll(".delete-btn").forEach(button => {
-                button.addEventListener("click", function() {
-                    const variationDiv = button.closest(".variation-item");
-                    variationDiv.remove();
-                });
-            });
-        });
-    </script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.5/dist/umd/popper.min.js"></script>
@@ -438,4 +141,12 @@
             }
         }
     </script>
+
+
+
+
+
+
+
+
 @endsection

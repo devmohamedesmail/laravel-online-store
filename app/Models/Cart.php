@@ -11,7 +11,8 @@ class Cart extends Model
 {
     use HasFactory;
     protected $casts = [
-        'selected_variations'=>'array'
+        'selected_variations'=>'array',
+        'selected_options'=> 'array',
     ];
 
     public function user(){

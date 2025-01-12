@@ -68,4 +68,12 @@ return [
    "visit-website"=>"Visit website",
    "back"=>"Back",
    "no_result"=>"No products found.",
+   "payment-setting"=> "Payment Setting",
+   "stripe-setting"=> " Stripe Setting",
+   "stripe-key"=> " Stripe Key",
+   "stripe-secret"=> " Stripe Secret",
+   "paypal-setting"=> " Paypal Setting",
+   "paypal-key"=> " Paypal Key",
+   "paypal-secret"=> " Paypal Secret",
+   "save"=> " Save", 
 ];

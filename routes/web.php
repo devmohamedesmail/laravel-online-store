@@ -88,6 +88,8 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
         Route::get('payment/page', 'payment_page')->name('payment.page');
         Route::post('add/new/payment', 'add_new_payment')->name('add.new.payment');
         Route::get('toggle/active/payment/{id}', 'toggle_active_payment')->name('toggle.active.payment');
+        // payemnt setting
+        Route::post('update/payment/setting', 'update_payment_setting')->name('update.payment.setting');
     });
 
 

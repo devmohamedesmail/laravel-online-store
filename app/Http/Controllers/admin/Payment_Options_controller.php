@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Paymentmethod;
 use Illuminate\Http\Request;
+use App\Models\Paymentmethod;
+use App\Models\Paymentsetting;
+use App\Http\Controllers\Controller;
 
 class Payment_Options_controller extends Controller
 {
@@ -12,7 +13,8 @@ class Payment_Options_controller extends Controller
     public function payment_page()
     {
         $paymentmethod = Paymentmethod::all();
-        return view("admin.pages.payment-options.index", compact("paymentmethod"));
+        $paymentSetting = Paymentsetting::first();
+        return view("admin.pages.payment-options.index", compact("paymentmethod","paymentSetting"));
     }
 
     public function add_new_payment(Request $request){
@@ -36,6 +38,29 @@ class Payment_Options_controller extends Controller
         return redirect()->back();
     }
 
+
+
+    // payment Setting
+    public function update_payment_setting(Request $request){
+        $setting = Paymentsetting::first();
+        if(!$setting){
+            $setting = new Paymentsetting();
+            $setting->stripe_key = $request->stripe_key;
+            $setting->stripe_secret = $request->stripe_secret;
+            $setting->paypal_client_id = $request->paypal_client_id;
+            $setting->paypal_secret = $request->paypal_secret;
+            $setting->save();
+            return redirect()->back();
+        }else{
+            $setting->stripe_key = $request->stripe_key;
+            $setting->stripe_secret = $request->stripe_secret;
+            $setting->paypal_client_id = $request->paypal_client_id;
+            $setting->paypal_secret = $request->paypal_secret;
+            $setting->save();
+            return redirect()->back();
+        }
+       
+    }
 
 
 }

@@ -23,4 +23,15 @@ return [
     'image'=>' صورة ',
     'cart'=> ' عربة التسوق ',
     'select-image-variant'=> ' اختار صورة المتغير ',
+    "product-details"=> " تفاصيل المنتج ",
+    "product-images"=> " صور المنتج ",
+    "product-options"=> " خيارات المنتج ",
+    "option-name"=> " اسم الخيار ",
+    "option-price"=> " سعر الخيار ",
+    "add-option"=> " اضافة خيار ",
+    "variation"=> " المتغيرات ",
+    "options"=> " الخيارات ",
+    "yes"=> " نعم ",
+    "no"=> " لا ",
+
 ];
