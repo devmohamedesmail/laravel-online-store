@@ -55,4 +55,6 @@ return [
     "phone-required"=> " الهاتف مطلوب ",
     "address-required"=> " العنوان مطلوب ",
     "payment-method-required"=> " طريقة الدفع مطلوبة ",
+     "payment_method_selected"=>" طريقه الدفع ",
+     "city" => " المدينه "
 ]; 

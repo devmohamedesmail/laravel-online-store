@@ -97,6 +97,7 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::controller(Order_controller::class)->group(function () {
         Route::get('show/orders/page', 'show_orders_page')->name('show.orders.page');
         Route::get('admin/orders/completed/{id}', 'admin_orders_completed')->name('admin.orders.completed');
+        Route::get('admin/show/order/{id}','admin_show_order')->name('admin.show.order')->middleware('auth');
     });
 
 

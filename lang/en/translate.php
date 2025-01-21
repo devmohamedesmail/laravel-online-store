@@ -76,4 +76,6 @@ return [
    "paypal-key"=> " Paypal Key",
    "paypal-secret"=> " Paypal Secret",
    "save"=> " Save", 
+   "order-details" => "Order Details",
+   "print"=>"Print",
 ];

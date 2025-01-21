@@ -31,10 +31,10 @@
                                             <td>{{ $order->address }}</td>
                                             <td>{{ $order->payment_method }}</td>
                                             <td>{{ $order->status }}</td>
-                                           
+
 
                                             <td>
-                                                
+
                                                 @foreach ($order->products as $product_item)
                                                     <div class="d-flex align-items-start">
                                                         <div>
@@ -73,14 +73,21 @@
 
                                             <td>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                     {{ __('translate.actions') }}
+                                                    <button class="btn btn-primary dropdown-toggle" type="button"
+                                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        {{ __('translate.actions') }}
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                      <a class="dropdown-item" href="{{ route('admin.orders.completed', $order->id) }}">{{ __('translate.completed') }}</a>
-                                                      
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.show.order', $order->id) }}">{{ __('translate.show-order') }}</a>
+
+
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('admin.orders.completed', $order->id) }}">{{ __('translate.completed') }}</a>
+
                                                     </div>
-                                                  </div>
+                                                </div>
                                             </td>
 
                                         </tr>

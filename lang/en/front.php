@@ -56,4 +56,6 @@ return [
     "phone-required"=> " Phone is required",
     "address-required"=> " Address is required",
     "payment-method-required"=> " Payment Method is required",
+    "payment_method_selected"=>" Payment Method",
+    "city" => "City"
 ]; 

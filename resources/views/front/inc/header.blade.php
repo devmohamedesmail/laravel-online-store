@@ -1,4 +1,4 @@
-<header class="sticky bg-white top-0 p-3 z-50">
+<header class=" bg-white  p-3 z-50">
     <div class="container m-auto">
         <div class="flex justify-between items-center">
             <div>

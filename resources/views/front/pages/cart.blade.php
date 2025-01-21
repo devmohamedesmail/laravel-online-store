@@ -21,13 +21,16 @@
 
     <h4 class="bg-gray-200 py-6 text-center text-xl">
         {{ __('front.cart') }}</h4>
-    <div class="container m-auto px-5">
+
+
+     @if ($cartItems->count() > 0)
+     <div class="container m-auto px-5">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-5 my-10">
             <div class="col-span-8  ">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-2 overflow-hidden">
                     @foreach ($cartItems as $item)
                         <div class="border border-gray-300 rounded-md">
-                            <a href="{{ route('product.details', [$item->id, $item->product->name]) }}') }}"
+                            <a href="{{ route('product.details', [$item->product->id, $item->product->slug ?? '']) }}"
                                 class="overflow-hidden block h-60">
                                 <img src="{{ asset('/uploads/' . $item->product->image) }}" alt="{{ $item->name }}">
                             </a>
@@ -147,6 +150,12 @@
             </div>
         </div>
     </div>
+     @else
+        <p class="text-center p-3 bg-gray-300 my-10">{{ __('front.your_cart_is_empty') }}</p>
+     @endif
+
+
+  
 
 
 

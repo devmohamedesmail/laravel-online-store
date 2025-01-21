@@ -22,4 +22,14 @@ class Order_controller extends Controller
         return redirect()->back()->with("success",__('translate.update'));
 
     }
+
+
+    // show order Details 
+    public function admin_show_order($id){
+        $order = Order::findOrFail($id);
+        
+        return view('admin.pages.orders.order-details',compact('order'));
+    }
+
+
 }

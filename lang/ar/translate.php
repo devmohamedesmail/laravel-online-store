@@ -74,5 +74,7 @@ return [
     "paypal-key"=> " Paypal مفتاح",
     "paypal-secret"=> " Paypal سر",
     "save"=> " حفظ ", 
+    "order-details" => " تفاصيل الطلب  ",
+    "print"=>" طباعه ",
 
 ];
